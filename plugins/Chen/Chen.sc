@@ -1,5 +1,5 @@
 Chen : MultiOutUGen {
-	*ar { | speed=0.5, a=42, b=3, c=28|
+	*ar { | speed=0.5, a=0.5, b=0.3, c=0.28|
 		^this.multiNew('audio', speed, a, b, c);
 	}
 
