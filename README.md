@@ -1,8 +1,15 @@
-# Chen
+# MKPlugins
 
-Author: Mads Kjeldgaard
+A collection of SuperCollider plugins by Mads Kjeldgaard.
 
-Chens chaotic double scroll attractor
+Most of these are algorithms that I felt like exploring more in-depth at a C++ level to understand them better or simply found missing in the SuperCollider plugin landscape.
+
+
+## Included plugins
+
+*Chen*
+
+Chen's chaotic double scroll attractor
 
 ### Requirements
 
@@ -11,28 +18,44 @@ Chens chaotic double scroll attractor
 
 ### Building
 
+#### Preparations for a build
 Clone the project:
 
     git clone https://github.com/madskjeldgaard/mkplugins
     cd mkplugins
-    mkdir build
-    cd build
 
-Then, use CMake to configure and build it:
+This will get you the mkplugins.
 
-    cmake .. -DCMAKE_BUILD_TYPE=Release
-    cmake --build . --config Release
-    cmake --build . --config Release --target install
+Before continuing, you need two things: 
 
-You may want to manually specify the install location in the first step to point it at your
-SuperCollider extensions directory: add the option `-DCMAKE_INSTALL_PREFIX=/path/to/extensions`.
+First, the [SuperCollider source code][ github.com/supercollider/supercollider/] :
 
-It's expected that the SuperCollider repo is cloned at `../supercollider` relative to this repo. If
-it's not: add the option `-DSC_PATH=/path/to/sc/source`.
+```bash
+git clone github.com/supercollider/supercollider
+```
 
-### Developing
+Note where you placed this source code on your computer and copy the full path to it for use with CMake.
 
-Use the command in `regenerate` to update CMakeLists.txt when you add or remove files from the
-project. You don't need to run it if you only change the contents of existing files. You may need to
-edit the command if you add, remove, or rename plugins, to match the new plugin paths. Run the
-script with `--help` to see all available options.
+Secondly, you need the path to your SuperCollider extensions directory. This is where CMake will install the plugins.
+
+You can get this by opening up SuperCollider and running this line of code
+
+``` 
+Platform.userExtensionDir
+```
+
+Note the path that it posts to your post window in SuperCollider, copy it and save it for the next part of the build process.
+
+
+#### Actually Building
+To build the plugins, run these commands. Note the two paths you need to put in to the CMake command, these are the ones you got from the preparatory steps above.
+
+```bash
+mkdir build
+cd build
+cmake .. -DCMAKE_BUILD_TYPE='Release' -DSC_PATH=/path/to/sc/source -DCMAKE_INSTALL_PREFIX=/path/to/extensions
+cmake --build . --config Release
+cmake --build . --config Release --target install
+```
+
+
