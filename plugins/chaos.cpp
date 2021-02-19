@@ -3,8 +3,15 @@
 
 namespace chaos {
 
-void ChenGen::setup(float initspeed, float initX, float initY, float initZ) {
+void ChenGen::setup(float initspeed, float initX, float initY, float initZ,
+                    float initA = 0.5f, float initB = 0.5f,
+                    float initC = 1.0f) {
+
   setSpeed(initspeed);
+  setParameter(A, initA);
+  setParameter(B, initB);
+  setParameter(C, initC);
+
   // Set initial state
   x_ = initX;
   y_ = initY;
@@ -44,16 +51,37 @@ float ChenGen::getOutput(OutputName outname) {
 };
 
 float ChenGen::process() {
+
+  /*
+   *
+   * The speed, a, b and c parameters of the algorithm are wrapped to values
+   * that seem to keep it moving, the exact borders of which were found by
+   * experimentation. This way, the user may put in a value between 0.0 and 1.0
+   * and achieve nice results.
+   *
+   */
+
   const float minspeed = 0.0f;
   const float maxspeed = 0.0090f;
   float speed = m_speed * maxspeed;
 
-  const float a = m_a;
+  // Calculate a
+  const float min_a = 32.f;
+  const float max_a = 48.f;
+  const float a = ((max_a - min_a) * m_a + min_a);
+
+  // Calculate b
   const float max_b = 6.0f;
   const float min_b = 1.0f;
-  /* const float b = ((max_b - min_b) * m_b + min_b); */
-  const float b = m_b;
-  const float c = m_c;
+  const float b = ((max_b - min_b) * m_b + min_b);
+
+  /* const float b = m_b; */
+  /* const float c = m_c; */
+
+  // Calculate c
+  const float max_c = 24.0f;
+  const float min_c = 28.0f;
+  const float c = ((max_c - min_c) * m_c + min_c);
 
   float x = x_;
   float y = y_;
@@ -68,14 +96,11 @@ float ChenGen::process() {
   y += speed * dy;
   z += speed * dz;
 
-  float output = (x + 18.0f) / 36.0f;
-  output = mkutils::constrain(output, 0.0f, 1.0f);
+  x_ = mkutils::flushed(x);
+  y_ = mkutils::flushed(y);
+  z_ = mkutils::flushed(z);
 
-  x_ = x;
-  y_ = y;
-  z_ = z;
-
-  return output;
+  return getOutput(X);
 }
 
 } // namespace chaos
