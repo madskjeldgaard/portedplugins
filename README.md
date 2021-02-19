@@ -28,7 +28,7 @@ This will get you the mkplugins.
 
 Before continuing, you need two things: 
 
-First, the [SuperCollider source code][ github.com/supercollider/supercollider/] :
+First, the [SuperCollider source code](github.com/supercollider/supercollider/) :
 
 ```bash
 git clone github.com/supercollider/supercollider
