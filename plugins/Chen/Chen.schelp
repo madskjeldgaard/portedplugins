@@ -5,7 +5,9 @@ categories:: UGens>Generators>Chaotic
 
 description::
 
-An implementation of Chen's double scroll chaotic attractor, largely based on Bryan Head's code for the alternative firmware for the Mutable Instruments Stages.
+An implementation of Chen's double scroll chaotic attractor, largely based on link::https://github.com/qiemem/eurorack/tree/v1.1.0/stages##Bryan Head's code for the alternative firmware for the Mutable Instruments Stages:: but heavily modified and tuned to make it as open as possible to SuperCollider users to explore parameter spaces of the algorithm within safe limits and adding interpolation to the parameters to make them modulatable.
+
+link::https://en.wikipedia.org/wiki/Chua%27s_circuit::
 
 
 classmethods::
