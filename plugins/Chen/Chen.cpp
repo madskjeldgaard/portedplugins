@@ -43,10 +43,11 @@ void Chen::next(int nSamples) {
     chengen.setParameter(chaos::ChenGen::B, b);
     chengen.setParameter(chaos::ChenGen::C, c);
 
-    xout[i] = zapgremlins(chengen.process());
-    yout[i] = zapgremlins(chengen.getOutput(chaos::ChenGen::Y));
-    zout[i] = zapgremlins(chengen.getOutput(chaos::ChenGen::Z));
+    xout[i] = chengen.process();
+    yout[i] = chengen.getOutput(chaos::ChenGen::Y);
+    zout[i] = chengen.getOutput(chaos::ChenGen::Z);
   }
+
   m_freq_past = slopedFreq.value;
   m_a_past = slopedA.value;
   m_b_past = slopedB.value;
