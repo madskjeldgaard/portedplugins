@@ -13,7 +13,8 @@ Chen::Chen() {
   const float initx = rgen.frand();
   const float inity = rgen.frand();
   const float initz = rgen.frand();
-  const float initfreq = 0.0001f;
+  const float initfreq = in0(Speed);
+
   chengen.setup(initfreq, initx, inity, initz);
 
   mCalcFunc = make_calc_function<Chen, &Chen::next>();

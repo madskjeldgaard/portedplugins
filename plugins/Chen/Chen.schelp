@@ -1,15 +1,18 @@
 class:: Chen
 summary:: Chen's chaotic double scroll attractor
-related:: TODO
-categories:: UGens>Chaos
+related:: Classes/LorenzL
+categories:: UGens>Generators>Chaotic
 
 description::
 
 An implementation of Chen's double scroll chaotic attractor, largely based on Bryan Head's code for the alternative firmware for the Mutable Instruments Stages.
 
+
 classmethods::
 
 method::ar, kr
+
+returns three values: x, y, z (see examples below).
 
 argument::speed
 Sets the speed of the chaos generator. This is a normalized value between 0.0 and 1.0.
