@@ -1,0 +1,45 @@
+class:: Chen
+summary:: Chen's chaotic double scroll attractor
+related:: TODO
+categories:: UGens>Chaos
+
+description::
+
+An implementation of Chen's double scroll chaotic attractor, largely based on Bryan Head's code for the alternative firmware for the Mutable Instruments Stages.
+
+classmethods::
+
+method::ar, kr
+
+argument::speed
+Sets the speed of the chaos generator. This is a normalized value between 0.0 and 1.0.
+
+argument::TODO
+
+
+examples::
+
+code::
+(
+Ndef(\modulated_chen, {|amp=0.5|
+	var chenspeedMax = 0.01;
+	var chen = Chen.ar(LFCub.kr(0.1).range(0.001,chenspeedMax)); 
+	var minfreq = 20.0, maxfreq=2500.0;
+	var sig = SinOsc.ar(chen.linexp(0.0,1.0,minfreq,maxfreq));
+
+	// Chen returns an array of values sot the ugen above is multi channel expanded
+	amp * Splay.ar(sig, spread: chen[0]);
+}).play
+)
+
+// See it on a scope
+(
+Ndef(\scoped, {
+	var x, y, z;
+	#x,y,z = Chen.ar(0.000092);
+
+	[x,y,z]
+}).scope;
+)
+
+::
