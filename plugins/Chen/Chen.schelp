@@ -13,9 +13,19 @@ method::ar, kr
 
 argument::speed
 Sets the speed of the chaos generator. This is a normalized value between 0.0 and 1.0.
+This parameter may be modulated at control rate;
 
-argument::TODO
+argument::a
+A value between 0.0 and 1.0 that sets the a parameter of the algorithm. This is scaled to a nice value in the actual algorithm.
+This parameter may be modulated at control rate;
 
+argument::b
+A value between 0.0 and 1.0 that sets the a parameter of the algorithm. This is scaled to a nice value in the actual algorithm.
+This parameter may be modulated at control rate;
+
+argument::c
+A value between 0.0 and 1.0 that sets the a parameter of the algorithm. This is scaled to a nice value in the actual algorithm.
+This parameter may be modulated at control rate;
 
 examples::
 
