@@ -11,16 +11,28 @@ set(project_name "MKPlugins")
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_modules ${CMAKE_MODULE_PATH})
 set(CMAKE_CXX_STANDARD 11)
 
+message(STATUS "Cmake build type: " ${CMAKE_BUILD_TYPE})
+
+# Set compiler pickyness, this picks up a ton of extra little things
+if(MSVC)
+  # warning level 4 and all warnings as errors
+  add_compile_options(/W4 /WX)
+else()
+  # lots of warnings and all warnings as errors
+  add_compile_options(-Wall -Wextra -pedantic)
+endif()
+
+
 ####################################################################################################
 # load modules
 include(SuperColliderServerPlugin RESULT_VARIABLE server_plugin_found)
 if(NOT server_plugin_found)
-    message(FATAL_ERROR "Could not find server plugin functions module")
+  message(FATAL_ERROR "Could not find server plugin functions module")
 endif()
 
 include(SuperColliderCompilerConfig RESULT_VARIABLE compiler_config_found)
 if(NOT compiler_config_found)
-    message(FATAL_ERROR "Could not find compiler config module")
+  message(FATAL_ERROR "Could not find compiler config module")
 endif()
 
 # Windows - puts redistributable DLLs in install directory
@@ -28,8 +40,10 @@ include(InstallRequiredSystemLibraries)
 
 sc_check_sc_path("${SC_PATH}")
 message(STATUS "Found SuperCollider: ${SC_PATH}")
-set(SC_PATH "${SC_PATH}" CACHE PATH
-    "Path to SuperCollider source. Relative paths are treated as relative to this script" FORCE)
+set(
+  SC_PATH "${SC_PATH}" CACHE PATH
+  "Path to SuperCollider source. Relative paths are treated as relative to this script" FORCE
+)
 
 include("${SC_PATH}/SCVersion.txt")
 message(STATUS "Building plugins for SuperCollider version: ${SC_VERSION}")
@@ -39,8 +53,8 @@ project(${project_name})
 sc_do_initial_compiler_config() # do after setting project so compiler ID is available
 
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT OR NOT CMAKE_INSTALL_PREFIX)
-    message(WARNING "No install prefix provided, defaulting to $BUILD_DIR/install")
-    set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Install prefix" FORCE)
+  message(WARNING "No install prefix provided, defaulting to $BUILD_DIR/install")
+  set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Install prefix" FORCE)
 endif()
 
 message(STATUS "Install directory set to: ${CMAKE_INSTALL_PREFIX}")
@@ -56,32 +70,60 @@ option(NOVA_SIMD "Build plugins with nova-simd support." ON)
 ####################################################################################################
 # include libraries
 
-if (NOVA_SIMD)
-	add_definitions(-DNOVA_SIMD)
-	include_directories(${SC_PATH}/external_libraries/nova-simd)
+if(NOVA_SIMD)
+  add_definitions(-DNOVA_SIMD)
+  include_directories(${SC_PATH}/external_libraries/nova-simd)
 endif()
 
 ####################################################################################################
 # Begin target Chen
 
-# Chen
-set(Chen_cpp_files
-    plugins/Chen/Chen.cpp
-    plugins/Chen/Chen.hpp
+# LPG
+set(
+  LPG_cpp_files
+  plugins/LPG/LPG.cpp
+  plugins/LPG/LPG.hpp
 )
-set(Chen_sc_files
-    plugins/Chen/Chen.sc
+
+set(
+  LPG_sc_files
+  plugins/LPG/LPG.sc
 )
-set(Chen_schelp_files
-    plugins/Chen/Chen.schelp
+
+set(
+  LPG_schelp_files
+  plugins/LPG/LPG.schelp
 )
 
 sc_add_server_plugin(
-    "Chen/Chen" # desination directory
-    "Chen" # target name
-    "${Chen_cpp_files}"
-    "${Chen_sc_files}"
-    "${Chen_schelp_files}"
+  "${project_name}" # desination directory
+  "LPG" # target name
+  "${LPG_cpp_files}"
+  "${LPG_sc_files}"
+  "${LPG_schelp_files}"
+)
+
+# Chen
+set(
+  Chen_cpp_files
+  plugins/Chen/Chen.cpp
+  plugins/Chen/Chen.hpp
+)
+set(
+  Chen_sc_files
+  plugins/Chen/Chen.sc
+)
+set(
+  Chen_schelp_files
+  plugins/Chen/Chen.schelp
+)
+
+sc_add_server_plugin(
+  "${project_name}" # desination directory
+  "Chen" # target name
+  "${Chen_cpp_files}"
+  "${Chen_sc_files}"
+  "${Chen_schelp_files}"
 )
 
 # End target Chen
@@ -91,4 +133,3 @@ sc_add_server_plugin(
 # END PLUGIN TARGET DEFINITION
 ####################################################################################################
 
-message(STATUS "Generating plugin targets done")
