@@ -1,0 +1,272 @@
+#!/bin/bash 
+#########################
+# add_plugin
+# Generate plugin template including help file, hpp/cpp pair and the necessary supercollider class
+#########################
+
+PLUGIN_AUTHOR="Mads Kjeldgaard"
+AUTHOR_EMAIL="mail@madskjeldgaard.dk"
+
+PLUGIN_NAME=$1
+SOURCE_DIR=plugins
+TARGET_FOLDER=$SOURCE_DIR/$PLUGIN_NAME
+
+#######################################################################
+#                             Help files                              #
+#######################################################################
+
+function generate_help(){
+
+# Help file
+echo "Generating help file for $PLUGIN_NAME ..."
+echo "CLASS:: $PLUGIN_NAME
+SUMMARY:: A plugin... 
+RELATED::TODO
+CATEGORIES::TODO
+
+DESCRIPTION::
+
+This is a short description
+
+CLASSMETHODS::
+
+METHOD::ar
+
+ARGUMENT::TODO
+
+ARGUMENT::TODO
+
+EXAMPLES::
+
+code::
+Ndef(\notam, {|freq=110, width=0.5|
+	var sig = VarSaw.ar(freq, width: width);
+	$PLUGIN_NAME.ar(sig);
+}).play;
+::
+" > $TARGET_FOLDER/$PLUGIN_NAME.schelp
+}
+
+#######################################################################
+#                  Generate SuperCollider class file                  #
+#######################################################################
+
+function generate_sc_class(){
+
+echo "Generating SuperCollider class file"
+echo "$PLUGIN_NAME : MultiOutUGen {
+	*ar { |input, gain|
+		/* TODO */
+		^this.multiNew('audio', input, gain);
+	}
+
+	init { arg ... theInputs;
+		var numChannelsOut = 2;
+		inputs = theInputs;
+		^this.initOutputs(numChannelsOut, rate)
+	}
+
+	checkInputs {
+		/* TODO */
+		^this.checkValidInputs;
+	}
+}
+" > $TARGET_FOLDER/$PLUGIN_NAME.sc
+}
+
+#######################################################################
+#                        Generate header file                         #
+#######################################################################
+
+function generate_hpp(){
+echo "Generating hpp file"
+echo "// $PLUGIN_NAME.hpp
+// $PLUGIN_AUTHOR ($AUTHOR_EMAIL)
+
+#pragma once
+
+#include \"SC_PlugIn.hpp\"
+
+namespace $PLUGIN_NAME {
+
+class $PLUGIN_NAME : public SCUnit {
+public:
+    $PLUGIN_NAME();
+
+    // Destructor
+    ~$PLUGIN_NAME();
+
+private:
+    // Calc function
+    void next(int nSamples);
+    void clear(int nSamples);
+
+    enum InputParams { Input, Gain, NumInputParams };
+    enum Outputs { Out1, NumOutputParams };
+
+};
+
+} // namespace $PLUGIN_NAME
+" > $TARGET_FOLDER/$PLUGIN_NAME.hpp
+
+}
+
+#######################################################################
+#                    Generate Implementation file                     #
+#######################################################################
+
+function generate_cpp(){
+echo "Generating cpp file"
+
+echo "// $PLUGIN_NAME.cpp
+// $PLUGIN_AUTHOR ($AUTHOR_EMAIL)
+
+#include \"SC_PlugIn.hpp\"
+#include \"${PLUGIN_NAME}.hpp\"
+
+static InterfaceTable* ft;
+
+namespace $PLUGIN_NAME {
+
+$PLUGIN_NAME::$PLUGIN_NAME() {
+	// const float samplerate = sampleRate();
+
+    mCalcFunc = make_calc_function<$PLUGIN_NAME, &$PLUGIN_NAME::next>();
+    next(1);
+}
+
+$PLUGIN_NAME::~$PLUGIN_NAME() {}
+
+void $PLUGIN_NAME::next(int nSamples) {
+    const float* input = in(Input);
+	const float gain = in0(Gain);
+
+    float* outbuf = out(Out1);
+
+    for (int i = 0; i < nSamples; ++i) {
+        outbuf[i] = input[i] * gain;
+    }
+}
+
+void $PLUGIN_NAME::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
+
+} // namespace $PLUGIN_NAME
+
+PluginLoad(${PLUGIN_NAME}UGens) {
+    // Plugin magic
+    ft = inTable;
+    registerUnit<$PLUGIN_NAME::$PLUGIN_NAME>(ft, \"$PLUGIN_NAME\", false);
+}
+" > $TARGET_FOLDER/$PLUGIN_NAME.cpp
+
+}
+
+#######################################################################
+#                        Update CMakeLists.txt                        #
+#######################################################################
+
+function add_to_cmakelists(){
+
+if [[ -f "CMakeLists.txt" ]]; then
+echo "Modifying CMakeLists.txt to add $PLUGIN_NAME as a target"
+	
+echo "# $PLUGIN_NAME
+set(${PLUGIN_NAME}_cpp_files
+    $TARGET_FOLDER/$PLUGIN_NAME.hpp
+    $TARGET_FOLDER/$PLUGIN_NAME.cpp
+)
+set(${PLUGIN_NAME}_sc_files
+    $TARGET_FOLDER/$PLUGIN_NAME.sc
+)
+set(${PLUGIN_NAME}_schelp_files
+    $TARGET_FOLDER/$PLUGIN_NAME.schelp
+)
+
+sc_add_server_plugin(
+	\"\${project_name}\" # destination directory
+	\"$PLUGIN_NAME\" # target name
+	\"\${${PLUGIN_NAME}_cpp_files}\"
+	\"\${${PLUGIN_NAME}_sc_files}\"
+	\"\${${PLUGIN_NAME}_schelp_files}\"
+)
+" >> CMakeLists.txt
+else
+	echo "Could not find CMakeLists.txt"
+fi
+}
+
+#######################################################################
+#                       Other helper functions                        #
+#######################################################################
+
+function welcome(){
+echo "
+@@@  @@@   @@@@@@   @@@@@@@   @@@@@@   @@@@@@@@@@   
+@@@@ @@@  @@@@@@@@  @@@@@@@  @@@@@@@@  @@@@@@@@@@@  
+@@!@!@@@  @@!  @@@    @@!    @@!  @@@  @@! @@! @@!  
+!@!!@!@!  !@!  @!@    !@!    !@!  @!@  !@! !@! !@!  
+@!@ !!@!  @!@  !@!    @!!    @!@!@!@!  @!! !!@ @!@  
+!@!  !!!  !@!  !!!    !!!    !!!@!!!!  !@!   ! !@!  
+!!:  !!!  !!:  !!!    !!:    !!:  !!!  !!:     !!:  
+:!:  !:!  :!:  !:!    :!:    :!:  !:!  :!:     :!:  
+ ::   ::  ::::: ::     ::    ::   :::  :::     ::   
+::    :    : :  :      :      :   : :   :      :    
+                                                    
+This script adds a plugin to the Notam SuperCollider plugin suite with a basic template for all necessary files and modifications to Cmake's configuration for this project.
+
+USAGE:
+add_plugin <plugin_name>
+
+----
+By Mads Kjeldgaard, Notam, 2021
+
+"
+}
+
+#######################################################################
+#                            Init function                            #
+#######################################################################
+
+function init(){
+	if [[ -z $PLUGIN_NAME ]]; then
+		echo "You need to specify Plugin name as first argument"
+		exit 1
+	fi
+
+	if [[ -d $TARGET_FOLDER ]]; then
+		echo "$TARGET_FOLDER already exists..." && \
+			exit 1
+	else
+		echo "Creating $TARGET_FOLDER..."
+
+		mkdir "$TARGET_FOLDER" && \
+			welcome && \
+			echo "--------------------" && \
+			generate_files && \
+			echo "--------------------" && \
+			echo "Current list of plugins:" && \
+			echo list_plugins && \
+			exit 0
+	fi
+}
+
+function regen_help_globals(){
+	THISDIR=$(dirname $0)
+	bash $THISDIR/regenerate_help_files
+}
+
+function generate_files(){
+	generate_sc_class && \
+		generate_help && \
+		generate_hpp && \
+		generate_cpp && \
+		add_to_cmakelists && \
+		echo "Done generating files..." && \
+		exit 0
+}
+
+#########
+#  END  #
+#########
+
+init
