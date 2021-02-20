@@ -54,11 +54,11 @@ void LPG::next(int nSamples) {
   lowpassgate.setLinearity(linearity);
 
   if (outnum == 0) {
-    lowpassgate.setOutputNum(lpg::LpgFilter::OutputNumber::Out1);
+    lowpassgate.setOutputNum(lpg::LpgFilter::OutputNumber::Vout);
   } else if (outnum == 1) {
-    lowpassgate.setOutputNum(lpg::LpgFilter::OutputNumber::Out2);
+    lowpassgate.setOutputNum(lpg::LpgFilter::OutputNumber::VactrolOut);
   } else if (outnum == 2) {
-    lowpassgate.setOutputNum(lpg::LpgFilter::OutputNumber::Out3);
+    lowpassgate.setOutputNum(lpg::LpgFilter::OutputNumber::Differentiator);
   }
 
   /* Print("%f \n", control_input[0]); */

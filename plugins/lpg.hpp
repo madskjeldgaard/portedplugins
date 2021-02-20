@@ -6,34 +6,31 @@ class LpgFilter {
 public:
   enum Linearity { Linear, NonLinear };
   enum LowpassProcessing { Off, On };
-  enum OutputNumber { Out1, Out2, Out3 };
+  enum OutputNumber { Vout, VactrolOut, Differentiator };
 
   float process(float sample);
   void setup(float samplerate, float initVactrolResistance = 2500.0f,
              float initVCAAmount = 1.0f, float initResonance = 0.9f,
              Linearity initProcessingMode = NonLinear);
   inline void setVactrolResistance(float resistance);
-  inline void setVCAAmount(float amount);
-  inline void setResonance(float resonance);
+  inline void setVCAAmount(double amount);
+  inline void setResonance(double resonance);
   inline void setProcessingMode(Linearity mode);
   inline void setLowpassMode(LowpassProcessing mode);
   inline void setOutputNum(OutputNumber outnum);
 
 private:
   // Parameters
-  float m_vactrol_resistance{0.f}, m_offset{0.1f}, m_vcaness{0.f},
-      m_resonance{0.f}, m_samplerate{0.f};
+  double m_vactrol_resistance{0.}, m_offset{0.1}, m_vcaness{0.},
+      m_resonance{0.}, m_samplerate{0.};
 
   Linearity m_processing_mode{Linear};
   LowpassProcessing m_lowpass_mode{On};
-  OutputNumber m_output_num{Out1};
-
-  // Filter outputs
-  float m_y_x{0.f}, m_y_o{0.f}, m_y_d{0.f};
+  OutputNumber m_output_num{Vout};
 
   // States
-  float m_state_x{0.f}, m_state_o{0.f}, m_state_d{0.f}, m_state_xo{0.f},
-      m_tanh_xo{0.f};
+  double m_state_x{0.}, m_state_o{0.}, m_state_d{0.}, m_state_xo{0.},
+      m_tanh_xo{0.};
 };
 
 // Models the behaviour of a Vactrol that takes a voltage as input and then
@@ -58,18 +55,18 @@ class LpgControlCircuit {
 public:
   // Calculate resistance/frequency from voltage input
   float process(float sample);
-  void setup(float initOffset, float initScale);
+  void setup(double initOffset, double initScale);
 
   // Set frequency offset
-  void setOffset(float offset);
-  void setScale(float scale);
+  void setOffset(double offset);
+  void setScale(double scale);
 
 private:
   // parameters
-  float m_scale{0.5f}, m_offset{0.5f};
+  double m_scale{0.5}, m_offset{0.5};
 
   // States
-  float m_state_1{0.f};
+  double m_state_1{0.};
 };
 
 /*
@@ -88,7 +85,7 @@ public:
   // vactrol. This may be a gate signal or an envelope of sorts.
   float process(float sample, float vactrol_in);
   inline void setVCAAmount(float amount);
-  inline void setResonance(float resonance);
+  inline void setResonance(double resonance);
   inline void setControlOffset(float offset);
   inline void setControlScale(float scale);
   inline void setLowpassMode(LpgFilter::LowpassProcessing mode);
