@@ -80,10 +80,14 @@ void LpgFilter::setup(float samplerate, float initVactrolResistance,
 }
 
 inline void LpgFilter::setVactrolResistance(float rf) {
-  m_vactrol_resistance = rf;
+  m_vactrol_resistance = static_cast<double>(rf);
 }
 
-inline void LpgFilter::setVCAAmount(double amount) { m_vcaness = amount; }
+inline void LpgFilter::setVCAAmount(double amount) {
+  // Not sure why this is necessary to be honest:
+  amount = (1.0 - amount) * 5e6 + 10e3;
+  m_vcaness = amount;
+}
 
 inline void LpgFilter::setProcessingMode(Linearity mode) {
   m_processing_mode = mode;
@@ -94,8 +98,6 @@ inline void LpgFilter::setLowpassMode(LowpassProcessing mode) {
 }
 
 inline void LpgFilter::setResonance(double resonance) {
-  // Not sure why this is necessary to be honest:
-  resonance = (1.0 - resonance) * 5e6 + 10e3;
   m_resonance = resonance;
 };
 
@@ -121,14 +123,17 @@ float LpgFilter::process(float sample) {
 
   double max_res = 1.0 * (2.0 * c1 * r3 + (c2 + c3) * (r3 + rf)) / (c3 * r3);
   double a = mkutils::constrain(m_resonance, 0.0, max_res);
+  /* double a = m_resonance; */
   /* double a = m_resonance * max_res; */
-  double x = sample;
+  double x = static_cast<double>(sample);
 
   double freq = 0.5 / m_samplerate;
   // double freq = 2*pi * (m_vactrol_resistance+1e-3)*0.5/m_samplerate;
 
   double a1 = 1.0 / (c1 * rf);
-  double a2 = -(1.0 / rf + 1.0 / r3) / c1;
+  double a2 = -((1.0 / rf) + (1.0 / r3)) / c1;
+  /* std::cout << std::to_string(max_res) << std::endl; */
+
   double b1 = 1.0 / (rf * c2);
   double b2 = -2.0 / (rf * c2);
   double b3 = 1.0 / (rf * c2);
@@ -136,10 +141,6 @@ float LpgFilter::process(float sample) {
   double d1 = a;
   double d2 = -1.;
   m_tanh_xo = tanh(m_state_xo);
-  /* std::cout << "tanh_state: " << std::to_string(m_state_xo) << std::endl; */
-  // b2 = (a*c3/c1 -1 - 1/(1+r1/rf))/(rf*(c2+c3));			//
-  // Extra Feedback resistor b3 =(1/(1+r1/rf)- (1+rf/r3)*a*c3/c1)/(rf*(c2+c3));
-  // // Extra Feedback resistor
 
   double Dx = 1.0 / (1.0 - b2 * freq);
   double Do = 1.0 / (1.0 - a2 * freq);
@@ -203,12 +204,6 @@ float LpgFilter::process(float sample) {
     m_state_d =
         mkutils::flushed(-m_state_d - (2.0 / freq) * (d1 * yo + d2 * yx));
   }
-
-  /* std::cout << "out1: " << out1 << std::endl; */
-  /* std::cout << "out2: " << out2 << std::endl; */
-  /* std::cout << "out3: " << out3 << std::endl; */
-  /* std::cout << "rf: " << rf << std::endl; */
-
   if (m_output_num == LpgFilter::Vout) {
     return yo;
   } else if (m_output_num == LpgFilter::VactrolOut) {

@@ -37,6 +37,7 @@ void LPG::next(int nSamples) {
   const int linmode = in0(Linearity);
   const int outnum = in0(OutNum);
 
+  /* Print("%i \n", inRate(ControlInput)); */
   lowpassgate.setControlOffset(offset);
   lowpassgate.setControlScale(scale);
   lowpassgate.setVCAAmount(vcaamount);
