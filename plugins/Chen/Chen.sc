@@ -12,7 +12,7 @@ Chen : MultiOutUGen {
 		^this.initOutputs(3, rate)
 	}
 
-checkInputs {
+	checkInputs {
 
 		// This dictionary maps what rates are allowed for each parameter of the UGen
 		var allowedRates = IdentityDictionary[

@@ -14,7 +14,13 @@ public:
 
 private:
   // Calc function
-  void next(int nSamples);
+  
+  // Audio rate control signal for the vactrol
+  void next_a(int nSamples);
+
+  // Control rate control signal for the vactrol
+  void next_k(int nSamples);
+
   void clear(int nSamples);
 
   enum InputParams {
@@ -26,13 +32,15 @@ private:
     Resonance,
     LowpassMode,
     Linearity,
-	OutNum,
     NumInputParams
   };
 
   enum Outputs { Out1, NumOutputParams };
 
   lpg::LowPassGate lowpassgate;
+
+  float m_control_offset_past{0.f}, m_sloped_control_scale{0.f},
+      m_sloped_vca_amount{0.f}, m_sloped_resonance{0.f}, m_control_input_past{0.f};
 };
 
 } // namespace LPG
