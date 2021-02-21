@@ -24,11 +24,9 @@ LPG::LPG() {
   lowpassgate.setOutputNum(lpg::LpgFilter::OutputNumber::Vout);
 
   if (inRate(ControlInput) == calc_FullRate) {
-    Print("control audio rate\n");
     mCalcFunc = make_calc_function<LPG, &LPG::next_a>();
     next_a(1);
   } else {
-    Print("control contrl rate\n");
     mCalcFunc = make_calc_function<LPG, &LPG::next_k>();
     next_k(1);
   }
