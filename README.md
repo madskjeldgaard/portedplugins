@@ -7,9 +7,15 @@ Most of these are algorithms that I felt like exploring more in-depth at a C++ l
 
 ## Included plugins
 
-*Chen*
+See help files for more information on these, included links to sources/research where applicable:
 
-Chen's chaotic double scroll attractor
+**Chen**
+
+Chen's chaotic double scroll attractor. Inspired by Bryan Head's implementation in the Mutable Instruments Stages alternative firmware.
+
+**LPG**
+
+A digital model of the Buchla Lowpass-Gate. Based on a paper/research by Julian Parker and Stefano D'Angelo.
 
 ### Requirements
 
