@@ -1,26 +1,22 @@
-Chen : MultiOutUGen {
-	*ar { | speed=0.5, a=0.5, b=0.3, c=0.28|
-		^this.multiNew('audio', speed, a, b, c);
-	}
-
-	*kr { | speed=0.5, a=0.5, b=0.3, c=0.28|
-		^this.multiNew('control', speed, a, b, c);
-	}
-
-	init { arg ... theInputs;
-		inputs = theInputs;
-		^this.initOutputs(3, rate)
+LPG : UGen {
+	*ar { |input, controlinput, controloffset=0, controlscale=1, vca=1, resonance=1.5, lowpassmode=1, linearity=1|
+		^this.multiNew('audio', input, controlinput, controloffset, controlscale, vca, resonance, lowpassmode, linearity);
 	}
 
 	checkInputs {
 
 		// This dictionary maps what rates are allowed for each parameter of the UGen
 		var allowedRates = IdentityDictionary[
+			\input -> [\audio],
+			\controlinput -> [\control, \audio],
+
 			// Allowed to be either control or scalar
-			\speed -> [\control, \scalar], 
-			\a -> [\control, \scalar],
-			\b -> [\control, \scalar],
-			\c -> [\control, \scalar],
+			\controloffset -> [\control, \scalar], 
+			\controlscale ->[\control, \scalar], 
+			\vca -> [\control, \scalar], 
+			\resonance -> [\control, \scalar],
+			\lowpassmode -> [\control, \scalar],
+			\linearity -> [\control, \scalar],
 		];
 
 		// Iterate over all inputs and check if they comply
@@ -38,5 +34,5 @@ Chen : MultiOutUGen {
 
 		^this.checkValidInputs;
 	}
-	
 }
+

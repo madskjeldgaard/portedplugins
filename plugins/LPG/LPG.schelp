@@ -1,0 +1,81 @@
+CLASS::LPG
+SUMMARY::A digital model of the Buchla Lowpass-Gate
+RELATED::Classes/Chen, Classes/DFM1
+CATEGORIES::UGens>Filters
+
+DESCRIPTION::
+
+This is a digital model of the famous Buchla Lowpass-gate (LPG) found in the Buchla synthesizer systems.
+
+The LPG is takes an audio input and filters it depending on the result of an accompanying control input. In Buchla systems this is the famous sound of "bongos" pinging the LPG.
+
+The original circuit of the LPG consists of an analog filter and a voltage controlled amplifier that are being voltage controlled via a vactrol (an encased photo resistor and LED) that causes a nice, sluggish response which is what leads to the characteristic LPG sound.
+
+The code for the LowpassGate emulation here is a precise model of that circuit based on the work of Julian Parker and Stefano D'angelo and their paper "A Digital Model of the Buchla Lowpass-Gate" from DAFX-13, 2013 and the accompanying Max code.
+
+See the paper here for more information: LINK::https://www.dafx.de/paper-archive/2013/papers/44.dafx2013_submission_56.pdf## A Digital Model of the Buchla Lowpass-Gate, DAFX-13::.
+
+CLASSMETHODS::
+
+METHOD::ar
+
+ARGUMENT::input
+Audio input
+
+ARGUMENT::controlinput
+The control input (this may be audio rate or control rate), typically this is a click or gate pinging the LPG or a percussive envelope but feel free to experiment.
+
+ARGUMENT::controloffset
+The offset of the control signal from the vactrol (in practice this is a filter/VCA bias). Values between 0.0 and 1.0.
+May be modulated at control rate.
+
+ARGUMENT::controlscale
+Scales the control signal that opens the VCA/filter.
+Values between 0.0 and 1.0.
+May be modulated at control rate.
+
+ARGUMENT::vca
+Amount of VCA.
+Values between 0.0 and 1.0.
+May be modulated at control rate.
+
+ARGUMENT::resonance
+Filter resonance.
+Values between 0.0 and 1.8 ish are good, but very dependent on the linearity parameter.
+May be modulated at control rate.
+
+ARGUMENT::lowpassmode
+An integer that switches the lowpass filter on or off. 0 is off, 1 is on.
+
+ARGUMENT::linearity
+An integer that lets you switch between linearity models. To get a more precise (but harder to tame) sound, you may choose between linear behaviour (0) or nonlinear behaviour (1).
+
+EXAMPLES::
+
+code::
+(
+s.boot;
+Ndef(\lpgtest, {
+	// var sig = PinkNoise.ar(0.95);
+	var freq = LFNoise2.kr(1).range(1.0,4.0);
+	var env = Env.perc(0.1,1.5).ar(gate: Impulse.kr(freq), timeScale:freq.reciprocal * 0.05);
+	var sig = WhiteNoise.ar(0.2) + SinOsc.ar(LFNoise2.kr(1).exprange(200.0,1000)*SinOsc.kr(env.lag3.range(100,10)));
+
+	sig = LPG.ar(
+		input: sig, 
+		controlinput: env, 
+		controloffset:0.0, 
+		controlscale: LFNoise2.kr(10.1).range(0.5,0.95), 
+		vca: 0.091,
+		resonance:1.35, 
+		lowpassmode:1, 
+		linearity:1
+	) * 0.25;
+
+	Pan2.ar(sig, 0.25*SinOsc.kr(0.1))
+}).mold(2, 'audio').play;
+
+)
+::
+
+keyword::buchla
