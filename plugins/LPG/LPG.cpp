@@ -31,6 +31,7 @@ LPG::LPG() {
     next_k(1);
   }
 }
+
 void LPG::next_k(int nSamples) {
   const float *input = in(Input);
   const int lpmode = in0(LowpassMode);
@@ -48,7 +49,7 @@ void LPG::next_k(int nSamples) {
   lowpassgate.setLowpassMode(lowpass);
 
   // Linear or nonlinear processing
-  auto linearity = (linmode == 1) ? lpg::LpgFilter::Linearity::Linear
+  auto linearity = (linmode == 0) ? lpg::LpgFilter::Linearity::Linear
                                   : lpg::LpgFilter::Linearity::NonLinear;
 
   lowpassgate.setLinearity(linearity);
