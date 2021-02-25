@@ -1,5 +1,5 @@
 name: CMake
-on: [push]
+on: push
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
@@ -12,7 +12,7 @@ env:
       # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
       runs-on: ubuntu-latest
       steps:
-        - uses: actions/checkout@v2
+        uses: actions/checkout@v2
         - name: Get SC source code
           run: git clone https://github.com/supercollider/supercollider.git ${{github.workspace}}/supercollider
         - name: Create Build Environment
