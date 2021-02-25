@@ -46,17 +46,17 @@ env:
           run: zip -r MKPlugins install/MKPlugins
 
           # Publish build
-        - name: Create Release
-          working-directory: ${{github.workspace}}/build
-          id: create_release
-          uses: actions/create-release@v1
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            with:
-              tag_name: ${{ github.ref }}
-              release_name: Release ${{ github.ref }}
-              draft: false
-              prerelease: true
+        # - name: Create Release
+        #   working-directory: ${{github.workspace}}/build
+        #   id: create_release
+        #   uses: actions/create-release@v1
+        #   env:
+        #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        #     with:
+        #       tag_name: ${{ github.ref }}
+        #       release_name: Release ${{ github.ref }}
+        #       draft: false
+        #       prerelease: true
 
               # - name: Upload Release Asset
               #   id: upload-release-asset 
