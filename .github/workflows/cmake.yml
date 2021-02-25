@@ -47,7 +47,7 @@ jobs:
     - name: Zip up build
       shell: bash
       working-directory: ${{github.workspace}}/build
-      run: zip -r MKPlugins-${{runner.os}}-${{github.ref}} install/MKPlugins
+      run: zip -r MKPlugins-${{runner.os}} install/MKPlugins
 
       # Publish build
     - name: Create Release
@@ -69,7 +69,7 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
         # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: ${{github.workspace}}/build/MKPlugins-${{runner.os}}-${{github.ref}}.zip
-        asset_name: MKPlugins-${{runner.os}}-${{github.ref}}.zip
+        asset_path: ${{github.workspace}}/build/MKPlugins-${{runner.os}}.zip
+        asset_name: MKPlugins-${{runner.os}}.zip
         asset_content_type: application/zip
 
