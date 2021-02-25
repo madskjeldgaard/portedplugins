@@ -36,7 +36,6 @@ before_deploy:
  # required for github releases
  - git fetch --tags
  - export BUILD_PREFIX=$TRAVIS_REPO_SLUG/$TRAVIS_OS_NAME
- - export FWD_HTML='<html><head><meta http-equiv="refresh" content="0; url='$S3_URL'" /></head></html>'
  # put everything to be archived in artifacts/
  - mkdir -p "$HOME/artifacts/${TRAVIS_BRANCH%/*}"
  - mkdir -p "$HOME/artifacts/${TRAVIS_TAG%/*}"
