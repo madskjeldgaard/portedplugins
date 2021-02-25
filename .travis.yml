@@ -6,7 +6,7 @@ matrix:
     - os: linux
       sudo: required
       dist: trusty
-    - os: osx
+    # - os: osx
 
 cache:
  - ccache
@@ -24,7 +24,7 @@ before_install:
 
 before_script:
  - mkdir BUILD && cd BUILD
- - cmake -DCMAKE_INSTALL_PREFIX:PATH=$PWD/mkplugins -DCMAKE_BUILD_TYPE="Release" -DSC_PATH=../supercollider -DSUPERNOVA=ON ..
+ - cmake -DCMAKE_INSTALL_PREFIX:PATH=$PWD/mkplugins -DCMAKE_BUILD_TYPE=Release -DSC_PATH=../supercollider -DSUPERNOVA=ON ..
 
 script:
  - iflin make -j2
