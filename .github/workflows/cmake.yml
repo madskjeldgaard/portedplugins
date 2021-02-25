@@ -14,18 +14,13 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-18.04, windows-latest]
+        os: [macos-latest, ubuntu-18.04]
 
     steps:
     - uses: actions/checkout@v2
     
     - name: Get SC source code
-      run: |
-        if ("${ { runner.os } }" STREQUAL "Windows")
-        git clone https://github.com/supercollider/supercollider.git ${{github.workspace}}\supercollider
-        else
-        git clone https://github.com/supercollider/supercollider.git ${{github.workspace}}/supercollider
-        endif()
+      run: git clone https://github.com/supercollider/supercollider.git ${{github.workspace}}/supercollider
 
     - name: Create Build Environment
       # Some projects don't allow in-source building, so create a separate build directory
@@ -40,12 +35,7 @@ jobs:
       # Note the current convention is to use the -S and -B options here to specify source 
       # and build directories, but this is only available with CMake 3.13 and higher.  
       # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
-      run: |
-        if ("${ { runner.os } }" STREQUAL "Windows")
-        cmake .. -DCMAKE_BUILD_TYPE='Release' -DSC_PATH=${{github.workspace}}\supercollider -DCMAKE_INSTALL_PREFIX=\${{github.workspace}}\build\install
-        else
-        cmake .. -DCMAKE_BUILD_TYPE='Release' -DSC_PATH=${{github.workspace}}/supercollider -DCMAKE_INSTALL_PREFIX=/${{github.workspace}}/build/install
-        endif()
+      run: cmake .. -DCMAKE_BUILD_TYPE='Release' -DSC_PATH=${{github.workspace}}/supercollider -DCMAKE_INSTALL_PREFIX=/${{github.workspace}}/build/install
 
     - name: Build
       working-directory: ${{github.workspace}}/build
