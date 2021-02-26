@@ -1,3 +1,5 @@
+[![.github/workflows/cmake.yml](https://github.com/madskjeldgaard/mkplugins/actions/workflows/cmake.yml/badge.svg)](https://github.com/madskjeldgaard/mkplugins/actions/workflows/cmake.yml)
+
 # MKPlugins
 
 A collection of SuperCollider plugins by Mads Kjeldgaard.
@@ -37,7 +39,7 @@ Before continuing, you need two things:
 First, the [SuperCollider source code](github.com/supercollider/supercollider/) :
 
 ```bash
-git clone github.com/supercollider/supercollider
+git clone https://github.com/supercollider/supercollider.git
 ```
 
 Note where you placed this source code on your computer and copy the full path to it for use with CMake.
