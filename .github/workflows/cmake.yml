@@ -34,12 +34,12 @@ jobs:
 
     - name: Configure CMake (Unix)
       shell: bash
-      if: ${{ runner.os != "Windows" }}
+      if: ${{ runner.os}} != "Windows"
       working-directory: ${{github.workspace}}/build
       run: cmake .. -DCMAKE_BUILD_TYPE='Release' -DSC_PATH=${{github.workspace}}\supercollider -DCMAKE_INSTALL_PREFIX=${{github.workspace}}\build\install
 
     - name: Configure CMake (Windows)
-      if: ${{ runner.os == "Windows" }}
+      if: ${{ runner.os}} == "Windows"
       shell: pwsh
       working-directory: ${{github.workspace}}/build
       run: cmake .. -DCMAKE_BUILD_TYPE='Release' -DSC_PATH=${{github.workspace}}/supercollider -DCMAKE_INSTALL_PREFIX=/${{github.workspace}}/build/install
