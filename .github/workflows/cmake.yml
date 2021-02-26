@@ -73,7 +73,7 @@ jobs:
       if: matrix.os == 'windows-latest'
       shell: pwsh
       working-directory: ${{github.workspace}}\build
-      run: powershell Compress-7Zip "install\MKPlugins" -ArchiveFileName "MKPlugins-${{runner.os}}.zip" -Format Zip zip 
+      run: powershell Compress-7Zip a "install\MKPlugins" -ArchiveFileName "MKPlugins-${{runner.os}}.zip" -Format Zip zip 
 
       # Publish build
     - name: Create Release
@@ -83,7 +83,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
         tag_name: ${{ github.ref }}-${{matrix.os}}-1
-        release_name: MKPlugins-${{ github.ref }}-${{matrix.os}}-1
+        release_name: MKPlugins-${{ github.ref }}-${{matrix.os}}
         draft: false
         prerelease: false
           
