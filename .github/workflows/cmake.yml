@@ -53,10 +53,10 @@ jobs:
       run: cmake --build . --config "Release" --target install
 
     - name: Build (Windows)
-      working-directory: ${{github.workspace}}/build
+      working-directory: ${{github.workspace}}\build
       if: matrix.os == 'windows-latest'
-      shell: bash
-      run: sudo cmake --build . --config "Release" --target install
+      shell: pwsh
+      run: cmake --build . --config "Release" --target install
 
       # Gather all files in a zip
     - name: Zip up build
