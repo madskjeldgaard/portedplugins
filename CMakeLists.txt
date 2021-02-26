@@ -16,7 +16,7 @@ message(STATUS "Cmake build type: " ${CMAKE_BUILD_TYPE})
 # Set compiler pickyness, this picks up a ton of extra little things
 if(MSVC)
   # warning level 4 and all warnings as errors
-  add_compile_options(/W4 /WX)
+  # add_compile_options(/W4 /WX)
 else()
   # lots of warnings and all warnings as errors
   add_compile_options(-Wall -Wextra -pedantic)
@@ -132,4 +132,3 @@ sc_add_server_plugin(
 ####################################################################################################
 # END PLUGIN TARGET DEFINITION
 ####################################################################################################
-
