@@ -68,7 +68,6 @@ jobs:
       # Publish build
     - name: Create Release
       id: create_release
-      if: github.run_number == 1
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
@@ -102,4 +101,3 @@ jobs:
         asset_path: ${{github.workspace}}\build\MKPlugins-${{runner.os}}.zip
         asset_name: MKPlugins-${{runner.os}}.zip
         asset_content_type: application/zip
-
