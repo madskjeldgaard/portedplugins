@@ -84,10 +84,10 @@ public:
   // sample is a sound sample, vactrol_in is the control signal "pinging" the
   // vactrol. This may be a gate signal or an envelope of sorts.
   float process(float sample, float vactrol_in);
-  inline void setVCAAmount(float amount);
+  inline void setVCAAmount(double amount);
   inline void setResonance(double resonance);
-  inline void setControlOffset(float offset);
-  inline void setControlScale(float scale);
+  inline void setControlOffset(double offset);
+  inline void setControlScale(double scale);
   inline void setLowpassMode(LpgFilter::LowpassProcessing mode);
   inline void setLinearity(LpgFilter::Linearity linearity);
   inline void setOutputNum(LpgFilter::OutputNumber outnum);
