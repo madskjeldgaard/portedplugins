@@ -26,7 +26,7 @@ A digital model of the Buchla Lowpass-Gate. Based on a paper/research by Julian 
 
 
 ### Installation
-1. Download one of the prebuilt releases. Choose the one that fits your operating system.
+1. Download one of [the prebuilt releases](https://github.com/madskjeldgaard/mkplugins/releases). Choose the one that fits your operating system.
 2. Unzip the contents in your extensions directory (If you don't know where this is, open up SuperCollider and evaluate `Platform.userExtensionDir` - the path will be posted in the post window).
 3. Recompile class library.
 
