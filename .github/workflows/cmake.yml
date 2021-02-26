@@ -1,12 +1,11 @@
 on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Person to greet'
+        required: true
+        default: 'Mona the Octocat'
   push:
-    workflow_dispatch:
-      inputs:
-        name:
-          description: 'Person to greet'
-          required: true
-          default: 'Mona the Octocat'
-    # Sequence of patterns matched against refs/tags
     tags:
       - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
