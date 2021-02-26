@@ -50,15 +50,13 @@ jobs:
       if: matrix.os != 'windows-latest'
       working-directory: ${{github.workspace}}/build
       shell: bash
-      # Execute the build.  You can specify a specific target with "--target <NAME>"
       run: cmake --build . --config "Release" --target install
 
     - name: Build (Windows)
       working-directory: ${{github.workspace}}/build
       if: matrix.os == 'windows-latest'
-      shell: pwsh
-      # Execute the build.  You can specify a specific target with "--target <NAME>"
-      run: runas /noprofile /user:Administrator cmake --build . --config "Release" --target install
+      shell: bash
+      run: sudo cmake --build . --config "Release" --target install
 
       # Gather all files in a zip
     - name: Zip up build
