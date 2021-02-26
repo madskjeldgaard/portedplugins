@@ -74,7 +74,7 @@ jobs:
       if: matrix.os == 'windows-latest'
       shell: pwsh
       working-directory: ${{github.workspace}}\build
-      run: Compress-7Zip a "install\MKPlugins" "MKPlugins-${{runner.os}}.zip" 
+      run: Compress-7Zip "install\MKPlugins" -ArchiveFileName "MKPlugins-${{runner.os}}.zip" -Format Zip
 
       # Publish build
     - name: Create Release
