@@ -4,6 +4,8 @@
 #include <iostream>
 
 namespace lpg {
+const double pi_double = 3.14159265358979323846;
+const float pi_float = 3.14159265358979323846;
 
 // -------------------------------------------
 // Low pass gate emulation
@@ -25,15 +27,15 @@ void LowPassGate::setup(float samplerate, float initOffset, float initScale,
                initLinearity);
 }
 
-inline void LowPassGate::setControlOffset(float offset) {
+inline void LowPassGate::setControlOffset(double offset) {
   controlcircuit.setOffset(offset);
 }
 
-inline void LowPassGate::setControlScale(float scale) {
+inline void LowPassGate::setControlScale(double scale) {
   controlcircuit.setScale(scale);
 }
 
-inline void LowPassGate::setVCAAmount(float amount) {
+inline void LowPassGate::setVCAAmount(double amount) {
   filter.setVCAAmount(amount);
 }
 
@@ -212,7 +214,7 @@ float LpgFilter::process(float sample) {
     return yd;
   }
 
-  return 0.;
+  return 0.f;
 }
 
 // -------------------------------------------
@@ -225,7 +227,7 @@ void LpgVactrol::setup(float samplerate) { m_samplerate = samplerate; }
 float LpgVactrol::process(float sample) {
 
   // Vactrol time-domain behaviour filter
-  float a_base = 1000.0f * M_PI / (m_samplerate);
+  float a_base = 1000.0f * pi_float / (m_samplerate);
   float t_down = 3e3f; // Fall time
   t_down = 10.0f + t_down * (1.0f - 0.9f * m_state_1);
   float a_down = a_base / t_down;
@@ -263,10 +265,6 @@ float LpgControlCircuit::process(float sample) {
   double Vb = mkutils::constrain(static_cast<double>(sample), -10.0, 50.0);
   double offset = 0.9999 * m_offset + 0.0001;
   double scale = mkutils::constrain(m_scale, 0.0, 1.0);
-  // FIXME:
-  /* double scale = 0.48f; // This value is tuned for appropriate input range.
-   */
-  /* std::cout << "voltage base: " << Vb << std::endl; */
 
   // Constants
   const double A = 3.4645912;
@@ -278,11 +276,11 @@ float LpgControlCircuit::process(float sample) {
   const double R7 = 33e3;
   const double R3 = 150e3;
   const double R5 = 100e3;
-  const double R4 = 470e3;
+  /* const double R4 = 470e3; */
   const double R8 = 4.7e3;
   const double R9 = 470.;
   const double VB = 3.9;
-  const double VF = 0.7;
+  /* const double VF = 0.7; */
   const double VT = 26e-3;
   const double n = 3.9696;
   const double kl = 6.3862;
@@ -307,7 +305,7 @@ float LpgControlCircuit::process(float sample) {
 
   double V3 = 0.;
   double If = 0.;
-  double flag = 0.;
+  /* double flag = 0.; */
 
   if (Ia <= -bound1) {
     V3 = -Ia / (alpha * beta);
