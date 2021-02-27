@@ -64,18 +64,10 @@ jobs:
       shell: pwsh
       working-directory: ${{github.workspace}}\build
       run: Compress-7Zip "install\MKPlugins" -ArchiveFileName "MKPlugins-${{runner.os}}.zip" -Format Zip
-
-    - uses: mukunku/tag-exists-action@v1.0.0
-      id: checkTag
-      with: 
-        tag: ${{ github.ref}}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - run: echo ${{ steps.checkTag.outputs.exists }}
-
-      # Publish build
+      
+    # Publish build
     - name: Create Release
-      if: !${{ steps.checkTag.outputs.exists }}
+      if: github.run_number == 1
       id: create_release
       uses: actions/create-release@v1
       env:
