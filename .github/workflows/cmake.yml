@@ -106,6 +106,6 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ${{github.workspace}}\build\MKPlugins-${{runner.os}}.zip
+        file: ${{github.workspace}}/build/MKPlugins-${{runner.os}}.zip
         asset_name: MKPlugins-${{runner.os}}.zip
         tag: ${{ github.ref }}
