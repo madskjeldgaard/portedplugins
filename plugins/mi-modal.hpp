@@ -17,7 +17,7 @@ public:
   void Init();
   void Render(bool sustain, bool trigger, float accent, float f0,
               float structure, float brightness, float damping, float *temp,
-              float *out, float *aux, size_t size);
+              float *out, size_t size);
   float Dust(float frequency);
 
 private:
