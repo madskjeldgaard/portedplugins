@@ -1,0 +1,40 @@
+# Maintainer: Mads Kjeldgaard <mail@madskjeldgaard.dk>
+pkgname=supercollider-mkplugins
+pkgver=r26.fe11076
+pkgrel=1
+pkgdesc="Mads Kjeldgaard's SuperCollider plugins"
+arch=('x86_64')
+url="https://www.github.com/madskjeldgaard/mkplugins"
+license=('GPL')
+groups=('pro-audio')
+depends=('supercollider')
+optdepends=()
+source=(
+"$pkgname::git+${url}.git"
+"supercollider-source::git+https://github.com/supercollider/supercollider.git")
+md5sums=('SKIP' 'SKIP')
+
+pkgver() {
+	cd "$srcdir/${pkgname}"
+	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build(){
+	cd "${srcdir}/supercollider-source"
+	git submodule update --init
+
+	cd "${srcdir}/${pkgname}"
+
+	mkdir -p build
+	cd build
+	cmake .. -DCMAKE_BUILD_TYPE='Release' \
+		-DSC_PATH="${srcdir}/supercollider-source" \
+		-DCMAKE_INSTALL_PREFIX="${srcdir}/usr/share/SuperCollider/Extensions"
+}
+	
+package() {
+	cd "${srcdir}/${pkgname}/build"
+
+	cmake --build . --config Release
+	cmake --build . --config Release --target install
+}
