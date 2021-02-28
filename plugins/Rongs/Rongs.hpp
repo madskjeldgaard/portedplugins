@@ -30,7 +30,7 @@ private:
     Accent,
     NumInputParams
   };
-  enum Outputs { Output, AuxOut, NumOutputParams };
+  enum Outputs { Output, NumOutputParams };
 
   mi::ModalVoice modalvoice;
   float *temp_buffer_;
