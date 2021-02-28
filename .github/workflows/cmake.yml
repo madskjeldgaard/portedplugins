@@ -78,31 +78,6 @@ jobs:
         draft: false
         prerelease: false
           
-    # - name: Upload Release Asset (Unix)
-      # id: upload-release-asset-unix 
-      # if: matrix.os != 'windows-latest'
-      # uses: actions/upload-release-asset@v1
-      # env:
-        # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # with:
-        # upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        # # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        # asset_path: ${{github.workspace}}/build/MKPlugins-${{runner.os}}.zip
-        # asset_name: MKPlugins-${{runner.os}}.zip
-        # asset_content_type: application/zip
-
-    # - name: Upload Release Asset (Windows)
-      # id: upload-release-asset-windows 
-      # if: matrix.os == 'windows-latest'
-      # uses: actions/upload-release-asset@v1
-      # env:
-        # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # with:
-        # upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        # asset_path: ${{github.workspace}}\build\MKPlugins-${{runner.os}}.zip
-        # asset_name: MKPlugins-${{runner.os}}.zip
-        # asset_content_type: application/zip
-
     - name: Upload binaries to release
       uses: svenstaro/upload-release-action@v2
       with:
