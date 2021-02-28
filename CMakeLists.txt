@@ -128,3 +128,23 @@ sc_add_server_plugin(
 ####################################################################################################
 # END PLUGIN TARGET DEFINITION
 ####################################################################################################
+# Rongs
+set(Rongs_cpp_files
+    plugins/Rongs/Rongs.hpp
+    plugins/Rongs/Rongs.cpp
+)
+set(Rongs_sc_files
+    plugins/Rongs/Rongs.sc
+)
+set(Rongs_schelp_files
+    plugins/Rongs/Rongs.schelp
+)
+
+sc_add_server_plugin(
+	"${project_name}" # destination directory
+	"Rongs" # target name
+	"${Rongs_cpp_files}"
+	"${Rongs_sc_files}"
+	"${Rongs_schelp_files}"
+)
+
