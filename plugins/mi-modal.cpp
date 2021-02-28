@@ -54,7 +54,7 @@ void ModalVoice::Init() {
 
 void ModalVoice::Render(bool sustain, bool trigger, float accent, float f0,
                         float structure, float brightness, float damping,
-                        float *temp, float *out, float *aux, size_t size) {
+                        float *temp, float *out, size_t size) {
   const float density = brightness * brightness;
 
   brightness += 0.25f * accent * (1.0f - brightness);
@@ -84,10 +84,6 @@ void ModalVoice::Render(bool sustain, bool trigger, float accent, float f0,
   const float one = 1.0f;
   excitation_filter_.Process<FILTER_MODE_LOW_PASS, false>(&cutoff, &q, &one,
                                                           temp, temp, size);
-  for (size_t i = 0; i < size; ++i) {
-    aux[i] += temp[i];
-  }
-
   resonator_.Process(f0, structure, brightness, damping, temp, out, size);
 }
 
