@@ -103,4 +103,56 @@ float ChenGen::process() {
   return getOutput(X);
 }
 
+void KingsDreamGen::setup(float initX, float initY) {
+  m_x_state = initX;
+  m_y_state = initY;
+}
+
+float KingsDreamGen::process() {
+  // coefficients for "The King's Dream"
+  float a = -0.966918, b = 2.879879, c = 0.765145, d = 0.744728;
+
+  m_x = mkutils::flushed(sin(m_y_state * b) + c * sin(m_x_state * b));
+  m_y = mkutils::flushed(sin(m_x_state * a) + d * sin(m_y_state * a));
+
+  m_x_state = m_x;
+  m_y_state = m_y;
+
+  return m_x;
+}
+
+float KingsDreamGen::getX() { return m_x_state; }
+float KingsDreamGen::getY() { return m_y_state; }
+
+// TODO: This isn't working properly, I think?
+void ChuaGen::setup(float initX, float initY, float initZ) {
+  m_x_state = initX;
+  m_y_state = initY;
+  m_z_state = initZ;
+};
+
+float ChuaGen::getX() { return m_x_state; }
+float ChuaGen::getY() { return m_y_state; }
+float ChuaGen::getZ() { return m_z_state; }
+
+float ChuaGen::process() {
+
+  float x = m_x_state;
+  float y = m_y_state;
+  float z = m_z_state;
+
+  float alpha = 15.6;
+  float beta = 28;
+  float m0 = -1.143;
+  float m1 = -0.714;
+
+  float h = m1 * x + 0.5 * (m0 - m1) * (std::abs(x + 1) - std::abs(x - 1));
+
+  m_x_state = mkutils::flushed(alpha * (y - x - h));
+  m_y_state = mkutils::flushed(x - y + z);
+  m_z_state = mkutils::flushed(-beta * y);
+
+  return m_x_state;
+};
+
 } // namespace chaos
