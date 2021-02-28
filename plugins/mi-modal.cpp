@@ -33,7 +33,6 @@ namespace mi {
 inline float ModalVoice::Dust(float frequency) {
   float inv_frequency = 1.0f / frequency;
   float u = random_dist_(mersenne_engine_);
-  /* std::cout << std::to_string(u) << std::endl; */
   if (u < frequency) {
     return u * inv_frequency;
   } else {
