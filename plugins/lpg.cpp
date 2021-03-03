@@ -87,7 +87,8 @@ inline void LpgFilter::setVactrolResistance(float rf) {
 
 inline void LpgFilter::setVCAAmount(double amount) {
   // Not sure why this is necessary to be honest:
-  amount = (1.0 - amount) * 5e6 + 10e3;
+  // amount = (1.0 - amount) * 5e6 + 10e3;
+  amount = (1.0 - amount) * 1e6 + 5e4; // taken from reaktor implementation
   m_vcaness = amount;
 }
 
