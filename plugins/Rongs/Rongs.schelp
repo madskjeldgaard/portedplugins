@@ -18,9 +18,30 @@ ARGUMENT::TODO
 EXAMPLES::
 
 code::
-Ndef(\notam, {|freq=110, width=0.5|
-	var sig = VarSaw.ar(freq, width: width);
-	Rongs.ar(sig);
+(
+Ndef(\c, {|panfreq=0.01| // default initial params
+	var density = SinOsc.kr(panfreq);
+	var trig = Dust2.kr(density.exprange(0.1,10.0));
+
+	var sig = Rongs.ar(
+		trig, 
+		sustain: trig, 
+		// f0:0.0001,
+		f0: [1.0,1.01] * TExpRand.kr(0.001,0.009, trig), 
+		structure: TRand.kr(0.0,0.99,trig),
+		brightness: TRand.kr(0.5,0.99,trig), 
+		damping: TRand.kr(0.0001,1.0-(density-0.01).unipolar,trig:trig),
+		accent: 0.99
+	);
+
+	sig = sig / 10;
+
+	Splay.ar(LeakDC.ar(sig.tanh), spread: SinOsc.kr(0.01).unipolar * 0.5, center: SinOsc.kr(panfreq));
 }).play;
+
+Ndef(\c).copy(\c2).set(\panfreq, 0.0285).play;
+Ndef(\c).copy(\c3).set(\panfreq, 0.00285).play;
+
+)
 ::
 
