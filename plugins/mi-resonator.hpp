@@ -8,10 +8,10 @@
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -19,18 +19,19 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-// 
+//
 // See http://creativecommons.org/licenses/MIT/ for more information.
 //
 // -----------------------------------------------------------------------------
 //
 // Simple modal synthesis voice with a mallet exciter:
 // click -> LPF -> resonator.
-// 
+//
 // The click is replaced by continuous white noise when the trigger input
 // of the module is not patched.
 
 #include "math.h"
+#include "mkutils.hpp"
 
 #pragma once
 
@@ -49,6 +50,13 @@ enum FilterMode {
   FILTER_MODE_BAND_PASS_NORMALIZED,
   FILTER_MODE_HIGH_PASS
 };
+
+// This is necessary to get M_PI to work on windows
+#ifndef M_PI
+namespace {
+const double M_PI = std::acos(-1.0);
+}
+#endif
 
 #define M_PI_F float(M_PI)
 #define M_PI_POW_2 M_PI *M_PI
@@ -113,7 +121,7 @@ public:
   template <FilterMode mode> inline float Process(float in) {
     float lp;
     lp = (g_ * in + state_) * gi_;
-    state_ = g_ * (in - lp) + lp;
+    state_ = mkutils::flushed(g_ * (in - lp) + lp);
 
     if (mode == FILTER_MODE_LOW_PASS) {
       return lp;
@@ -163,7 +171,7 @@ public:
     float state_2[batch_size];
     float gains[batch_size];
     for (int i = 0; i < batch_size; ++i) {
-      g[i] = OnePole::tan<FREQUENCY_FAST>(f[i]);
+      g[i] = OnePole::tan<FREQUENCY_EXACT>(f[i]);
       r[i] = 1.0f / q[i];
       h[i] = 1.0f / (1.0f + r[i] * g[i] + g[i] * g[i]);
       r_plus_g[i] = r[i] + g[i];
@@ -200,7 +208,7 @@ private:
   float state_2_[batch_size];
 };
 
-const int kMaxNumModes = 24;
+const int kMaxNumModes = 128;
 const int kModeBatchSize = 4;
 
 /*
@@ -213,7 +221,7 @@ public:
 
   void Init(float position, int resolution);
   void Process(float f0, float structure, float brightness, float damping,
-               const float *in, float *out, size_t size);
+               float stretch, float loss, const float *in, float *out, size_t size);
 
 private:
   int resolution_;
@@ -233,7 +241,7 @@ public:
   ~CosineOscillator() {}
 
   template <CosineOscillatorMode mode> inline void Init(float frequency) {
-    if (mode == COSINE_OSCILLATOR_APPROXIMATE) {
+    if (mode == COSINE_OSCILLATOR_EXACT) {
       InitApproximate(frequency);
     } else {
       iir_coefficient_ = 2.0f * cosf(2.0f * M_PI * frequency);

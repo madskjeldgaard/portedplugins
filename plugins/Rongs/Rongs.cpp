@@ -44,11 +44,15 @@ void Rongs::next(int nSamples) {
   float structure = in0(Structure);
   float brightness = in0(Brightness);
   float damping = in0(Damping);
+  float stretch = in0(Stretch);
+  float position = in0(Position);
+  float loss = in0(Loss);
 
   float *outbuf = out(Output);
 
   modalvoice.Render(sustain, trigger, accent, f0, structure, brightness,
-                    damping, temp_buffer_, outbuf, nSamples);
+                    damping, stretch, position, loss, temp_buffer_, outbuf,
+                    nSamples);
 }
 
 void Rongs::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }

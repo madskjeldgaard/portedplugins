@@ -66,7 +66,7 @@ void Resonator::Init(float position, int resolution) {
   amplitudes.Init<COSINE_OSCILLATOR_APPROXIMATE>(position);
 
   for (int i = 0; i < resolution; ++i) {
-    mode_amplitude_[i] = amplitudes.Next() * 0.25f;
+    mode_amplitude_[i] = amplitudes.Next() * 0.05;
   }
 
   for (int i = 0; i < kMaxNumModes / kModeBatchSize; ++i) {
@@ -88,18 +88,25 @@ inline float NthHarmonicCompensation(int n, float stiffness) {
 }
 
 void Resonator::Process(float f0, float structure, float brightness,
-                        float damping, const float *in, float *out,
-                        size_t size) {
+                        float damping, float stretch, float loss,
+                        const float *in, float *out, size_t size) {
   float stiffness = Interpolate(lut_stiffness, structure, 64.0f);
   f0 *= NthHarmonicCompensation(3, stiffness);
 
+  // Offset stretch param so that it doesn't go below 1.0
+  stretch += 1.0f;
+
+  // This makes more sense: The higher the damping param, the more it dampens
+  damping = 1.0f - damping;
+  /* loss = (1.0f - loss); //1* 0.99f + 0.01f; */
+
   float harmonic = f0;
-  float stretch_factor = 1.0f;
   float q_sqrt = SemitonesToRatio(damping * 79.7f);
   float q = 500.0f * q_sqrt * q_sqrt;
+
   brightness *= 1.0f - structure * 0.3f;
   brightness *= 1.0f - damping * 0.3f;
-  float q_loss = brightness * (2.0f - brightness) * 0.85f + 0.15f;
+  float q_loss = brightness * (2.0f - brightness) * (loss) + (1.0f - loss);
 
   float mode_q[kModeBatchSize];
   float mode_f[kModeBatchSize];
@@ -109,7 +116,7 @@ void Resonator::Process(float f0, float structure, float brightness,
   ResonatorSVF<kModeBatchSize> *batch_processor = &mode_filters_[0];
 
   for (int i = 0; i < resolution_; ++i) {
-    float mode_frequency = harmonic * stretch_factor;
+    float mode_frequency = harmonic * stretch;
     if (mode_frequency >= 0.499f) {
       mode_frequency = 0.499f;
     }
@@ -127,7 +134,7 @@ void Resonator::Process(float f0, float structure, float brightness,
       ++batch_processor;
     }
 
-    stretch_factor += stiffness;
+    stretch += stiffness;
     if (stiffness < 0.0f) {
       // Make sure that the partials do not fold back into negative frequencies.
       stiffness *= 0.93f;

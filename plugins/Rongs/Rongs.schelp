@@ -1,46 +1,83 @@
 CLASS:: Rongs
-SUMMARY:: A plugin... 
-RELATED::TODO
-CATEGORIES::TODO
+SUMMARY:: A modal synthesis voice
+RELATED::Classes>LPG
+CATEGORIES::Modal
 
 DESCRIPTION::
 
-This is a short description
+A modal synthesis voice spanning sonic territory from tired spring reverb, plastic tubes to string plucking and percussion.
+
+This implementation has 128 modes (as opposed to 64 in Rings and Plaits 24) which widens the sonic potential quite substantially.
+
+It is a Frankenstein of code from Mutable Instruments' modal synthesis modules, based mostly on the simple version in Plaits but incorporating elements from the others while adding parameters not found in either of them.
+
+It utilizes some high precision settings that were available in Mutable Instruments' code but not used in the production models it seems, these add extra depth to the sound.
 
 CLASSMETHODS::
 
 METHOD::ar
 
-ARGUMENT::TODO
+ARGUMENT::trigger 
+Trigger the resonator
 
-ARGUMENT::TODO
+ARGUMENT::sustain
+A trigger/gate input to keep the resonator open (feeding it crackling noise)
+
+ARGUMENT::f0
+The base scale for the frequency. This is sort of arbitrary and will be scaled by amount of modes and a combination of the other parameters.
+
+Values should be between 0.0 and 1.0.
+
+ARGUMENT::structure
+Values should be between 0.0 and 1.0.
+
+ARGUMENT::brightness
+Values should be between 0.0 and 1.0.
+
+ARGUMENT::damping
+Values should be between 0.0 and 1.0.
+
+ARGUMENT::accent
+Values should be between 0.0 and 1.0.
+
+ARGUMENT::stretch
+Values should be between 0.0 and 1.0.
+
+ARGUMENT::position
+Values should be between 0.0 and 1.0.
+
+ARGUMENT::loss
+Values should be between 0.0 and 1.0.
 
 EXAMPLES::
 
 code::
 (
-Ndef(\c, {|panfreq=0.01| // default initial params
-	var density = SinOsc.kr(panfreq);
-	var trig = Dust2.kr(density.exprange(0.1,10.0));
+Ndef(\c, {|pan=0.0, trigfreq=4|
+	var trig = Dust2.kr(trigfreq);
 
 	var sig = Rongs.ar(
 		trig, 
 		sustain: trig, 
-		// f0:0.0001,
-		f0: [1.0,1.01] * TExpRand.kr(0.001,0.009, trig), 
+		f0: [1.0,1.01] * TRand.kr(0.01,0.2, trig), 
 		structure: TRand.kr(0.0,0.99,trig),
-		brightness: TRand.kr(0.5,0.99,trig), 
-		damping: TRand.kr(0.0001,1.0-(density-0.01).unipolar,trig:trig),
-		accent: 0.99
+		brightness: TRand.kr(0.6,0.99,trig), 
+		stretch: TRand.kr(0.1,0.99,trig), 
+		damping: 0.7,
+		//damping: TRand.kr(0.5,0.85, trig),
+		accent: 0.99,
+		loss: 0.1
 	);
 
-	sig = sig / 10;
-
-	Splay.ar(LeakDC.ar(sig.tanh), spread: SinOsc.kr(0.01).unipolar * 0.5, center: SinOsc.kr(panfreq));
+	Splay.ar(LeakDC.ar(sig), spread: 0.25, center: pan);
 }).play;
+)
 
-Ndef(\c).copy(\c2).set(\panfreq, 0.0285).play;
-Ndef(\c).copy(\c3).set(\panfreq, 0.00285).play;
+// Want more mayhem?
+(
+
+Ndef(\c).copy(\c2).set(\pan, 0.285).play;
+Ndef(\c).copy(\c3).set(\pan, (-0.2855285)).play;
 
 )
 ::

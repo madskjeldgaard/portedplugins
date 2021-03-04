@@ -53,18 +53,28 @@ void ModalVoice::Init() {
 
 void ModalVoice::Render(bool sustain, bool trigger, float accent, float f0,
                         float structure, float brightness, float damping,
-                        float *temp, float *out, size_t size) {
+                        float stretch, float position, float loss, float *temp,
+                        float *out, size_t size) {
+  fill(&out[0], &out[size], 0.0f);
+
+  // Scale f0 so that inputs from 0.0 to 1.0 make better sense.
+  f0 = (f0 * 0.05) + 0.00001;
+
   const float density = brightness * brightness;
 
-  brightness += 0.25f * accent * (1.0f - brightness);
-  damping += 0.25f * accent * (1.0f - damping);
+  // NOTE: Is this position?
+  brightness += position * accent * (1.0f - brightness);
+  damping += position * accent * (1.0f - damping);
 
   const float range = sustain ? 36.0f : 60.0f;
-  const float f = sustain ? 4.0f * f0 : 2.0f * f0;
+  /* const float range = 60.f; */
+  /* const float f = sustain ? 4.0f * f0 : 2.0f * f0; */
+  const float f = 2.0f * f0;
   const float cutoff = min(
       f * SemitonesToRatio((brightness * (2.0f - brightness) - 0.5f) * range),
       0.499f);
   const float q = sustain ? 0.7f : 1.5f;
+  /* const float q = 0.7f; */
 
   // Synthesize excitation signal.
   if (sustain) {
@@ -83,7 +93,8 @@ void ModalVoice::Render(bool sustain, bool trigger, float accent, float f0,
   const float one = 1.0f;
   excitation_filter_.Process<FILTER_MODE_LOW_PASS, false>(&cutoff, &q, &one,
                                                           temp, temp, size);
-  resonator_.Process(f0, structure, brightness, damping, temp, out, size);
+  resonator_.Process(f0, structure, brightness, damping, stretch, loss, temp,
+                     out, size);
 }
 
 extern const float lut_stiffness[];

@@ -16,7 +16,7 @@ public:
 
   void Init();
   void Render(bool sustain, bool trigger, float accent, float f0,
-              float structure, float brightness, float damping, float *temp,
+              float structure, float brightness, float damping, float stretch, float position, float loss, float *temp,
               float *out, size_t size);
   float Dust(float frequency);
 

@@ -28,6 +28,9 @@ private:
     Brightness,
     Damping,
     Accent,
+	Stretch,
+	Position,
+	Loss,
     NumInputParams
   };
   enum Outputs { Output, NumOutputParams };
