@@ -2,7 +2,6 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "Rongs.hpp"
-#include "../mi-modal.cpp"
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -12,9 +11,9 @@ namespace Rongs {
 Rongs::Rongs() {
   modalvoice.Init();
   const size_t temp_buffer_size = bufferSize() * sizeof(float);
-  temp_buffer_ = (float *)RTAlloc(mWorld, temp_buffer_size);
+  m_internal_noise_buffer = (float *)RTAlloc(mWorld, temp_buffer_size);
 
-  if (temp_buffer_ == NULL) {
+  if (m_internal_noise_buffer == NULL) {
     mCalcFunc = make_calc_function<Rongs, &Rongs::clear>();
     clear(1);
 
@@ -27,10 +26,10 @@ Rongs::Rongs() {
   }
 
   // Fill the buffer with zeros.
-  memset(temp_buffer_, 0, temp_buffer_size);
+  memset(m_internal_noise_buffer, 0, temp_buffer_size);
 }
 
-Rongs::~Rongs() { RTFree(mWorld, temp_buffer_); }
+Rongs::~Rongs() { RTFree(mWorld, m_internal_noise_buffer); }
 
 void Rongs::next(int nSamples) {
   /* const float *input = in(Input); */
@@ -51,8 +50,8 @@ void Rongs::next(int nSamples) {
   float *outbuf = out(Output);
 
   modalvoice.Render(sustain, trigger, accent, f0, structure, brightness,
-                    damping, stretch, position, loss, temp_buffer_, outbuf,
-                    nSamples);
+                    damping, stretch, position, loss, m_internal_noise_buffer,
+                    outbuf, nSamples);
 }
 
 void Rongs::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }

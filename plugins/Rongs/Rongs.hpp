@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "../mi-modal.hpp"
+#include "../mutated/mi-modal.cpp"
 #include "SC_PlugIn.hpp"
 
 namespace Rongs {
@@ -36,7 +36,7 @@ private:
   enum Outputs { Output, NumOutputParams };
 
   mi::ModalVoice modalvoice;
-  float *temp_buffer_;
+  float *m_internal_noise_buffer;
 };
 
 } // namespace Rongs
