@@ -50,7 +50,7 @@ The pluck/hit accent.
 Values should be between 0.0 and 1.0.
 
 ARGUMENT::stretch
-Stretch of the material (from wobbly spring to tight steel string).
+Stretch of the harmonics.
 
 Values should be between 0.0 and 1.0.
 
