@@ -19,6 +19,10 @@ Chen's chaotic double scroll attractor. Inspired by Bryan Head's implementation 
 
 A digital model of the Buchla Lowpass-Gate. Based on a paper/research by Julian Parker and Stefano D'Angelo.
 
+**Rongs**
+
+A modal synthesis voice based on the algorithms of Mutable Instruments' modules. It's sonic territory spans tired spring reverb, plastic tubes, metallic percussion and plucked strings.
+
 ### Installation
 1. Download one of [the prebuilt releases](https://github.com/madskjeldgaard/mkplugins/releases). Choose the one that fits your operating system.
 2. Unzip the contents in your extensions directory (If you don't know where this is, open up SuperCollider and evaluate `Platform.userExtensionDir` - the path will be posted in the post window).
