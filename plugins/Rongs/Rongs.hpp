@@ -31,6 +31,8 @@ private:
 	Stretch,
 	Position,
 	Loss,
+	NumModes,
+	CosFreq,
     NumInputParams
   };
   enum Outputs { Output, NumOutputParams };

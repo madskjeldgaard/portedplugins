@@ -40,7 +40,7 @@ inline float ModalVoice::Dust(float frequency) {
   }
 }
 
-void ModalVoice::Init() {
+void ModalVoice::Init(ResonatorProcessingMode mode, float initCosFreq) {
   std::random_device
       rd; // Will be used to obtain a seed for the random number engine
   std::mt19937 mersenne_engine_(
@@ -48,7 +48,8 @@ void ModalVoice::Init() {
   std::uniform_real_distribution<float> random_dist_(0.0f, 1.0f);
 
   excitation_filter_.Init();
-  resonator_.Init(0.015f, kMaxNumModes);
+
+  resonator_.Init(mode, initCosFreq);
 }
 
 void ModalVoice::Render(bool sustain, bool trigger, float accent, float f0,

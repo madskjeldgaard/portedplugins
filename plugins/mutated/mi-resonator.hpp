@@ -306,8 +306,19 @@ private:
   float state_2_[batch_size];
 };
 
-const int kMaxNumModes = 128;
-const int kModeBatchSize = 4;
+enum ResonatorProcessingMode {
+  CHAEP,
+  BUDGET,
+  PRETTYGOOD,
+  EXPENSIVE,
+  LUXURY,
+  EXTREME,
+  NumProcessingModes
+};
+
+// Must be power of two
+const int kMaxNumModes = 512;
+const int kModeBatchSize = 8;
 
 /*
  * The resonator used in Rings, this is the floating point version from Plaits.
@@ -317,17 +328,50 @@ public:
   Resonator() {}
   ~Resonator() {}
 
-  void Init(float position, int resolution) {
-    resolution_ = min(resolution, kMaxNumModes);
+  void Init(ResonatorProcessingMode mode, float cosFreq) {
+    setModes(mode, cosFreq);
 
-    CosineOscillator amplitudes;
-    amplitudes.Init<COSINE_OSCILLATOR_APPROXIMATE>(position);
+	// NOTE: Not sure what the point of this is.,..
+    /* resolution_ = min(resolution, numModes_); */
+  };
 
-    for (int i = 0; i < resolution; ++i) {
-      mode_amplitude_[i] = amplitudes.Next() * 0.05;
+  void setModes(ResonatorProcessingMode mode, float cosFreq) {
+    // Set number of modes
+    switch (mode) {
+    case CHAEP:
+      numModes_ = 16;
+      break;
+    case BUDGET:
+      numModes_ = 32;
+      break;
+    case PRETTYGOOD:
+      numModes_ = 64;
+      break;
+    case EXPENSIVE:
+      numModes_ = 128;
+      break;
+    case LUXURY:
+      numModes_ = 256;
+      break;
+    case EXTREME:
+      numModes_ = 512;
+      break;
+    default:
+      numModes_ = 32;
     }
 
-    for (int i = 0; i < kMaxNumModes / kModeBatchSize; ++i) {
+	resolution_ = numModes_;
+
+    float filterAmplitudesScale = 0.125f;
+
+    amplitudes_.Init<COSINE_OSCILLATOR_APPROXIMATE>(cosFreq);
+	/* amplitudes_.Init<COSINE_OSCILLATOR_EXACT>(cosFreq); */
+
+    for (int i = 0; i < resolution_; ++i) {
+      mode_amplitude_[i] = amplitudes_.Next() * filterAmplitudesScale;
+    }
+
+    for (int i = 0; i < numModes_ / kModeBatchSize; ++i) {
       mode_filters_[i].Init();
     }
   };
@@ -395,7 +439,10 @@ public:
   };
 
 private:
-  int resolution_;
+  int resolution_{0};
+  int numModes_{0};
+
+  CosineOscillator amplitudes_;
 
   float mode_amplitude_[kMaxNumModes];
   ResonatorSVF<kModeBatchSize> mode_filters_[kMaxNumModes / kModeBatchSize];

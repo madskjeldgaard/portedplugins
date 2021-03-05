@@ -7,7 +7,7 @@ DESCRIPTION::
 
 A modal synthesis voice spanning sonic territory from tired spring reverb, plastic tubes to string plucking and percussion.
 
-This implementation has 128 modes (as opposed to 64 in Rings and 24 in Plaits) which widens the sonic potential quite substantially (and the CPU usage as well).
+This implementation has up to 512 modes (as opposed to 64 in Mutable Instruments Rings/Elements and 24 in Plaits) which widens the sonic potential quite substantially (and the CPU usage as well).
 
 It is a Frankenstein of code from LINK::https://mutable-instruments.net/##Mutable Instruments::' modal synthesis modules, based mostly on the simple version in Plaits but incorporating elements from the others while adding parameters not found in either of them.
 
@@ -62,6 +62,25 @@ Values should be between 0.0 and 1.0.
 ARGUMENT::loss
 Values should be between 0.0 and 1.0.
 
+ARGUMENT::modeNum
+An integer between 0 and 5 setting the processing mode, from the lowest (and cheapest on the CPU) amount of modes to the highest. This argument is set at init.
+
+table::
+    ## modeNum || number of modes
+    ## 0 || 16
+    ## 1 || 32
+	## 2 || 64
+	## 3 || 128
+	## 4 || 256
+	## 5 || 512
+
+::
+
+ARGUMENT::cosFreq
+The bandpass filters' amplitudes are scaled using values generated on init using a cosine generator. This argument sets the frequency of that. It has some sort of esoteric influence on the sound but I'm not sure what it does exactly. Anyway, it's open to exploration.
+
+This argument is set at init.
+
 EXAMPLES::
 
 code::
@@ -91,7 +110,57 @@ Ndef(\c, {|pan=0.0, trigfreq=4|
 
 Ndef(\c).copy(\c2).set(\pan, 0.285).play;
 Ndef(\c).copy(\c3).set(\pan, (-0.2855285)).play;
+)
 
+// A synth def
+(
+SynthDef.new(\rongsinator, {|out, amp=0.25, pan=0, sustainTime=0.01, f0=0.05, structure=0.5, brightness=0.5, damping=0.75, accent=0.9, harmonicstretch=0.5, position=0.15, loss=0.15, modeNum=2, cosFreq=0.25|
+	var trig = Trig.kr(1, dur: sustainTime);
+
+	var sig = Rongs.ar(
+		trigger:trig, 
+		sustain:trig, 
+		f0:f0, 
+		structure:structure, 
+		brightness:brightness, 
+		damping:damping, 
+		accent:accent, 
+		stretch:harmonicstretch, 
+		position:position, 
+		loss:loss, 
+		modeNum:modeNum, 
+		cosFreq:cosFreq
+	);
+
+	DetectSilence.ar(in: sig, amp: 0.0001, time: 0.1, doneAction: 2);
+	sig = Pan2.ar(sig, pan);
+	Out.ar(out, sig);
+}).add;
+)
+
+// Trig it once
+Synth(\rongsinator, [\damping, 0.5])
+
+// Play pattern
+(
+Pdef('🌻', 
+	Pbind(
+		\instrument, \rongsinator,
+		\amp, 0.20,
+		\pan, Pwhite(-1.0,1.0),
+		\f0, Pseq([0.025,0.01,0.018], inf) + Pseg(Pseq([0.008,0.0016], inf), 14, \exp, inf),
+		\dur, 0.125,
+		\structure, Pseg([0.1,1.0], 5, \lin, inf),
+		\brightness, 0.5,
+		\damping, Pseg([0.65,0.30], 13, \lin, inf),
+		\accent, 0.69,
+		\harmonicstretch, 0.0151,
+		\position, Pseg([0.6,0.0], 8, \lin, inf),
+		\loss, 0.15,
+		\modeNum, 3,
+		\cosFreq, 0.15,
+	)
+).play
 )
 ::
 

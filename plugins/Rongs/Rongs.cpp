@@ -9,7 +9,36 @@ static InterfaceTable *ft;
 namespace Rongs {
 
 Rongs::Rongs() {
-  modalvoice.Init();
+  int modeNum = in0(NumModes);
+  const float cosFreq = in0(CosFreq);
+  const int maxnum = mi::ResonatorProcessingMode::NumProcessingModes;
+  modeNum = (modeNum >= maxnum || modeNum < 0) ? 0 : modeNum;
+
+  mi::ResonatorProcessingMode mode;
+  switch (modeNum) {
+  case 0:
+    mode = mi::ResonatorProcessingMode::CHAEP;
+    break;
+  case 1:
+    mode = mi::ResonatorProcessingMode::BUDGET;
+    break;
+  case 2:
+    mode = mi::ResonatorProcessingMode::PRETTYGOOD;
+    break;
+  case 3:
+    mode = mi::ResonatorProcessingMode::EXPENSIVE;
+    break;
+  case 4:
+    mode = mi::ResonatorProcessingMode::LUXURY;
+    break;
+  case 5:
+    mode = mi::ResonatorProcessingMode::EXTREME;
+    break;
+  default:
+    mode = mi::ResonatorProcessingMode::BUDGET;
+  }
+
+  modalvoice.Init(mode, cosFreq);
   const size_t temp_buffer_size = bufferSize() * sizeof(float);
   m_internal_noise_buffer = (float *)RTAlloc(mWorld, temp_buffer_size);
 
