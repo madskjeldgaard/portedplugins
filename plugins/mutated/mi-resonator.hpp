@@ -30,13 +30,54 @@
 // The click is replaced by continuous white noise when the trigger input
 // of the module is not patched.
 
-#include "math.h"
 #include "../mkutils.hpp"
+#include "math.h"
+#include "mi-lookuptables.h"
+#include <algorithm>
 
 #pragma once
 
 namespace mi {
+using namespace std;
 
+extern const float lut_pitch_ratio_high[];
+extern const float lut_pitch_ratio_low[];
+
+/*
+ * MI utilities
+ */
+#define MAKE_INTEGRAL_FRACTIONAL(x)                                            \
+  int32_t x##_integral = static_cast<int32_t>(x);                              \
+  float x##_fractional = x - static_cast<float>(x##_integral);
+
+inline float Interpolate(const float *table, float index, float size) {
+  index *= size;
+  MAKE_INTEGRAL_FRACTIONAL(index)
+  float a = table[index_integral];
+  float b = table[index_integral + 1];
+  return a + (b - a) * index_fractional;
+}
+
+inline float SemitonesToRatio(float semitones) {
+  float pitch = semitones + 128.0f;
+  MAKE_INTEGRAL_FRACTIONAL(pitch)
+
+  return lut_pitch_ratio_high[pitch_integral] *
+         lut_pitch_ratio_low[static_cast<int32_t>(pitch_fractional * 256.0f)];
+}
+
+inline float NthHarmonicCompensation(int n, float stiffness) {
+  float stretch_factor = 1.0f;
+  for (int i = 0; i < n - 1; ++i) {
+    stretch_factor += stiffness;
+    if (stiffness < 0.0f) {
+      stiffness *= 0.93f;
+    } else {
+      stiffness *= 0.98f;
+    }
+  }
+  return 1.0f / stretch_factor;
+}
 enum FrequencyApproximation {
   FREQUENCY_EXACT,
   FREQUENCY_ACCURATE,
@@ -66,6 +107,62 @@ const double M_PI = std::acos(-1.0);
 #define M_PI_POW_9 M_PI_POW_7 *M_PI_POW_2
 #define M_PI_POW_11 M_PI_POW_9 *M_PI_POW_2
 
+enum CosineOscillatorMode {
+  COSINE_OSCILLATOR_APPROXIMATE,
+  COSINE_OSCILLATOR_EXACT
+};
+
+class CosineOscillator {
+public:
+  CosineOscillator() {}
+  ~CosineOscillator() {}
+
+  template <CosineOscillatorMode mode> inline void Init(float frequency) {
+    if (mode == COSINE_OSCILLATOR_EXACT) {
+      InitApproximate(frequency);
+    } else {
+      iir_coefficient_ = 2.0f * cosf(2.0f * M_PI * frequency);
+      initial_amplitude_ = iir_coefficient_ * 0.25f;
+    }
+    Start();
+  }
+
+  inline void InitApproximate(float frequency) {
+    float sign = 16.0f;
+    frequency -= 0.25f;
+    if (frequency < 0.0f) {
+      frequency = -frequency;
+    } else {
+      if (frequency > 0.5f) {
+        frequency -= 0.5f;
+      } else {
+        sign = -16.0f;
+      }
+    }
+    iir_coefficient_ = sign * frequency * (1.0f - 2.0f * frequency);
+    initial_amplitude_ = iir_coefficient_ * 0.25f;
+  }
+
+  inline void Start() {
+    y1_ = initial_amplitude_;
+    y0_ = 0.5f;
+  }
+
+  inline float value() const { return y1_ + 0.5f; }
+
+  inline float Next() {
+    float temp = y0_;
+    y0_ = iir_coefficient_ * y0_ - y1_;
+    y1_ = temp;
+    return temp + 0.5f;
+  }
+
+private:
+  float y1_;
+  float y0_;
+  float iir_coefficient_;
+  float initial_amplitude_;
+};
 /*
  * MI OnePole filter used in filter abstractions.
  */
@@ -140,6 +237,7 @@ public:
   }
 
 private:
+  FrequencyApproximation m_approx;
   float g_;
   float gi_;
   float state_;
@@ -219,72 +317,88 @@ public:
   Resonator() {}
   ~Resonator() {}
 
-  void Init(float position, int resolution);
+  void Init(float position, int resolution) {
+    resolution_ = min(resolution, kMaxNumModes);
+
+    CosineOscillator amplitudes;
+    amplitudes.Init<COSINE_OSCILLATOR_APPROXIMATE>(position);
+
+    for (int i = 0; i < resolution; ++i) {
+      mode_amplitude_[i] = amplitudes.Next() * 0.05;
+    }
+
+    for (int i = 0; i < kMaxNumModes / kModeBatchSize; ++i) {
+      mode_filters_[i].Init();
+    }
+  };
+
   void Process(float f0, float structure, float brightness, float damping,
-               float stretch, float loss, const float *in, float *out, size_t size);
+               float stretch, float loss, const float *in, float *out,
+               size_t size) {
+
+    float stiffness = Interpolate(lut_stiffness, structure, 64.0f);
+    f0 *= NthHarmonicCompensation(3, stiffness);
+
+    // Offset stretch param so that it doesn't go below 1.0
+    stretch += 1.0f;
+
+    // This makes more sense: The higher the damping param, the more it dampens
+    damping = 1.0f - damping;
+    /* loss = (1.0f - loss); //1* 0.99f + 0.01f; */
+
+    float harmonic = f0;
+    float q_sqrt = SemitonesToRatio(damping * 79.7f);
+    float q = 500.0f * q_sqrt * q_sqrt;
+
+    brightness *= 1.0f - structure * 0.3f;
+    brightness *= 1.0f - damping * 0.3f;
+    float q_loss = brightness * (2.0f - brightness) * (loss) + (1.0f - loss);
+
+    float mode_q[kModeBatchSize];
+    float mode_f[kModeBatchSize];
+    float mode_a[kModeBatchSize];
+    int batch_counter = 0;
+
+    ResonatorSVF<kModeBatchSize> *batch_processor = &mode_filters_[0];
+
+    for (int i = 0; i < resolution_; ++i) {
+      float mode_frequency = harmonic * stretch;
+      if (mode_frequency >= 0.499f) {
+        mode_frequency = 0.499f;
+      }
+      const float mode_attenuation = 1.0f - mode_frequency * 2.0f;
+
+      mode_f[batch_counter] = mode_frequency;
+      mode_q[batch_counter] = 1.0f + mode_frequency * q;
+      mode_a[batch_counter] = mode_amplitude_[i] * mode_attenuation;
+      ++batch_counter;
+
+      if (batch_counter == kModeBatchSize) {
+        batch_counter = 0;
+        batch_processor->Process<FILTER_MODE_BAND_PASS, true>(
+            mode_f, mode_q, mode_a, in, out, size);
+        ++batch_processor;
+      }
+
+      stretch += stiffness;
+      if (stiffness < 0.0f) {
+        // Make sure that the partials do not fold back into negative
+        // frequencies.
+        stiffness *= 0.93f;
+      } else {
+        // This helps adding a few extra partials in the highest frequencies.
+        stiffness *= 0.98f;
+      }
+      harmonic += f0;
+      q *= q_loss;
+    }
+  };
 
 private:
   int resolution_;
 
   float mode_amplitude_[kMaxNumModes];
   ResonatorSVF<kModeBatchSize> mode_filters_[kMaxNumModes / kModeBatchSize];
-};
-
-enum CosineOscillatorMode {
-  COSINE_OSCILLATOR_APPROXIMATE,
-  COSINE_OSCILLATOR_EXACT
-};
-
-class CosineOscillator {
-public:
-  CosineOscillator() {}
-  ~CosineOscillator() {}
-
-  template <CosineOscillatorMode mode> inline void Init(float frequency) {
-    if (mode == COSINE_OSCILLATOR_EXACT) {
-      InitApproximate(frequency);
-    } else {
-      iir_coefficient_ = 2.0f * cosf(2.0f * M_PI * frequency);
-      initial_amplitude_ = iir_coefficient_ * 0.25f;
-    }
-    Start();
-  }
-
-  inline void InitApproximate(float frequency) {
-    float sign = 16.0f;
-    frequency -= 0.25f;
-    if (frequency < 0.0f) {
-      frequency = -frequency;
-    } else {
-      if (frequency > 0.5f) {
-        frequency -= 0.5f;
-      } else {
-        sign = -16.0f;
-      }
-    }
-    iir_coefficient_ = sign * frequency * (1.0f - 2.0f * frequency);
-    initial_amplitude_ = iir_coefficient_ * 0.25f;
-  }
-
-  inline void Start() {
-    y1_ = initial_amplitude_;
-    y0_ = 0.5f;
-  }
-
-  inline float value() const { return y1_ + 0.5f; }
-
-  inline float Next() {
-    float temp = y0_;
-    y0_ = iir_coefficient_ * y0_ - y1_;
-    y1_ = temp;
-    return temp + 0.5f;
-  }
-
-private:
-  float y1_;
-  float y0_;
-  float iir_coefficient_;
-  float initial_amplitude_;
 };
 
 } // namespace mi
