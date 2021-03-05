@@ -114,9 +114,10 @@ Ndef(\c).copy(\c3).set(\pan, (-0.2855285)).play;
 
 // A synth def
 (
-SynthDef.new(\rongsinator, {|out, amp=0.25, pan=0, sustainTime=0.01, f0=0.05, structure=0.5, brightness=0.5, damping=0.75, accent=0.9, harmonicstretch=0.5, position=0.15, loss=0.15, modeNum=2, cosFreq=0.25|
+SynthDef.new(\rongsinator, {|out, amp=0.25, pan=0, sustainTime=0.01, f0=0.05, structure=0.5, brightness=0.5, damping=0.75, accent=0.9, harmonicstretch=0.5, position=0.15, loss=0.15|
 	var trig = Trig.kr(1, dur: sustainTime);
 
+	var modeNum=2, cosFreq=0.025;
 	var sig = Rongs.ar(
 		trigger:trig, 
 		sustain:trig, 
