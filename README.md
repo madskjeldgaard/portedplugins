@@ -75,5 +75,7 @@ cmake .. -DCMAKE_BUILD_TYPE='Release' -DSC_PATH=/path/to/sc/source -DCMAKE_INSTA
 cmake --build . --config Release
 cmake --build . --config Release --target install
 ```
+#### Building for Raspberry Pi
 
+This repository includes a script for the Raspberry Pi users (Raspberry Pi OS based) that installs the prerequisites for building (cmake), downloads all of the source code needed and compiles and installs it. 
 
