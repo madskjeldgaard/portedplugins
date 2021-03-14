@@ -128,6 +128,63 @@ Ndef(\minieasel2, {|tempo=8.0, envdur=0.91|
 
 )
 
+(
+SynthDef.new(\bongo, {
+	|out=0, 
+	amp=0.5, 
+	freq=141, 
+	width=0.95, 
+	attack=0.001, 
+	release=0.999, 
+	pan=0, 
+	lpgsustain=0.01, 
+	lpgoffset=0, 
+	lpgfilterscale=0.3, 
+	vcaness=0.75, 
+	t_gate=1,
+	resonance=1.1|
+
+	// var sig = VarSaw.ar(freq - [ 0, freq/100.0 ], 0, width).sum;
+	var sig = SinOscFB.ar(freq, 1.5);
+	var env = Env.perc(attack,release).kr(gate: t_gate, timeScale: lpgsustain.poll, doneAction: 0);
+
+	sig = LPG.ar(
+		input: sig, 
+		controlinput: env, 
+		controloffset: lpgoffset, 
+		controlscale: lpgfilterscale, 
+		vca: vcaness,
+		resonance: resonance, 
+		lowpassmode:1, 
+		linearity:1
+	);
+
+	sig = sig * amp;
+	sig = Pan2.ar(sig, pan);
+	Out.ar(out, sig)
+}).add;
+)
+
+(
+Pdef('🦞', 
+	Pmono(
+		\bongo,
+		\amp, 0.5,
+		\degree, Pseq((0..3), inf),
+		\width, 0.25,
+		// \attack, 0.001,
+		// \release, 0.999,
+		\pan, Pseq(Array.rand(5,-1.0,1.0),inf),
+		\dur, 1.0,
+		\gate, 1,
+		// \lpgsustain, 0.0001,
+		\lpgoffset, 0.0,
+		\lpgfilterscale, 0.4,
+		\vcaness, 1-Pkey(\lpgfilterscale),
+		\resonance, 1.2000000238419,
+	)
+).play
+)
 ::
 
 keyword::buchla
