@@ -9,7 +9,7 @@
 cmake_minimum_required(VERSION 3.5)
 set(project_name "MKPlugins")
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_modules ${CMAKE_MODULE_PATH})
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 
 message(STATUS "Cmake build type: " ${CMAKE_BUILD_TYPE})
 
@@ -53,6 +53,10 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT OR NOT CMAKE_INSTALL_PREFIX)
 endif()
 
 message(STATUS "Install directory set to: ${CMAKE_INSTALL_PREFIX}")
+
+# DaisySP library
+add_subdirectory(DaisySP)
+include_directories(${target} DaisySP/Source)
 
 ####################################################################################################
 # options
