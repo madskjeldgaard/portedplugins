@@ -57,6 +57,7 @@ message(STATUS "Install directory set to: ${CMAKE_INSTALL_PREFIX}")
 # DaisySP library
 add_subdirectory(DaisySP)
 include_directories(${target} DaisySP/Source)
+# include_directories(${CMAKE_CURRENT_SOURCE_DIR}/DaisySP/Source/Dynamics)
 
 ####################################################################################################
 # options
@@ -150,5 +151,25 @@ sc_add_server_plugin(
 	"${Rongs_cpp_files}"
 	"${Rongs_sc_files}"
 	"${Rongs_schelp_files}"
+)
+
+# DCompressor
+set(DCompressor_cpp_files
+    plugins/DCompressor/DCompressor.hpp
+    plugins/DCompressor/DCompressor.cpp
+)
+set(DCompressor_sc_files
+    plugins/DCompressor/DCompressor.sc
+)
+set(DCompressor_schelp_files
+    plugins/DCompressor/DCompressor.schelp
+)
+
+sc_add_server_plugin(
+	"${project_name}" # destination directory
+	"DCompressor" # target name
+	"${DCompressor_cpp_files}"
+	"${DCompressor_sc_files}"
+	"${DCompressor_schelp_files}"
 )
 
