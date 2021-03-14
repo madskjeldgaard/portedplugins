@@ -1,0 +1,100 @@
+#!/bin/bash 
+#########################
+# rename_plugin
+# Rename a plugin that's already generated
+#########################
+
+PLUGIN_NAME=$1
+NEW_PLUGIN_NAME=$2
+SOURCE_DIR=plugins
+TARGET_FOLDER=$SOURCE_DIR/$PLUGIN_NAME
+
+CPPFILE="$TARGET_FOLDER/$PLUGIN_NAME.cpp"
+HPPFILE="$TARGET_FOLDER/$PLUGIN_NAME.hpp"
+SCFILE="$TARGET_FOLDER/$PLUGIN_NAME.sc"
+SCHELPFILE="$TARGET_FOLDER/$PLUGIN_NAME.schelp"
+
+function rename_plugin_files(){
+	if [[ -z $CPPFILE ]]; then
+		echo "$CPPFILE does not exist!"
+		exit 1
+	else
+		NEWPATH=$TARGET_FOLDER/$NEW_PLUGIN_NAME.cpp
+		echo "Renaming $CPPFILE to $NEWPATH"
+		mv $CPPFILE $NEWPATH
+	fi
+
+	if [[ -z $HPPFILE ]]; then
+		echo "$HPPFILE does not exist!"
+		exit 1
+	else
+		NEWPATH=$TARGET_FOLDER/$NEW_PLUGIN_NAME.hpp
+		echo "Renaming $HPPFILE to $NEWPATH"
+		mv $HPPFILE $NEWPATH
+	fi
+
+	if [[ -z $SCHELPFILE ]]; then
+		echo "$SCHELPFILE does not exist!"
+		exit 1
+	else
+		NEWPATH=$TARGET_FOLDER/$NEW_PLUGIN_NAME.schelp
+		echo "Renaming $SCHELPFILE to $NEWPATH"
+		mv $SCHELPFILE $NEWPATH
+	fi
+
+	if [[ -z $SCFILE ]]; then
+		echo "$SCFILE does not exist!"
+		exit 1
+	else
+		NEWPATH=$TARGET_FOLDER/$NEW_PLUGIN_NAME.sc
+		echo "Renaming $SCFILE to $NEWPATH"
+		mv $SCFILE $NEWPATH
+	fi
+}
+
+function rename_cmakelists(){
+	if [[ -z "CMakeLists.txt" ]]; then
+		echo "Cannot find CMakeLists.txt"
+		exit 1
+	else
+		echo "Updating CMakelists.txt with new information"
+		sed -i -e "s/$PLUGIN_NAME/$NEW_PLUGIN_NAME/g" "CMakeLists.txt"
+	fi
+}
+
+function rename_plugin_classes(){
+
+	echo "Updating c++ files with new information"
+	sed -i -e "s/$PLUGIN_NAME/$NEW_PLUGIN_NAME/g" "$CPPFILE"
+	sed -i -e "s/$PLUGIN_NAME/$NEW_PLUGIN_NAME/g" "$HPPFILE"
+	 
+	echo "Updating sc files with new information"
+	sed -i -e "s/$PLUGIN_NAME/$NEW_PLUGIN_NAME/g" "$SCHELPFILE"
+	sed -i -e "s/$PLUGIN_NAME/$NEW_PLUGIN_NAME/g" "$SCFILE"
+
+}
+
+function rename_plugin_folder(){
+	NEW_TARGET_FOLDER=$SOURCE_DIR/$NEW_PLUGIN_NAME
+	echo "Renaming $TARGET_FOLDER to $NEW_TARGET_FOLDER"
+	mv $TARGET_FOLDER $NEW_TARGET_FOLDER
+}
+
+function init(){
+	if [[ -z "$PLUGIN_NAME" ]]; then
+		echo "Usage: rename_plugin <oldname> <newname>"
+		exit 1
+	else
+		if [[ -z $TARGET_FOLDER ]]; then
+			echo "Target folder $TARGET_FOLDER does not exist..."
+			exit 1
+		else
+			rename_plugin_classes &&\
+				rename_plugin_files &&\
+				rename_plugin_folder &&\
+				rename_cmakelists
+		fi
+	fi
+}
+
+init
