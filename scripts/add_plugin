@@ -54,16 +54,10 @@ Ndef(\notam, {|freq=110, width=0.5|
 function generate_sc_class(){
 
 echo "Generating SuperCollider class file"
-echo "$PLUGIN_NAME : MultiOutUGen {
+echo "$PLUGIN_NAME : UGen {
 	*ar { |input, gain|
 		/* TODO */
 		^this.multiNew('audio', input, gain);
-	}
-
-	init { arg ... theInputs;
-		var numChannelsOut = 2;
-		inputs = theInputs;
-		^this.initOutputs(numChannelsOut, rate)
 	}
 
 	checkInputs {
