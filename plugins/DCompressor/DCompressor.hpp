@@ -5,7 +5,7 @@
 
 #include "SC_PlugIn.hpp"
 /* #include "../comp.c" */
-#include "Dynamics/compressor.cpp"
+#include "daisysp.h"
 
 namespace DCompressor {
 

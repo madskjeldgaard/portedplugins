@@ -1,0 +1,34 @@
+CLASS:: ZOsc
+SUMMARY:: A plugin... 
+RELATED::TODO
+CATEGORIES::TODO
+
+DESCRIPTION::
+
+This is a short description
+
+CLASSMETHODS::
+
+METHOD::ar
+
+ARGUMENT::TODO
+
+ARGUMENT::TODO
+
+EXAMPLES::
+
+code::
+(
+Ndef(\skatter, { 
+	var mod = SinOsc.kr(0.1);
+	var sig = ZOsc.ar(
+		freq: LFNoise2.kr(10).exprange(10.0,1000.0), 
+		formantfreq: LFNoise2.kr(1).exprange(700,1500), 
+		shape: mod, 
+		mode: SinOsc.kr(0.91)
+	);
+	Pan2.ar(sig, mod);
+}).play;
+)
+::
+

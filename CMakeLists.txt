@@ -54,9 +54,6 @@ endif()
 
 message(STATUS "Install directory set to: ${CMAKE_INSTALL_PREFIX}")
 
-# DaisySP library
-add_subdirectory(DaisySP)
-include_directories(${target} DaisySP/Source)
 # include_directories(${CMAKE_CURRENT_SOURCE_DIR}/DaisySP/Source/Dynamics)
 
 ####################################################################################################
@@ -127,8 +124,26 @@ sc_add_server_plugin(
   "${Chen_schelp_files}"
 )
 
-# End plugins
 ####################################################################################################
+# DAISYSP LIBRARY
+####################################################################################################
+
+# DaisySP library
+add_subdirectory(DaisySP)
+
+# Link plugin with DaisySP library
+function(sc_link_with_daisy plugin_name)
+	message(STATUS "Linking ${plugin_name} with DaisySP library")
+	if(SCSYNTH)
+		include_directories("${plugin_name}_scsynth" DaisySP/Source)
+		target_link_libraries("${plugin_name}_scsynth" DaisySP )
+	endif()
+
+	if(SUPERNOVA)
+		include_directories("${plugin_name}_supernova" DaisySP/Source)
+		target_link_libraries("${plugin_name}_supernova" DaisySP )
+	endif()
+endfunction()
 
 ####################################################################################################
 # END PLUGIN TARGET DEFINITION
@@ -173,3 +188,152 @@ sc_add_server_plugin(
 	"${DCompressor_schelp_files}"
 )
 
+sc_link_with_daisy("DCompressor")
+
+# BLOsc
+set(BLOsc_cpp_files
+    plugins/BLOsc/BLOsc.hpp
+    plugins/BLOsc/BLOsc.cpp
+)
+set(BLOsc_sc_files
+    plugins/BLOsc/BLOsc.sc
+)
+set(BLOsc_schelp_files
+    plugins/BLOsc/BLOsc.schelp
+)
+
+sc_add_server_plugin(
+	"${project_name}" # destination directory
+	"BLOsc" # target name
+	"${BLOsc_cpp_files}"
+	"${BLOsc_sc_files}"
+	"${BLOsc_schelp_files}"
+)
+sc_link_with_daisy("BLOsc")
+
+# HarmonicOsc
+set(HarmonicOsc_cpp_files
+    plugins/HarmonicOsc/HarmonicOsc.hpp
+    plugins/HarmonicOsc/HarmonicOsc.cpp
+)
+set(HarmonicOsc_sc_files
+    plugins/HarmonicOsc/HarmonicOsc.sc
+)
+set(HarmonicOsc_schelp_files
+    plugins/HarmonicOsc/HarmonicOsc.schelp
+)
+
+sc_add_server_plugin(
+	"${project_name}" # destination directory
+	"HarmonicOsc" # target name
+	"${HarmonicOsc_cpp_files}"
+	"${HarmonicOsc_sc_files}"
+	"${HarmonicOsc_schelp_files}"
+)
+sc_link_with_daisy("HarmonicOsc")
+
+# OscBank
+set(OscBank_cpp_files
+    plugins/OscBank/OscBank.hpp
+    plugins/OscBank/OscBank.cpp
+)
+set(OscBank_sc_files
+    plugins/OscBank/OscBank.sc
+)
+set(OscBank_schelp_files
+    plugins/OscBank/OscBank.schelp
+)
+
+sc_add_server_plugin(
+	"${project_name}" # destination directory
+	"OscBank" # target name
+	"${OscBank_cpp_files}"
+	"${OscBank_sc_files}"
+	"${OscBank_schelp_files}"
+)
+sc_link_with_daisy("OscBank")
+
+# NeoVarSawOsc
+set(NeoVarSawOsc_cpp_files
+    plugins/NeoVarSawOsc/NeoVarSawOsc.hpp
+    plugins/NeoVarSawOsc/NeoVarSawOsc.cpp
+)
+set(NeoVarSawOsc_sc_files
+    plugins/NeoVarSawOsc/NeoVarSawOsc.sc
+)
+set(NeoVarSawOsc_schelp_files
+    plugins/NeoVarSawOsc/NeoVarSawOsc.schelp
+)
+
+sc_add_server_plugin(
+	"${project_name}" # destination directory
+	"NeoVarSawOsc" # target name
+	"${NeoVarSawOsc_cpp_files}"
+	"${NeoVarSawOsc_sc_files}"
+	"${NeoVarSawOsc_schelp_files}"
+)
+sc_link_with_daisy("NeoVarSawOsc")
+
+# VarShapeOsc
+set(VarShapeOsc_cpp_files
+    plugins/VarShapeOsc/VarShapeOsc.hpp
+    plugins/VarShapeOsc/VarShapeOsc.cpp
+)
+set(VarShapeOsc_sc_files
+    plugins/VarShapeOsc/VarShapeOsc.sc
+)
+set(VarShapeOsc_schelp_files
+    plugins/VarShapeOsc/VarShapeOsc.schelp
+)
+
+sc_add_server_plugin(
+	"${project_name}" # destination directory
+	"VarShapeOsc" # target name
+	"${VarShapeOsc_cpp_files}"
+	"${VarShapeOsc_sc_files}"
+	"${VarShapeOsc_schelp_files}"
+)
+sc_link_with_daisy("VarShapeOsc")
+
+# VosimOsc
+set(VosimOsc_cpp_files
+    plugins/VosimOsc/VosimOsc.hpp
+    plugins/VosimOsc/VosimOsc.cpp
+)
+set(VosimOsc_sc_files
+    plugins/VosimOsc/VosimOsc.sc
+)
+set(VosimOsc_schelp_files
+    plugins/VosimOsc/VosimOsc.schelp
+)
+
+sc_add_server_plugin(
+	"${project_name}" # destination directory
+	"VosimOsc" # target name
+	"${VosimOsc_cpp_files}"
+	"${VosimOsc_sc_files}"
+	"${VosimOsc_schelp_files}"
+)
+
+sc_link_with_daisy("VosimOsc")
+
+# ZOsc
+set(ZOsc_cpp_files
+    plugins/ZOsc/ZOsc.hpp
+    plugins/ZOsc/ZOsc.cpp
+)
+set(ZOsc_sc_files
+    plugins/ZOsc/ZOsc.sc
+)
+set(ZOsc_schelp_files
+    plugins/ZOsc/ZOsc.schelp
+)
+
+sc_add_server_plugin(
+	"${project_name}" # destination directory
+	"ZOsc" # target name
+	"${ZOsc_cpp_files}"
+	"${ZOsc_sc_files}"
+	"${ZOsc_schelp_files}"
+)
+sc_link_with_daisy("ZOsc")
