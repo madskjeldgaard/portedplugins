@@ -16,8 +16,6 @@ OscBank::OscBank() {
   next(1);
 }
 
-/* OscBank::~OscBank() {} */
-
 void OscBank::next(int nSamples) {
   SlopeSignal<float> slopedFreq = makeSlope(in0(Freq), m_freq_past);
   SlopeSignal<float> slopedGain = makeSlope(in0(Gain), m_gain_past);

@@ -1,19 +1,27 @@
 CLASS:: BLOsc
-SUMMARY:: A plugin... 
-RELATED::TODO
-CATEGORIES::TODO
+SUMMARY:: Band limited oscillator
+RELATED::HelpSource/Overview/MKPlugins
+CATEGORIES::UGens>Oscillator
 
 DESCRIPTION::
 
-This is a short description
+Original Author(s): Paul Batchelor, saw2 Faust by Julius Smith. Revisted by Ben Sergentanis for the LINK::https://github.com/electro-smith/DaisySP##DaisySP DSP library::. Ported to SuperCollider by Mads Kjeldgaard.
 
 CLASSMETHODS::
 
-METHOD::ar
+METHOD::ar,kr
 
-ARGUMENT::TODO
+argument::freq
+Frequency in herz
 
-ARGUMENT::TODO
+argument::pulsewidth
+Set square wave pulse width. 0 to 1.0
+
+argument::waveform
+Set waveform.
+0 = Triangle,
+1 = Saw,
+2 = Square.
 
 EXAMPLES::
 

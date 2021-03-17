@@ -76,6 +76,12 @@ endif()
 # Plugins
 ####################################################################################################
 
+# Install additional help files
+install(
+  DIRECTORY "plugins/HelpSource"
+  DESTINATION "${project_name}/HelpSource"
+)
+
 # LPG
 set(
   LPG_cpp_files
@@ -213,15 +219,15 @@ sc_link_with_daisy("BLOsc")
 
 # HarmonicOsc
 set(HarmonicOsc_cpp_files
-    plugins/HarmonicOsc/HarmonicOsc.hpp
-    plugins/HarmonicOsc/HarmonicOsc.cpp
-)
+	plugins/HarmonicOsc/HarmonicOsc.hpp
+	plugins/HarmonicOsc/HarmonicOsc.cpp
+	)
 set(HarmonicOsc_sc_files
-    plugins/HarmonicOsc/HarmonicOsc.sc
-)
+	plugins/HarmonicOsc/HarmonicOsc.sc
+	)
 set(HarmonicOsc_schelp_files
-    plugins/HarmonicOsc/HarmonicOsc.schelp
-)
+	plugins/HarmonicOsc/HarmonicOsc.schelp
+	)
 
 sc_add_server_plugin(
 	"${project_name}" # destination directory
@@ -229,7 +235,7 @@ sc_add_server_plugin(
 	"${HarmonicOsc_cpp_files}"
 	"${HarmonicOsc_sc_files}"
 	"${HarmonicOsc_schelp_files}"
-)
+	)
 sc_link_with_daisy("HarmonicOsc")
 
 # OscBank
@@ -337,3 +343,67 @@ sc_add_server_plugin(
 	"${ZOsc_schelp_files}"
 )
 sc_link_with_daisy("ZOsc")
+
+# AnalogBassDrum
+set(AnalogBassDrum_cpp_files
+    plugins/AnalogBassDrum/AnalogBassDrum.hpp
+    plugins/AnalogBassDrum/AnalogBassDrum.cpp
+)
+set(AnalogBassDrum_sc_files
+    plugins/AnalogBassDrum/AnalogBassDrum.sc
+)
+set(AnalogBassDrum_schelp_files
+    plugins/AnalogBassDrum/AnalogBassDrum.schelp
+)
+
+sc_add_server_plugin(
+	"${project_name}" # destination directory
+	"AnalogBassDrum" # target name
+	"${AnalogBassDrum_cpp_files}"
+	"${AnalogBassDrum_sc_files}"
+	"${AnalogBassDrum_schelp_files}"
+)
+sc_link_with_daisy("AnalogBassDrum")
+
+# AnalogSnareDrum
+set(AnalogSnareDrum_cpp_files
+    plugins/AnalogSnareDrum/AnalogSnareDrum.hpp
+    plugins/AnalogSnareDrum/AnalogSnareDrum.cpp
+)
+set(AnalogSnareDrum_sc_files
+    plugins/AnalogSnareDrum/AnalogSnareDrum.sc
+)
+set(AnalogSnareDrum_schelp_files
+    plugins/AnalogSnareDrum/AnalogSnareDrum.schelp
+)
+
+sc_add_server_plugin(
+	"${project_name}" # destination directory
+	"AnalogSnareDrum" # target name
+	"${AnalogSnareDrum_cpp_files}"
+	"${AnalogSnareDrum_sc_files}"
+	"${AnalogSnareDrum_schelp_files}"
+)
+sc_link_with_daisy("AnalogSnareDrum")
+# StringVoice
+set(StringVoice_cpp_files
+    plugins/StringVoice/StringVoice.hpp
+    plugins/StringVoice/StringVoice.cpp
+)
+set(StringVoice_sc_files
+    plugins/StringVoice/StringVoice.sc
+)
+set(StringVoice_schelp_files
+    plugins/StringVoice/StringVoice.schelp
+)
+
+sc_add_server_plugin(
+	"${project_name}" # destination directory
+	"StringVoice" # target name
+	"${StringVoice_cpp_files}"
+	"${StringVoice_sc_files}"
+	"${StringVoice_schelp_files}"
+)
+sc_link_with_daisy("StringVoice")
+
+

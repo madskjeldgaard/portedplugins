@@ -1,19 +1,28 @@
 CLASS:: VosimOsc
-SUMMARY:: A plugin... 
-RELATED::TODO
-CATEGORIES::TODO
+SUMMARY:: Vosim oscillator
+RELATED::HelpSource/Overview/MKPlugins
+CATEGORIES::UGens>Oscillator
 
 DESCRIPTION::
+Two sinewaves multiplied by and sync'ed to a carrier.
 
-This is a short description
+Original code by E. Gillet. Revisted by Ben Sergentanis for the LINK::https://github.com/electro-smith/DaisySP##DaisySP DSP library::. Ported to SuperCollider by Mads Kjeldgaard.
 
 CLASSMETHODS::
 
-METHOD::ar
+METHOD::kr, ar
 
-ARGUMENT::TODO
+argument::freq
+Frequency in herz
 
-ARGUMENT::TODO
+argument::form1freq
+Formant 1 frequency in herz
+
+argument::form2freq
+Formant 2 frequency in herz
+
+argument::shape
+Waveshaping. -1.0 to 1.0.
 
 EXAMPLES::
 

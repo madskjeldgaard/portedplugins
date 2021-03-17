@@ -1,0 +1,58 @@
+CLASS:: StringVoice
+SUMMARY:: Extended Karplus-Strong
+RELATED::HelpSource/Overview/MKPlugins
+CATEGORIES::UGens>PhysicalModelling
+
+DESCRIPTION::
+
+Extended Karplus-Strong.
+
+Original code by E. Gillet. Revisted by Ben Sergentanis for the LINK::https://github.com/electro-smith/DaisySP##DaisySP DSP library::. Ported to SuperCollider by Mads Kjeldgaard.
+
+CLASSMETHODS::
+
+METHOD::ar
+
+ARGUMENT::trig
+Trigger the voice
+
+ARGUMENT::sustain
+continually excite the string with noise.
+1 is true, 0 is false.
+
+ARGUMENT::freq
+Set the string root frequency in hz
+
+ARGUMENT::accent
+Hit the string harder, influences brightness and decay. 0 to 1.0.
+ 
+ARGUMENT::structure
+Change the nonlinearity (type of string). 0 to 1.0 (with 0 to 0.25 being curved bridge, anything above is dispersion).
+ 
+ARGUMENT::brightness
+Brightness and noise density of the string. 0 to 1.0.
+
+ARGUMENT::damping
+How long it takes for the string to decay relative to the accent level. Full damp is only achieved with full accent. 0.0 to 1.0.
+
+EXAMPLES::
+
+code::
+(
+Ndef(\string, {|pan=0, freq=100|
+	var trig = Dust2.kr(7);
+	var sig = StringVoice.ar(
+		trig, 
+		infsustain: 0,
+		freq:freq, 
+		accent: TRand.kr(0.0,1.0, trig), 
+		structure: TRand.kr(0.0,1.0, trig), 
+		brightness: TRand.kr(0.0,0.5, trig), 
+		damping: TRand.kr(0.1,0.5, trig), 
+	);
+
+	Pan2.ar(sig, pan)
+
+}).play;
+)
+::

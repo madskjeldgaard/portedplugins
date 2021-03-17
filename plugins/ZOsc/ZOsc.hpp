@@ -19,10 +19,10 @@ private:
 
   enum InputParams { Freq, FormantFreq, Shape, Mode, NumInputParams };
   enum Outputs { Out1, NumOutputParams };
-  float m_freq_past{0.f};
-  float m_formantfreq_past{0.f};
-  float m_shape_past{0.f};
-  float m_mode_past{0.f};
+  float m_freq_past{100.f};
+  float m_formantfreq_past{100.f};
+  float m_shape_past{0.5f};
+  float m_mode_past{0.5f};
 
   daisysp::ZOscillator zosc;
 };

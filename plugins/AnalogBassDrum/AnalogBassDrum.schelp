@@ -1,0 +1,62 @@
+CLASS:: AnalogBassDrum
+SUMMARY:: Virtual analog 808 bass drum model 
+RELATED::HelpSource/Overview/MKPlugins
+CATEGORIES::UGens>Drums
+
+DESCRIPTION::
+
+Virtual analog 808 bass drum model.
+
+Original code by E. Gillet. Revisted by Ben Sergentanis for the LINK::https://github.com/electro-smith/DaisySP##DaisySP DSP library::. Ported to SuperCollider by Mads Kjeldgaard.
+
+CLASSMETHODS::
+
+METHOD::ar
+ 
+ARGUMENT::trig
+Trigger the drum with a signal above 0.
+
+ARGUMENT::infsustain
+Bassdrum plays infinitely if this is 1.
+
+ARGUMENT::accent
+Set accent level. 0 to 1.
+
+ARGUMENT::freq
+Set drum's root frequency in hz
+ 
+ARGUMENT::tone
+Set the amount of click. 0 to 1.
+
+ 
+ARGUMENT::decay
+Amount of decay. 0 to 1.
+ 
+ARGUMENT::attackfm
+Amount of FM attack. 0 to 1.
+ 
+ARGUMENT::selffm
+Set the amount of self fm. Also affects the fm attack and volume decay. 0 to 1.
+
+EXAMPLES::
+
+code::
+(
+Ndef(\stormofkicks, { 
+	var trig = Dust2.kr(8);
+	var sig = AnalogBassDrum.ar(
+		trig, 
+		infsustain: 0.0, 
+		accent: 0.25, 
+		freq: TExpRand.kr(40,120, trig), 
+		tone: 0.0,//TRand.kr(0.5,1.0,trig), 
+		decay: 0.15, 
+		attackfm: 0.11,//TRand.kr(0.1,1.0,trig),
+		selffm:TRand.kr(0.1,0.9,trig) 
+	);
+
+	Pan2.ar(sig, TRand.kr(-1.0,1.0,trig));
+}).play;
+)
+::
+

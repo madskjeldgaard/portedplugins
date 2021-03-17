@@ -1,0 +1,2 @@
+- audio modulateable freq on all oscs
+- check input rates

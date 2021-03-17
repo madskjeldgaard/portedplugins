@@ -1,26 +1,45 @@
 CLASS:: DCompressor
-SUMMARY:: A plugin... 
-RELATED::TODO
-CATEGORIES::TODO
+SUMMARY:: Simple compressor
+RELATED::HelpSource/Overview/MKPlugins
+CATEGORIES::UGens/Dynamics
 
 DESCRIPTION::
 
-This is a short description
+Compressor from LINK::https://github.com/electro-smith/DaisySP##DaisySP DSP library::, ported from faust originally by shensley andAvAars originally.
 
 CLASSMETHODS::
 
 METHOD::ar
 
-ARGUMENT::TODO
+argument::input
+Sound input
 
-ARGUMENT::TODO
+argument::sidechainIn
+Sidechain/key input
+
+argument::sidechain
+Activate sidechain or not. 0 = false, 1 = true.
+
+argument::ratio
+Set the amount of gain reduction. Values between 1.0 and 40.0.
+
+argument::threshold
+Set the threshold in dB. 0.0 - (-80.0).
+
+argument::attack
+Set the envelope time for onset of compression for signals above the rheshold. 0.001 to 10.0.
+
+argument::release
+Set the envelope time for the release of compression. 0.001 to 10.0.
+
+argument::makeup
+Manually set makeup gain. 0.0 to 80.0.
+
+argument::automakeup
+Enable or disable automatic gain. 0 is disable, 1 is enable. Disabling sets makeup gain to 0.
 
 EXAMPLES::
 
 code::
-Ndef(\notam, {|freq=110, width=0.5|
-	var sig = VarSaw.ar(freq, width: width);
-	DCompressor.ar(sig);
-}).play;
 ::
 

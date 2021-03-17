@@ -1,0 +1,56 @@
+CLASS:: AnalogSnareDrum
+SUMMARY:: Virtual analog 808 snare drum model.
+RELATED::HelpSource/Overview/MKPlugins
+CATEGORIES::UGens>Drums
+
+DESCRIPTION::
+
+Virtual analog 808 snare drum model.
+
+Original code by E. Gillet. Revisted by Ben Sergentanis for the LINK::https://github.com/electro-smith/DaisySP##DaisySP DSP library::. Ported to SuperCollider by Mads Kjeldgaard.
+
+CLASSMETHODS::
+
+METHOD::ar
+
+ARGUMENT::trig
+Trigger the drum
+
+ARGUMENT::infsustain
+1 is infinite sustain, 0 is decaying snare.
+
+ARGUMENT::accent
+Amount of accent, 0.0 to 1.0.
+
+ARGUMENT::freq
+Drum's root frequency in hz
+
+ARGUMENT::tone
+Brightness of the drum tone, 0.0 to 1. 1=bright, 0=dark.
+
+ARGUMENT::decay
+Decay length. Numbers above 0.0.
+ 
+ARGUMENT::snappy
+Mix between snare and drum. 1 = just snare, 0 = just drum.
+
+EXAMPLES::
+
+code::
+(
+Ndef(\stormofsnares, { 
+	var trig = Dust2.kr(8);
+	var sig = AnalogSnareDrum.ar(
+		trig, 
+		infsustain: 0.0, 
+		accent: 0.25, 
+		freq: TExpRand.kr(40,220, trig), 
+		tone: TRand.kr(0.0,0.4,trig), 
+		decay: TRand.kr(0.1,0.8, trig), 
+		snappy: TRand.kr(0.0,0.9, trig), 
+	);
+
+	Pan2.ar(sig, TRand.kr(-1.0,1.0,trig));
+}).play;
+)
+::

@@ -1,26 +1,36 @@
 CLASS:: NeoVarSawOsc
-SUMMARY:: A plugin... 
-RELATED::TODO
-CATEGORIES::TODO
+SUMMARY:: Variable saw oscillator
+RELATED::HelpSource/Overview/MKPlugins
+CATEGORIES::UGens>Oscillator
 
 DESCRIPTION::
+Saw with variable slope or notch.
 
-This is a short description
+Original code by E. Gillet. Revisted by Ben Sergentanis for the LINK::https://github.com/electro-smith/DaisySP##DaisySP DSP library::. Ported to SuperCollider by Mads Kjeldgaard.
 
 CLASSMETHODS::
 
-METHOD::ar
+METHOD::ar,kr
 
-ARGUMENT::TODO
+ARGUMENT::freq
+Frequency in hz.
 
-ARGUMENT::TODO
+ARGUMENT::pw
+Adjust the wave. -1.0 to 1.0.
+
+ARGUMENT::waveshape
+Slope or notch. 0.0 to 1.0. 0 = notch, 1 = slope.
 
 EXAMPLES::
 
 code::
-Ndef(\notam, {|freq=110, width=0.5|
-	var sig = VarSaw.ar(freq, width: width);
-	NeoVarSawOsc.ar(sig);
+(
+Ndef(\sweetie, { 
+	var mod = SinOsc.kr(0.1);
+	var sig = NeoVarSawOsc.ar(100, SinOsc.kr(mod * 0.5).unipolar, SinOsc.kr(mod * 5.1));
+	Pan2.ar(sig, mod);
 }).play;
+)
 ::
+
 

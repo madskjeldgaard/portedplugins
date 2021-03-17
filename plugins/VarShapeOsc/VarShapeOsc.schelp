@@ -1,26 +1,47 @@
 CLASS:: VarShapeOsc
-SUMMARY:: A plugin... 
-RELATED::TODO
-CATEGORIES::TODO
+SUMMARY:: Variable Waveshape Oscillator
+RELATED::HelpSource/Overview/MKPlugins
+CATEGORIES::UGens>Oscillator
 
 DESCRIPTION::
 
-This is a short description
+Original code by E. Gillet. Revisted by Ben Sergentanis for the LINK::https://github.com/electro-smith/DaisySP##DaisySP DSP library::. Ported to SuperCollider by Mads Kjeldgaard.
 
 CLASSMETHODS::
 
-METHOD::ar
+METHOD::ar,kr
 
-ARGUMENT::TODO
+argument::freq
+Main frequency in hz
 
-ARGUMENT::TODO
+argument::pw
+Pulse width when shape is square. Saw, ramp, tri otherwise. 0.0 to 1.0.
+
+argument::waveshape
+Blend between waveshapes. 0.0 is saw/ramp/tri and 1.0 is square.
+
+argument::sync
+Whether or not to sync oscillator. 1.0 turns sync on. 0.0 is off.
+
+argument::syncfreq
+Sync oscillator frequency in herz.
 
 EXAMPLES::
 
 code::
-Ndef(\notam, {|freq=110, width=0.5|
-	var sig = VarSaw.ar(freq, width: width);
-	VarShapeOsc.ar(sig);
+(
+Ndef(\helloooo, { 
+	var mod = SinOsc.kr(LFNoise2.kr(4) * 10);
+	var sig = VarShapeOsc.ar(
+		freq: 100, 
+		pw: SinOsc.kr(0.01).unipolar, 
+		waveshape: mod.lag.unipolar, 
+		sync: 1, 
+		syncfreq: 182
+	);
+
+	Pan2.ar(sig, mod);
 }).play;
+)
 ::
 

@@ -20,11 +20,11 @@ private:
     void next(int nSamples);
     void clear(int nSamples);
 
-    enum InputParams { Freq, NumInputParams };
+    enum InputParams { Freq, FirstHarmonic, NumInputParams };
     enum Outputs { Out1, NumOutputParams };
 
 	static const int numHarmonics_{16};
-	float m_freq_past{0.f};
+	float m_freq_past{100.f};
 	daisysp::HarmonicOscillator<numHarmonics_> harmosc;
 
 };

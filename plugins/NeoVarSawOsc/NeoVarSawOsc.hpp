@@ -21,7 +21,7 @@ private:
     void clear(int nSamples);
 
     enum InputParams { Freq, PW, Waveshape, NumInputParams };
-	float m_freq_past{0.f}; 
+	float m_freq_past{100.f}; 
 	float m_pw_past{0.f}; 
 	float m_waveshape_past{0.f}; 
 	daisysp::VariableSawOscillator varsawosc;

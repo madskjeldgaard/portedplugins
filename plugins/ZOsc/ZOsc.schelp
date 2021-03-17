@@ -1,19 +1,28 @@
 CLASS:: ZOsc
-SUMMARY:: A plugin... 
-RELATED::TODO
-CATEGORIES::TODO
+SUMMARY:: Sinewave multiplied by and sync'ed to a carrier
+RELATED::HelpSource/Overview/MKPlugins
+CATEGORIES::UGens>Oscillator
 
 DESCRIPTION::
+Sinewave multiplied by and sync'ed to a carrier.
 
-This is a short description
+Original code by E. Gillet. Revisted by Ben Sergentanis for the LINK::https://github.com/electro-smith/DaisySP##DaisySP DSP library::. Ported to SuperCollider by Mads Kjeldgaard.
 
 CLASSMETHODS::
 
-METHOD::ar
+METHOD::ar,kr
 
-ARGUMENT::TODO
+argument::freq
+Set carrier frequency in herz.
 
-ARGUMENT::TODO
+argument::formantfreq
+Set formant oscillator frequency in herz.
+
+argument::shape
+Adjust contour of waveform. 0.0 to 1.0.
+
+argument::mode
+Set the offset amound and phase shift. < 1/3 is just phaseshaft and above 2/3 is just offset, between them is both. -1.0 to 1.0.
 
 EXAMPLES::
 

@@ -26,8 +26,14 @@ void HarmonicOsc::next(int nSamples) {
   float *outbuf = out(Out1);
   SlopeSignal<float> slopedFreq = makeSlope(in0(Freq), m_freq_past);
 
+  for (int a = 0; a < numHarmonics_; a++) {
+    harmosc.SetSingleAmp(in0(a + NumInputParams), a);
+  }
+
   for (int i = 0; i < nSamples; ++i) {
+    harmosc.SetFirstHarmIdx(in0(FirstHarmonic));
     harmosc.SetFreq(slopedFreq.consume());
+
     outbuf[i] = harmosc.Process();
   }
   m_freq_past = slopedFreq.value;

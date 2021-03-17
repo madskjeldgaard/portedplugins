@@ -1,13 +1,10 @@
-VarShapeOsc : MultiOutUGen {
-	*ar { |input, gain|
-		/* TODO */
-		^this.multiNew('audio', input, gain);
+VarShapeOsc : UGen {
+	*ar { |freq=100, pw=0.5, waveshape=0.5, sync=1, syncfreq=105|
+		^this.multiNew('audio', freq, pw, waveshape, sync, syncfreq);
 	}
 
-	init { arg ... theInputs;
-		var numChannelsOut = 2;
-		inputs = theInputs;
-		^this.initOutputs(numChannelsOut, rate)
+	*kr { |freq=100, pw=0.5, waveshape=0.5, sync=1, syncfreq=105|
+		^this.multiNew('control', freq, pw, waveshape, sync, syncfreq);
 	}
 
 	checkInputs {

@@ -12,9 +12,6 @@ class OscBank : public SCUnit {
 public:
   OscBank();
 
-  // Destructor
-  /* ~OscBank(); */
-
 private:
   // Calc function
   void next(int nSamples);

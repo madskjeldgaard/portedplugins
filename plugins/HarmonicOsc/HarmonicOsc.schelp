@@ -1,26 +1,41 @@
 CLASS:: HarmonicOsc
-SUMMARY:: A plugin... 
-RELATED::TODO
-CATEGORIES::TODO
+SUMMARY:: 16 voice harmonic oscillator
+RELATED::HelpSource/Overview/MKPlugins
+CATEGORIES::UGens>Oscillator
 
 DESCRIPTION::
 
-This is a short description
+16 voice harmonic oscillator.
+
+Original code by E. Gillet. Revisted by Ben Sergentanis for the LINK::https://github.com/electro-smith/DaisySP##DaisySP DSP library::. Ported to SuperCollider by Mads Kjeldgaard.
 
 CLASSMETHODS::
 
-METHOD::ar
+METHOD::ar,kr
 
-ARGUMENT::TODO
+ARGUMENT::freq
+Frequency of f0 in hz.
 
-ARGUMENT::TODO
+ARGUMENT::firstharmonic
+Offset the set of harmonics so that "harmonic 0" becomes the value of this argument. Values between 1 and 16.
+
+ARGUMENT::amplitudes
+An array of length 16 containing amplitudes for each oscillator.
 
 EXAMPLES::
 
 code::
-Ndef(\notam, {|freq=110, width=0.5|
-	var sig = VarSaw.ar(freq, width: width);
-	HarmonicOsc.ar(sig);
+
+Ndef(\sweetie, { 
+	var mod = SinOsc.kr(0.1);
+	var sig = HarmonicOsc.ar(
+		freq: mod.linexp(-1.0,1.0,10,1000), 
+		firstharmonic: 3,
+		amplitudes: Array.rand(16, 0.1,1.0).normalizeSum
+	);
+
+	Pan2.ar(sig, mod);
 }).play;
+
 ::
 

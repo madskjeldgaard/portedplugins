@@ -1,6 +1,6 @@
 class:: Chen
 summary:: Chen's chaotic double scroll attractor
-related:: Classes/LorenzL
+RELATED::HelpSource/Overview/MKPlugins
 categories:: UGens>Generators>Chaotic
 
 description::

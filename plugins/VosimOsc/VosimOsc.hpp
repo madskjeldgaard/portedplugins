@@ -21,7 +21,7 @@ private:
     enum Outputs { Out1, NumOutputParams };
 	daisysp::VosimOscillator vosim;
 
-	float m_freq_past{0.f}, m_form1_past{0.f},m_form2_past{0.f},  m_shape_past{0.f};
+	float m_freq_past{100.f}, m_form1_past{100.f},m_form2_past{100.f},  m_shape_past{0.f};
 
 };
 

@@ -1,0 +1,51 @@
+title:: MKPlugins
+summary:: An overview of the MKPlugins UGens
+categories:: Synthesis
+related:: Classes/LPG
+
+LINK::https://github.com/madskjeldgaard/mkplugins/##MKPlugins:: is a collection of UGens written by Mads Kjeldgaard.
+
+The collection contains the following UGens:
+ 
+strong::Drums::
+
+LIST::
+## LINK::Classes/AnalogBassDrum::
+## LINK::Classes/AnalogSnareDrum::
+::
+
+strong::Dynamics::
+
+LIST::
+## LINK::Classes/DCompressor::
+::
+
+strong::Filtering::
+
+LIST::
+## LINK::Classes/LPG::
+::
+
+strong::Chaos::
+LIST::
+## LINK::Classes/Chen::
+::
+
+strong::Oscillators::
+
+LIST::
+## LINK::Classes/BLOsc::
+## LINK::Classes/HarmonicOsc::
+## LINK::Classes/NeoVarSawOsc::
+## LINK::Classes/OscBank::
+## LINK::Classes/VarShapeOsc::
+## LINK::Classes/VosimOsc::
+## LINK::Classes/ZOsc::
+::
+
+strong::Physical modelling::
+
+LIST::
+## LINK::Classes/Rongs::
+## LINK::Classes/StringVoice::
+::

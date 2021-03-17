@@ -1,26 +1,66 @@
 CLASS:: OscBank
-SUMMARY:: A plugin... 
-RELATED::TODO
-CATEGORIES::TODO
+SUMMARY:: An oscillator bank in the style of divide-down organs
+RELATED::HelpSource/Overview/MKPlugins
+CATEGORIES::UGens>Oscillator
 
 DESCRIPTION::
+A mixture of 7 sawtooth and square waveforms in the style of divide-down organs.
 
-This is a short description
+Original code by E. Gillet. Revisted by Ben Sergentanis for the LINK::https://github.com/electro-smith/DaisySP##DaisySP DSP library::. Ported to SuperCollider by Mads Kjeldgaard.
 
 CLASSMETHODS::
 
-METHOD::ar
+METHOD::ar,kr
 
-ARGUMENT::TODO
+argument::freq
+frequency in herz
 
-ARGUMENT::TODO
+argument::gain
+Overall gain.
+
+argument::saw8
+Amount of Saw 8'. 0.0 to 1.0.
+
+argument::square8
+Amount of Square 8'. 0.0 to 1.0.
+
+argument::saw4
+Amount of Saw 4'. 0.0 to 1.0.
+
+argument::square4
+Amount of Square 4'. 0.0 to 1.0.
+
+argument::saw2
+Amount of Saw 2'. 0.0 to 1.0.
+
+argument::square2
+Amount of Square 2'. 0.0 to 1.0.
+
+argument::saw1
+Amount of Saw 1'. 0.0 to 1.0.
 
 EXAMPLES::
 
 code::
-Ndef(\notam, {|freq=110, width=0.5|
-	var sig = VarSaw.ar(freq, width: width);
-	OscBank.ar(sig);
+(
+Ndef(\organ, { 
+	var mod = SinOsc.kr(0.1);
+	var sig = OscBank.ar(
+		\freq.kr(100), 
+		saw8:\saw8.kr( 0.05), 
+		square8:\square8.kr(0.1), 
+		saw4:\saw4.kr( 0.9), 
+		square4:\square4.kr(0.4), 
+		saw2:\saw2.kr(0.9), 
+		square2:\square2.kr(0.5), 
+		saw1:\saw1.kr( 0.25)
+	);
+
+	Pan2.ar(sig, mod);
 }).play;
+
+Ndef(\organ).gui;
+)
+
 ::
 
