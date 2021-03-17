@@ -40,6 +40,7 @@ A modal synthesis voice based on the algorithms of Mutable Instruments' modules.
 Clone the project:
 
     git clone https://github.com/madskjeldgaard/mkplugins
+	git submodule update --init --recursive
     cd mkplugins
 
 This will get you the mkplugins.
