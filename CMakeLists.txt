@@ -15,7 +15,7 @@ message(STATUS "Cmake build type: " ${CMAKE_BUILD_TYPE})
 
 # Set compiler pickyness, this picks up a ton of extra little things
 if(CMAKE_COMPILER_IS_GNUCXX)
-  add_compile_options(-Wall -Wextra -pedantic)
+  add_compile_options(-Wall -Wextra -pedantic -fPIC)
 endif(CMAKE_COMPILER_IS_GNUCXX)
 
 ####################################################################################################
