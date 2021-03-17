@@ -8,7 +8,7 @@ Most of these are algorithms that I felt like exploring more in-depth at a C++ l
 
 ## Included plugins
 
-See the overview helpfile [MKPlugins](/plugins/HelpSource/Overview/MKPlugins) for more information which plugins are included.
+See the overview helpfile [MKPlugins](/plugins/HelpSource/Overview/MKPlugins.schelp) for more information which plugins are included.
 
 ## Installation
 1. Download one of [the prebuilt releases](https://github.com/madskjeldgaard/mkplugins/releases). Choose the one that fits your operating system.
