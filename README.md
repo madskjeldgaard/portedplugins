@@ -6,24 +6,11 @@ A collection of SuperCollider plugins by Mads Kjeldgaard.
 
 Most of these are algorithms that I felt like exploring more in-depth at a C++ level to understand them better or simply found missing in the SuperCollider plugin landscape.
 
-
 ## Included plugins
 
-See help files for more information on these, included links to sources/research where applicable:
+See the overview helpfile [MKPlugins](/plugins/HelpSource/Overview/MKPlugins) for more information which plugins are included.
 
-**Chen**
-
-Chen's chaotic double scroll attractor. Inspired by Bryan Head's implementation in the Mutable Instruments Stages alternative firmware.
-
-**LPG**
-
-A digital model of the Buchla Lowpass-Gate. Based on a paper/research by Julian Parker and Stefano D'Angelo.
-
-**Rongs**
-
-A modal synthesis voice based on the algorithms of Mutable Instruments' modules. It's sonic territory spans tired spring reverb, plastic tubes, metallic percussion and plucked strings.
-
-### Installation
+## Installation
 1. Download one of [the prebuilt releases](https://github.com/madskjeldgaard/mkplugins/releases). Choose the one that fits your operating system.
 2. Unzip the contents in your extensions directory (If you don't know where this is, open up SuperCollider and evaluate `Platform.userExtensionDir` - the path will be posted in the post window).
 3. Recompile class library.
@@ -39,9 +26,9 @@ A modal synthesis voice based on the algorithms of Mutable Instruments' modules.
 #### Preparations for a build
 Clone the project:
 
-    git clone https://github.com/madskjeldgaard/mkplugins
+	git clone https://github.com/madskjeldgaard/mkplugins
+	cd mkplugins
 	git submodule update --init --recursive
-    cd mkplugins
 
 This will get you the mkplugins.
 
