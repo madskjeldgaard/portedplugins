@@ -13,6 +13,8 @@ set(CMAKE_CXX_STANDARD 14)
 
 message(STATUS "Cmake build type: " ${CMAKE_BUILD_TYPE})
 
+
+# The Ubuntu 18 box in the Github Cloud complained " /usr/bin/ld: DaisySP/libDaisySP.a(KarplusString.cpp.o): relocation R_X86_64_PC32 against symbol `_ZN7daisysp6String15ProcessInternalILNS0_18StringNonLinearityE1EEEff' can not be used when making a shared object; recompile with -fPIC" for a while. This seems to fix it:
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpic")
 
 # Set compiler pickyness, this picks up a ton of extra little things
