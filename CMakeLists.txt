@@ -13,9 +13,11 @@ set(CMAKE_CXX_STANDARD 14)
 
 message(STATUS "Cmake build type: " ${CMAKE_BUILD_TYPE})
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpic")
+
 # Set compiler pickyness, this picks up a ton of extra little things
 if(CMAKE_COMPILER_IS_GNUCXX)
-  add_compile_options(-Wall -Wextra -pedantic -fPIC)
+  add_compile_options(-Wall -Wextra -pedantic)
 endif(CMAKE_COMPILER_IS_GNUCXX)
 
 ####################################################################################################
