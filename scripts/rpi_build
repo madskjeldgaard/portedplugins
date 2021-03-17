@@ -6,7 +6,7 @@ sudo apt install cmake
 mkdir tmp
 
 # mkplugins
-git clone https://github.com/madskjeldgaard/mkplugins.git tmp/mkplugins
+git clone --recurse-submodules https://github.com/madskjeldgaard/mkplugins.git tmp/mkplugins
 
 # Get sc source code
 git clone --recurse-submodules https://github.com/supercollider/supercollider.git tmp/supercollider
