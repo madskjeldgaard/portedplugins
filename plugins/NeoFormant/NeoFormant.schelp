@@ -1,0 +1,40 @@
+CLASS:: NeoFormant
+SUMMARY::Formant oscillator with aliasing-free phase reset
+RELATED::HelpSource/Overview/MKPlugins
+CATEGORIES::UGens>Oscillator
+
+DESCRIPTION::
+
+Original code by E. Gillet. Revisted by Ben Sergentanis for the LINK::https://github.com/electro-smith/DaisySP##DaisySP DSP library::. Ported to SuperCollider by Mads Kjeldgaard.
+
+CLASSMETHODS::
+
+METHOD::ar,kr
+
+argument::formantfreq
+Set formant frequency in herz
+
+argument::carrierfreq
+Set the carrier frequency in herz. This is the "main" frequency.
+
+argument::phaseshift
+Amount of phase shift. 0.0 to 1.0 works best.
+
+
+EXAMPLES::
+
+code::
+(
+Ndef(\awww, { 
+	var mod = SinOsc.kr(0.1);
+	var sig = NeoFormant.ar(
+		carrierfreq: LFNoise2.kr(10).exprange(100,550), 
+		formantfreq: 150, 
+		phaseshift:mod.unipolar
+	);
+
+	Pan2.ar(sig, mod);
+}).play;
+)
+::
+

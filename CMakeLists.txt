@@ -411,3 +411,24 @@ sc_add_server_plugin(
 sc_link_with_daisy("StringVoice")
 
 
+# NeoFormant
+set(NeoFormant_cpp_files
+    plugins/NeoFormant/NeoFormant.hpp
+    plugins/NeoFormant/NeoFormant.cpp
+)
+set(NeoFormant_sc_files
+    plugins/NeoFormant/NeoFormant.sc
+)
+set(NeoFormant_schelp_files
+    plugins/NeoFormant/NeoFormant.schelp
+)
+
+sc_add_server_plugin(
+	"${project_name}" # destination directory
+	"NeoFormant" # target name
+	"${NeoFormant_cpp_files}"
+	"${NeoFormant_sc_files}"
+	"${NeoFormant_schelp_files}"
+)
+sc_link_with_daisy("NeoFormant")
+
