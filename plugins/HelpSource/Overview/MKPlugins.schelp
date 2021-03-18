@@ -41,6 +41,7 @@ LIST::
 ## LINK::Classes/VarShapeOsc::
 ## LINK::Classes/VosimOsc::
 ## LINK::Classes/ZOsc::
+## LINK::Classes/NeoFormant::
 ::
 
 strong::Physical modelling::
