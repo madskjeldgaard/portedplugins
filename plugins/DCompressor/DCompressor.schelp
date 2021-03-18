@@ -1,7 +1,7 @@
 CLASS:: DCompressor
 SUMMARY:: Simple compressor
 RELATED::HelpSource/Overview/MKPlugins
-CATEGORIES::UGens/Dynamics
+CATEGORIES::UGens>Dynamics
 
 DESCRIPTION::
 
@@ -41,5 +41,26 @@ Enable or disable automatic gain. 0 is disable, 1 is enable. Disabling sets make
 EXAMPLES::
 
 code::
+(
+Ndef(\stormofsnares, { 
+	var trig = Dust2.kr(8);
+	var sig;
+	var sd = AnalogSnareDrum.ar(
+		trig, 
+		infsustain: 0.0, 
+		accent: 0.25, 
+		freq: TExpRand.kr(40,220, trig), 
+		tone: TRand.kr(0.0,0.4,trig), 
+		decay: TRand.kr(0.1,0.8, trig), 
+		snappy: TRand.kr(0.0,0.9, trig), 
+	);
+
+	var env = Env.perc.kr(gate: trig, timeScale: 0.5);
+	sig = Pan2.ar(env * VosimOsc.ar(freq:500, form1freq:TExpRand.kr(100.0,250.0, trig), form2freq:1008, shape: 0.0));
+	sd = Pan2.ar(sd, TRand.kr(-1.0,1.0,trig));
+	sd = DCompressor.ar(sd);
+	sig+sd/2
+}).play;
+)
 ::
 
