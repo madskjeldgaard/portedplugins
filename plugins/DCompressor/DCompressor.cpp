@@ -31,8 +31,6 @@ void DCompressor::next(int nSamples) {
 
   SlopeSignal<float> slopedAttack = makeSlope(in0(Attack), m_attack_past);
 
-  Print("%f \n", sidechainin[0]);
-
   // Clip to 1 as lowest value (otherwise it spits out nan)
   const float ratioParam = (in0(Ratio) < 1) ? in0(Ratio) : 1;
   SlopeSignal<float> slopedRatio = makeSlope(ratioParam, m_ratio_past);
