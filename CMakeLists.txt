@@ -432,3 +432,24 @@ sc_add_server_plugin(
 )
 sc_link_with_daisy("NeoFormant")
 
+# Resonator
+set(Resonator_cpp_files
+    plugins/Resonator/Resonator.hpp
+    plugins/Resonator/Resonator.cpp
+)
+set(Resonator_sc_files
+    plugins/Resonator/Resonator.sc
+)
+set(Resonator_schelp_files
+    plugins/Resonator/Resonator.schelp
+)
+
+sc_add_server_plugin(
+	"${project_name}" # destination directory
+	"Resonator" # target name
+	"${Resonator_cpp_files}"
+	"${Resonator_sc_files}"
+	"${Resonator_schelp_files}"
+)
+sc_link_with_daisy("Resonator")
+

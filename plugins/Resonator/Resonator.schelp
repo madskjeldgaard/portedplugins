@@ -1,0 +1,69 @@
+CLASS:: Resonator
+SUMMARY:: A resonant body simulation.
+RELATED::HelpSource/Overview/MKPlugins
+CATEGORIES::UGens>PhysicalModelling
+
+DESCRIPTION::
+A resonant body simulation.
+
+Original code by E. Gillet. Revisted by Ben Sergentanis for the LINK::https://github.com/electro-smith/DaisySP##DaisySP DSP library::. Ported to SuperCollider by Mads Kjeldgaard.
+
+
+CLASSMETHODS::
+
+METHOD::ar
+
+argument::input
+Audio input
+
+argument::freq
+Resonator frequency in herz
+
+argument::position
+Set at initialization.
+Offset the phase of the amplitudes. 0.0 to 1.0.
+
+argument::resolution
+Set number of modes. Number between 1 and 24.
+Set at initialization.
+
+argument::structure
+Changes overall character of the resonator. 0.0 to 1.0.
+
+argument::brightness
+Brightness of resonator. 0.0 to 1.0.
+
+argument::damping
+How long it takes the resonant body to decay. 0.0 to 1.0.
+
+EXAMPLES::
+
+
+code::
+
+(
+Ndef(\resonantsnare, { |pan=0|
+	var trig = Impulse.kr(1);
+	var snare = AnalogSnareDrum.ar(
+		trig, decay: TRand.kr(0.1,0.5,trig) 
+	);
+
+	var sig = Resonator.ar(
+		input: snare,
+		freq: TExpRand.kr(25.0,250.0,trig), 
+		position: 0.0, 
+		resolution: 24, 
+		structure: SinOsc.kr(0.01).unipolar, 
+		brightness: SinOsc.kr(0.01, 0.5*pi).unipolar * 0.5, 
+		damping: TRand.kr(0.2,0.8, trig)
+	); 
+
+	// Limiter
+	sig = sig.tanh;
+
+	Pan2.ar(sig, pan);
+}).play;
+)
+
+::
+
