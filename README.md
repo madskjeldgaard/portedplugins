@@ -11,9 +11,19 @@ Most of these are algorithms that I felt like exploring more in-depth at a C++ l
 See the overview helpfile [MKPlugins](/plugins/HelpSource/Overview/MKPlugins.schelp) for more information which plugins are included.
 
 ## Installation
+
+**Instructions for most systems**:
 1. Download one of [the prebuilt releases](https://github.com/madskjeldgaard/mkplugins/releases). Choose the one that fits your operating system.
 2. Unzip the contents in your extensions directory (If you don't know where this is, open up SuperCollider and evaluate `Platform.userExtensionDir` - the path will be posted in the post window).
 3. Recompile class library.
+
+**Arch Linux**:
+
+`yay -S supercollider-mkplugins`
+
+**RaspberryPi OS**:
+
+See the accompanying script for downloading, building and installing the plugins.
 
 ### Building
 
