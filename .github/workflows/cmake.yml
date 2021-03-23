@@ -77,6 +77,12 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
     # Publish build
+    - name: Build Changelog
+      id: github_release
+      uses: mikepenz/release-changelog-builder-action@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Create Release
       if: steps.checkTag.outputs.exists == false
       id: create_release
@@ -86,8 +92,9 @@ jobs:
       with:
         tag_name: ${{ github.ref }}
         release_name: MKPlugins-${{ github.ref }}
-        draft: false
+        draft: true
         prerelease: false
+        body: ${{steps.github_release.outputs.changelog}}
           
     - name: Upload binaries to release
       uses: svenstaro/upload-release-action@v2
