@@ -1,0 +1,62 @@
+CLASS:: AnalogPhaser
+SUMMARY:: A virtual-analog feedback phaser
+RELATED::HelpSource/Overview/MKPlugins
+CATEGORIES::UGens>VirtualAnalog
+
+DESCRIPTION::
+
+This phaser contains two modulating allpass stages arranged in a feedback architecture. 
+
+A virtual analog feedback phaser by Jatin Chowdhury, ported to SuperCollider by Mads Kjeldgaard.
+
+Original code from the ChowDSP-VCV-rack project: LINK::https://github.com/jatinchowdhury18/ChowDSP-VCV::
+
+CLASSMETHODS::
+
+METHOD::ar
+
+ARGUMENT::input
+Audio input
+
+ARGUMENT::lfoinput
+Input of the lfo used to modulate the sound
+
+ARGUMENT::skew
+Emphasize different parts of the LFO's input. Inspired by the behaviour of light dependent resistors.
+-1.0 to 1.0.
+
+ARGUMENT::feedback
+0.0 to 0.95
+
+ARGUMENT::modulation
+A sort of dry/wet control for the internals of the phaser modulator, mixing between the dry lfo at lfoinput and the result of it passing through the phaser circuitry.
+
+0.0 to 1.0
+
+ARGUMENT::stages
+1.0 to 50.0
+
+EXAMPLES::
+
+code::
+(
+Ndef(\ph, {|drywet=0, amp=0.5, pan=0|
+	var sig = VarShapeOsc.ar(110, waveshape: SinOsc.kr(0.0915).unipolar, syncfreq:151);
+
+	sig = XFade2.ar(sig, 
+		AnalogPhaser.ar(
+			sig,
+			SinOsc.ar(0.22),
+			skew: SinOsc.kr(0.059),
+			feedback: SinOsc.kr(0.005, 1pi).range(0.0,0.85),
+			modulation: SinOsc.kr(0.0192, 2pi).unipolar,
+			stages: 50
+		),
+		drywet
+	);
+
+	Pan2.ar( sig* amp, pan)
+}).play
+)
+::
+

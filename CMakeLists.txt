@@ -453,3 +453,23 @@ sc_add_server_plugin(
 )
 sc_link_with_daisy("Resonator")
 
+# AnalogPhaser
+set(AnalogPhaser_cpp_files
+	plugins/ChowDSP/AnalogPhaser.hpp
+	plugins/ChowDSP/AnalogPhaser.cpp
+)
+set(AnalogPhaser_sc_files
+	plugins/ChowDSP/AnalogPhaser.sc
+)
+set(AnalogPhaser_schelp_files
+	plugins/ChowDSP/AnalogPhaser.schelp
+)
+
+sc_add_server_plugin(
+	"${project_name}" # destination directory
+	"AnalogPhaser" # target name
+	"${AnalogPhaser_cpp_files}"
+	"${AnalogPhaser_sc_files}"
+	"${AnalogPhaser_schelp_files}"
+)
+

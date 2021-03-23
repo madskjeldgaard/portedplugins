@@ -77,3 +77,17 @@ cmake --build . --config Release --target install
 
 This repository includes a script for the Raspberry Pi users (Raspberry Pi OS based) that installs the prerequisites for building (cmake), downloads all of the source code needed and compiles and installs it. 
 
+
+# Credits
+Most of these plugins build on code, research and ideas of others, including:
+
+- [Mutable Instruments / E. Pichenettes](https://mutable-instruments.net/)
+- Julian Parker and Stefano D'angelo (LPG research)
+- [ElectroSmith's DaisySP](https://github.com/electro-smith/DaisySP) DSP library
+- Bryan Head (Chen attractor)
+- [Jatin Chowdhury](https://https://ccrma.stanford.edu/~jatin/)
+
+
+A massive thank you to them for sharing their knowledge and ideas and making new sounds possible! 
+
+You can find more information about sources of information and code in the help files for the plugins.
