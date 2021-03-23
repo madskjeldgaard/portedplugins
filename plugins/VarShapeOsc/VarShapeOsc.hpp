@@ -23,9 +23,9 @@ private:
     enum Outputs { Out1, NumOutputParams };
     enum InputParams { Freq, PW, Waveshape, Sync, SyncFreq, NumInputParams };
 	float m_freq_past{100.f}; 
-	float m_pw_past{0.f}; 
-	float m_waveshape_past{0.f}; 
-	float m_syncfreq_past{0.f};
+	float m_pw_past{0.5f}; 
+	float m_waveshape_past{0.5f}; 
+	float m_syncfreq_past{100.f};
 
 	daisysp::VariableShapeOscillator varshapeosc;
 };
