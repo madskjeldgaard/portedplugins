@@ -13,7 +13,7 @@ const double M_PI = std::acos(-1.0);
 
 // Fucking Windows bollocks...
 #ifndef M_SQRT2
-namespace { const double M_SQRT2 1.41421356237309504880; }
+namespace { const double M_SQRT2 = 1.41421356237309504880; }
 #endif
 
 /** Digital IIR filter processor. Using TDF-II structure:
