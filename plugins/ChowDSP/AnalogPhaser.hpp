@@ -13,7 +13,9 @@ public:
     AnalogPhaser();
 private:
     // Calc function
-    void next(int nSamples);
+    void next_a(int nSamples);
+	void next_k(int nSamples);
+
     void clear(int nSamples);
 
     enum InputParams { Input, LfoInput, Skew, Feedback, Modulation, Stages, NumInputParams };
@@ -21,6 +23,7 @@ private:
 
 	chow::ChowPhaserFeedback chowphasefb;
 
+	float m_input_past{0.f};
 	float m_skew_past{0.f};
 	float m_feedback_past{0.f};
 	float m_modulation_past{0.f};

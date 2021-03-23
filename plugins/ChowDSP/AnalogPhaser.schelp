@@ -19,7 +19,7 @@ ARGUMENT::input
 Audio input
 
 ARGUMENT::lfoinput
-Input of the lfo used to modulate the sound
+Input of the lfo used to modulate the sound. May be audio rate or control rate.
 
 ARGUMENT::skew
 Emphasize different parts of the LFO's input. Inspired by the behaviour of light dependent resistors.
