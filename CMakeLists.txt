@@ -473,3 +473,63 @@ sc_add_server_plugin(
 	"${AnalogPhaser_schelp_files}"
 )
 
+# AnalogDistortion
+# set(AnalogDistortion_cpp_files
+# 	plugins/ChowDSP/AnalogDistortion.hpp
+# 	plugins/ChowDSP/AnalogDistortion.cpp
+# 	)
+# set(AnalogDistortion_sc_files
+# 	plugins/ChowDSP/AnalogDistortion.sc
+# 	)
+# set(AnalogDistortion_schelp_files
+# 	plugins/ChowDSP/AnalogDistortion.schelp
+# 	)
+
+# sc_add_server_plugin(
+# 	"${project_name}" # destination directory
+# 	"AnalogDistortion" # target name
+# 	"${AnalogDistortion_cpp_files}"
+# 	"${AnalogDistortion_sc_files}"
+# 	"${AnalogDistortion_schelp_files}"
+# 	)
+
+# MaxModal
+# set(MaxModal_cpp_files
+# 	plugins/ChowDSP/MaxModal.hpp
+# 	plugins/ChowDSP/MaxModal.cpp
+# )
+# set(MaxModal_sc_files
+# 	plugins/ChowDSP/MaxModal.sc
+# )
+# set(MaxModal_schelp_files
+# 	plugins/ChowDSP/MaxModal.schelp
+# )
+
+# sc_add_server_plugin(
+# 	"${project_name}" # destination directory
+# 	"MaxModal" # target name
+# 	"${MaxModal_cpp_files}"
+# 	"${MaxModal_sc_files}"
+# 	"${MaxModal_schelp_files}"
+# )
+
+# AnalogPhaserMod
+set(AnalogPhaserMod_cpp_files
+	plugins/ChowDSP/AnalogPhaserMod.hpp
+	plugins/ChowDSP/AnalogPhaserMod.cpp
+	)
+set(AnalogPhaserMod_sc_files
+	plugins/ChowDSP/AnalogPhaserMod.sc
+	)
+set(AnalogPhaserMod_schelp_files
+	plugins/ChowDSP/AnalogPhaserMod.schelp
+	)
+
+sc_add_server_plugin(
+	"${project_name}" # destination directory
+	"AnalogPhaserMod" # target name
+	"${AnalogPhaserMod_cpp_files}"
+	"${AnalogPhaserMod_sc_files}"
+	"${AnalogPhaserMod_schelp_files}"
+	)
+

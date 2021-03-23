@@ -1,0 +1,51 @@
+CLASS:: AnalogPhaserMod
+SUMMARY:: Virtual Analog allpass phaser modulation section
+RELATED::HelpSource/Overview/MKPlugins, Classes/AnalogPhaser
+CATEGORIES::UGens>VirtualAnalog
+
+DESCRIPTION::
+
+This plugin is the modulation section of LINK::#Classes/AnalogPhaser:: which takes a modulation signal and passes it through a series of modulated virtual analog allpass stages.
+
+Original by Jatin Chowdhury, ported to SuperCollider by Mads Kjeldgaard from the ChowDSP-VCV-rack project: LINK::https://github.com/jatinchowdhury18/ChowDSP-VCV::.
+
+CLASSMETHODS::
+
+METHOD::ar,kr
+
+ARGUMENT::input
+Audio or control rate input
+
+ARGUMENT::skew
+Emphasize different parts of the LFO's input. Inspired by the behaviour of light dependent resistors.
+-1.0 to 1.0.
+
+ARGUMENT::modulation
+A sort of dry/wet control for the internals of the phaser modulator, mixing between the dry lfo at lfoinput and the result of it passing through the phaser circuitry.
+
+0.0 to 1.0
+
+ARGUMENT::stages
+1.0 to 50.0
+
+EXAMPLES::
+
+code::
+(
+Ndef(\sloggy, {|amp=0.25|
+	var sig = SinOsc.ar(LFNoise2.ar(10) * 1000);
+
+	// This will crossfade between the unaffected and affected signal
+	var drywet = LFSaw.ar(0.1).poll;
+
+	sig = XFade2.ar(  
+		SinOsc.ar(sig * 401.0), 
+		SinOsc.ar(AnalogPhaserMod.ar(sig, modulation: 1.0, stages: 50, skew: 0) * 401.0),
+		drywet
+	)!2;
+
+	sig * amp
+}).play;
+)
+::
+
