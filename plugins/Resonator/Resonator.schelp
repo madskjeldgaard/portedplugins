@@ -65,5 +65,31 @@ Ndef(\resonantsnare, { |pan=0|
 }).play;
 )
 
+(
+SynthDef(\resonator, {|out=0, pan=0, dur = 1, sustain=0, trig=1, amp=0.5, freq=100, structure=0.5, position=0.005, brightness=0.5, damping=0.5| 
+	var env = Env.perc.kr(gate: trig, timeScale:dur+sustain, doneAction: 2);
+	var resolution = 24;
+	var sig = Resonator.ar(PinkNoise.ar() * env, freq, position, resolution, structure, brightness, damping);
+
+	sig = Pan2.ar(sig, pan);
+	Out.ar(out, env*sig * amp)
+}).add;
+)
+(
+Pdef(':)', 
+	Pbind(
+		\instrument, \resonator,
+		\out, 0.0,
+		\pan, Pwhite(-1.0,1.0),
+		\dur, Pseg([1,5], 16, \lin, inf ) * 0.125,
+		\sustain, Pwhite(0,0.25) * Pkey(\dur),
+		\degree, Pstutter(3, Pwhite(0,7)),
+		\octave, Pwhite(3,5),
+		\structure, Pwhite(0.25,0.5),
+		\brightness, Pwhite(0,0.25),
+		\damping, Pwhite(0.25, 0.75),
+	)
+).play
+)
 ::
 
