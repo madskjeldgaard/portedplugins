@@ -16,7 +16,7 @@ METHOD::ar
 ARGUMENT::trig
 Trigger the voice
 
-ARGUMENT::sustain
+ARGUMENT::infsustain
 continually excite the string with noise.
 1 is true, 0 is false.
 
