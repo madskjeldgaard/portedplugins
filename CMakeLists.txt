@@ -533,3 +533,23 @@ sc_add_server_plugin(
 	"${AnalogPhaserMod_schelp_files}"
 	)
 
+# PhasorModal
+set(PhasorModal_cpp_files
+    plugins/ChowDSP/PhasorModal.hpp
+    plugins/ChowDSP/PhasorModal.cpp
+)
+set(PhasorModal_sc_files
+    plugins/ChowDSP/PhasorModal.sc
+)
+set(PhasorModal_schelp_files
+    plugins/ChowDSP/PhasorModal.schelp
+)
+
+sc_add_server_plugin(
+	"${project_name}" # destination directory
+	"PhasorModal" # target name
+	"${PhasorModal_cpp_files}"
+	"${PhasorModal_sc_files}"
+	"${PhasorModal_schelp_files}"
+)
+

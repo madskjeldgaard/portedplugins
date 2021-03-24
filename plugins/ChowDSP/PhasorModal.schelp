@@ -1,0 +1,27 @@
+CLASS:: PhasorModal
+SUMMARY:: A plugin... 
+RELATED::TODO
+CATEGORIES::TODO
+
+DESCRIPTION::
+
+This is a short description
+
+CLASSMETHODS::
+
+METHOD::ar
+
+ARGUMENT::TODO
+
+ARGUMENT::TODO
+
+EXAMPLES::
+
+code::
+(
+Ndef(\phasormodal, { 
+	PhasorModal.ar(Dust2.ar(50), freq: 900, decay: 0.25, damp: 1.0, amp: 0.05, phase: 0.01).poll;
+}).play
+)
+::
+
