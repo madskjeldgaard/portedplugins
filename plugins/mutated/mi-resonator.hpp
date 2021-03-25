@@ -34,6 +34,7 @@
 #include "math.h"
 #include "mi-lookuptables.h"
 #include <algorithm>
+#include "../constants.h"
 
 #pragma once
 
@@ -91,13 +92,6 @@ enum FilterMode {
   FILTER_MODE_BAND_PASS_NORMALIZED,
   FILTER_MODE_HIGH_PASS
 };
-
-// This is necessary to get M_PI to work on windows
-#ifndef M_PI
-namespace {
-const double M_PI = std::acos(-1.0);
-}
-#endif
 
 #define M_PI_F float(M_PI)
 #define M_PI_POW_2 M_PI *M_PI

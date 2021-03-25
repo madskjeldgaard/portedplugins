@@ -3,18 +3,7 @@
 #include <complex>
 /* #include <dsp/common.hpp> */
 #include <type_traits>
-
-// This is necessary to get M_PI to work on windows
-#ifndef M_PI
-namespace {
-const double M_PI = std::acos(-1.0);
-}
-#endif
-
-// Fucking Windows bollocks...
-#ifndef M_SQRT2
-namespace { const double M_SQRT2 = 1.41421356237309504880; }
-#endif
+#include "../constants.h"
 
 /** Digital IIR filter processor. Using TDF-II structure:
  * https://ccrma.stanford.edu/~jos/filters/Transposed_Direct_Forms.html
