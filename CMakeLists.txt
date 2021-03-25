@@ -653,3 +653,23 @@ if(INCWERNER)
 	sc_link_with_eigen("Werner") 
 endif(INCWERNER)
 
+# AnalogVintageDistortion
+set(AnalogVintageDistortion_cpp_files
+	plugins/ChowDSP/AnalogVintageDistortion.hpp
+	plugins/ChowDSP/AnalogVintageDistortion.cpp
+)
+set(AnalogVintageDistortion_sc_files
+	plugins/ChowDSP/AnalogVintageDistortion.sc
+)
+set(AnalogVintageDistortion_schelp_files
+	plugins/ChowDSP/AnalogVintageDistortion.schelp
+)
+
+sc_add_server_plugin(
+	"${project_name}" # destination directory
+	"AnalogVintageDistortion" # target name
+	"${AnalogVintageDistortion_cpp_files}"
+	"${AnalogVintageDistortion_sc_files}"
+	"${AnalogVintageDistortion_schelp_files}"
+)
+

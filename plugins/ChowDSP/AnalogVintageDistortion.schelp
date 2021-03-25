@@ -1,0 +1,66 @@
+CLASS:: AnalogVintageDistortion
+SUMMARY::A virtual analog vintage EQ and distortion
+RELATED::HelpSource/Overview/MKPlugins
+CATEGORIES::UGens>VirtualAnalog
+
+DESCRIPTION::
+
+A virtual analog EQ and distortion by Jatin Chowdhury, ported to SuperCollider by Mads Kjeldgaard from the VCV-rack module CHOW der.
+
+The EQ circuit is based on the LINK::https://en.wikipedia.org/wiki/Peter_Baxandall##BaxandallEQ::. The drive circuit is inspired by the Klon Centaur and Ibanez Tube Screamer  guitar pedals.
+
+Original code from the ChowDSP-VCV-rack project: LINK::https://github.com/jatinchowdhury18/ChowDSP-VCV##ChowDSP-VCV::
+
+CLASSMETHODS::
+
+METHOD::ar
+
+argument::input
+Sound input
+
+argument::drivegain
+Gain of input drive, 0.0 to 1.0
+
+argument::bias
+Bias. 0.0 to 2.5
+Controls the distribution of odd/even harmonics.
+
+argument::lowgain
+Gain of the lower part of the EQ, 0.0001 to 0.3 is appropriate. Use eg CODE::-10.dbamp:: if you want to control using decibels.
+
+argument::highgain
+Gain of the higher part of the EQ, 0.001 to 0.3 is appropriate. Use eg CODE::-10.dbamp:: if you want to control using decibels.
+
+argument::shelvingfreq
+The center frequency of the EQ filter
+
+argument::oversample
+Set amount of oversampling
+
+0 = No oversampling,
+1 = x2,
+2 = x4,
+3 = x8,
+4 = x16
+
+EXAMPLES::
+
+code::
+(
+Ndef(\dist, {|amp=0.5, drivegain = 0.85| 
+	var sig = AnalogVintageDistortion.ar(
+		SinOsc.ar(SinOsc.kr(1).exprange(80,1000)),
+		drivegain: drivegain,
+		bias: 0.1,
+		lowgain: -3.dbamp,
+		highgain: -9.dbamp,
+		shelvingfreq: 600,
+		oversample: 1,
+	)!2;
+
+	sig = DCompressor.ar(sig, ratio: 10);
+	Limiter.ar(sig ) * amp
+}).play
+)
+::
+
