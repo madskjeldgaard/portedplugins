@@ -13,17 +13,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_modules ${CMAKE_MODULE_PATH})
 # Eigen seems to prefer 17
 set(CMAKE_CXX_STANDARD 17)
 
-message(STATUS "Cmake build type: " ${CMAKE_BUILD_TYPE})
-
-
-# The Ubuntu 18 box in the Github Cloud complained " /usr/bin/ld: DaisySP/libDaisySP.a(KarplusString.cpp.o): relocation R_X86_64_PC32 against symbol `_ZN7daisysp6String15ProcessInternalILNS0_18StringNonLinearityE1EEEff' can not be used when making a shared object; recompile with -fPIC" for a while. This seems to fix it:
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpic")
-
-# Set compiler pickyness, this picks up a ton of extra little things
-if(CMAKE_COMPILER_IS_GNUCXX)
-  add_compile_options(-Wall -Wextra -pedantic)
-endif(CMAKE_COMPILER_IS_GNUCXX)
-
 ####################################################################################################
 # load modules
 include(SuperColliderServerPlugin RESULT_VARIABLE server_plugin_found)
@@ -89,6 +78,10 @@ endif()
 
 # DaisySP library
 add_subdirectory(DaisySP)
+# Hack: force DaisySP to use PIC since we cannot compile it as a shared library. This solves a
+# linker error on the GHA Ubuntu 18 image:
+#   /usr/bin/ld: DaisySP/libDaisySP.a(KarplusString.cpp.o): relocation R_X86_64_PC32 against symbol `_ZN7daisysp6String15ProcessInternalILNS0_18StringNonLinearityE1EEEff' can not be used when making a shared object; recompile with -fPIC
+target_compile_options(DaisySP PRIVATE -fpic)
 
 # Link plugin with DaisySP library
 function(sc_link_with_daisy plugin_name)
@@ -111,7 +104,7 @@ endfunction()
 if(INCWERNER)
 	# Eigen library
 	add_subdirectory(eigen)
-endif(INCWERNER)
+endif()
 
 # Link plugin with eigen library
 function(sc_link_with_eigen plugin_name)
@@ -581,7 +574,7 @@ if(INCPHASORMODAL)
 		"${PhasorModal_sc_files}"
 		"${PhasorModal_schelp_files}"
 		)
-endif(INCPHASORMODAL)
+endif()
 
 if(INCPULSE)
 	# AnalogPulseShaper
@@ -603,7 +596,7 @@ if(INCPULSE)
 		"${AnalogPulseShaper_sc_files}"
 		"${AnalogPulseShaper_schelp_files}"
 		)
-endif(INCPULSE)
+endif()
 
 # AnalogTape
 set(AnalogTape_cpp_files
@@ -651,7 +644,7 @@ if(INCWERNER)
 		"${Werner_schelp_files}"
 		)
 	sc_link_with_eigen("Werner") 
-endif(INCWERNER)
+endif()
 
 # AnalogVintageDistortion
 set(AnalogVintageDistortion_cpp_files
