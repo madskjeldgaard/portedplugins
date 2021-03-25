@@ -1,6 +1,7 @@
 #ifndef MODE_H_INCLUDED
 #define MODE_H_INCLUDED
 
+#include "../constants.h"
 #include <complex>
 
 namespace chow{

@@ -1,10 +1,11 @@
 #ifndef WDF_H_INCLUDED
 #define WDF_H_INCLUDED
 
+#include "../constants.h"
 #include "omega.h"
-#include <string>
 #include <cmath>
 #include <memory>
+#include <string>
 
 /**
  * A framework for creating circuit emulations with Wave Digital Filters.
