@@ -108,7 +108,7 @@ endfunction()
 if(INCWERNER)
 	# Eigen library
 	add_subdirectory(eigen)
-endif(INCWERNER)
+endif()
 
 # Link plugin with eigen library
 function(sc_link_with_eigen plugin_name)
@@ -578,7 +578,7 @@ if(INCPHASORMODAL)
 		"${PhasorModal_sc_files}"
 		"${PhasorModal_schelp_files}"
 		)
-endif(INCPHASORMODAL)
+endif()
 
 if(INCPULSE)
 	# AnalogPulseShaper
@@ -600,7 +600,7 @@ if(INCPULSE)
 		"${AnalogPulseShaper_sc_files}"
 		"${AnalogPulseShaper_schelp_files}"
 		)
-endif(INCPULSE)
+endif()
 
 # AnalogTape
 set(AnalogTape_cpp_files
@@ -648,7 +648,7 @@ if(INCWERNER)
 		"${Werner_schelp_files}"
 		)
 	sc_link_with_eigen("Werner") 
-endif(INCWERNER)
+endif()
 
 # AnalogVintageDistortion
 set(AnalogVintageDistortion_cpp_files
