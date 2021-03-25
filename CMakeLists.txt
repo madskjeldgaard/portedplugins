@@ -70,7 +70,7 @@ option(NATIVE "Optimize for native architecture" OFF)
 option(STRICT "Use strict warning flags" OFF)
 option(NOVA_SIMD "Build plugins with nova-simd support." ON)
 
-# Exclude / include certain plugins
+# Exclude / include certain experimental / work in progress plugins
 option(INCPULSE "Include AnalogPulseShaper plugin" OFF)
 option(INCWERNER "Include Werner plugin" OFF)
 option(INCPHASORMODAL "Include PhasorModal plugin" ON)
