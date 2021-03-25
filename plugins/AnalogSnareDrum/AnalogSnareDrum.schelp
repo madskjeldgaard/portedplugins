@@ -1,7 +1,7 @@
 CLASS:: AnalogSnareDrum
 SUMMARY:: Virtual analog 808 snare drum model.
 RELATED::HelpSource/Overview/MKPlugins
-CATEGORIES::UGens>Drums
+CATEGORIES::UGens>VirtualAnalog, UGens>Drums
 
 DESCRIPTION::
 

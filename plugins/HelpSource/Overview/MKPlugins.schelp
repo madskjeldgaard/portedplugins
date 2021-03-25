@@ -7,49 +7,26 @@ LINK::https://github.com/madskjeldgaard/mkplugins/##MKPlugins:: is a collection 
 
 The collection contains the following UGens:
  
-strong::Drums::
-
 LIST::
 ## LINK::Classes/AnalogBassDrum::
-## LINK::Classes/AnalogSnareDrum::
-::
-
-strong::Dynamics::
-
-LIST::
-## LINK::Classes/DCompressor::
-::
-
-strong::Filtering::
-
-LIST::
-## LINK::Classes/LPG::
 ## LINK::Classes/AnalogPhaser::
 ## LINK::Classes/AnalogPhaserMod::
-::
-
-strong::Chaos::
-LIST::
-## LINK::Classes/Chen::
-::
-
-strong::Oscillators::
-
-LIST::
+## LINK::Classes/AnalogSnareDrum::
+## LINK::Classes/AnalogTape::
+## LINK::Classes/AnalogVintageDistortion::
 ## LINK::Classes/BLOsc::
+## LINK::Classes/Chen::
+## LINK::Classes/DCompressor::
 ## LINK::Classes/HarmonicOsc::
+## LINK::Classes/LPG::
+## LINK::Classes/NeoFormant::
 ## LINK::Classes/NeoVarSawOsc::
 ## LINK::Classes/OscBank::
+## LINK::Classes/PhasorModal::
+## LINK::Classes/Resonator::
+## LINK::Classes/Rongs::
+## LINK::Classes/StringVoice::
 ## LINK::Classes/VarShapeOsc::
 ## LINK::Classes/VosimOsc::
 ## LINK::Classes/ZOsc::
-## LINK::Classes/NeoFormant::
-::
-
-strong::Physical modelling::
-
-LIST::
-## LINK::Classes/Rongs::
-## LINK::Classes/Resonator::
-## LINK::Classes/StringVoice::
 ::

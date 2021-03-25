@@ -8,7 +8,29 @@ Most of these are algorithms that I felt like exploring more in-depth at a C++ l
 
 ## Included plugins
 
+
+- **AnalogBassDrum** - Virtual analog 808 bass drum model. Original code by [Èmilie Gillet / Mutable Instruments](https://github.com/pichenettes/eurorack). Revisited by Ben Sergentanis for the [DaisySP DSP library](https://github.com/electro-smith/DaisySP). 
+- **AnalogPhaserMod** - The modulation section of a phaser based on/inspired by classic krautrock phasers. Ported from [Jatin Chowdhury's ChowDSP-VCV-rack project](https://github.com/jatinchowdhury18/ChowDSP-VCV).
+- **AnalogPhaser** - Virtual analog feedback phaser based on/inspired by classic krautrock phasers. Ported from [Jatin Chowdhury's ChowDSP-VCV-rack project](https://github.com/jatinchowdhury18/ChowDSP-VCV).
+- **AnalogSnareDrum** - Virtual analog 808 snare drum model. Original code by [Èmilie Gillet / Mutable Instruments](https://github.com/pichenettes/eurorack). Revisited by Ben Sergentanis for the [DaisySP DSP library](https://github.com/electro-smith/DaisySP). 
+- **AnalogTape** - Virtual analog tape model with variable oversampling and anti aliasing. Ported from [Jatin Chowdhury's ChowDSP-VCV-rack project](https://github.com/jatinchowdhury18/ChowDSP-VCV).
+- **AnalogVintageDistortion** - A virtual analog vintage EQ and distortion by Jatin Chowdhury. Features oversampling. Ported from [Jatin Chowdhury's ChowDSP-VCV-rack project](https://github.com/jatinchowdhury18/ChowDSP-VCV).
+- **BLOsc** - Band limited oscillator. Original Author(s): Paul Batchelor, saw2 Faust by Julius Smith. Revisited by Ben Sergentanis for the [DaisySP DSP library](https://github.com/electro-smith/DaisySP). 
+- **Chen** - Chen's chaotic double scroll attractor, based on code from [Bryan Head's alternative Mutable Instruments firmware](https://github.com/qiemem/eurorack/releases/tag/v1.1.0).
+- **DCompressor** - Compressor from [DaisySP DSP library](https://github.com/electro-smith/DaisySP), ported from faust originally by shensley andAvAars originally.
+- **HarmonicOsc** - 16 voice harmonic oscillator. Original code by [Èmilie Gillet / Mutable Instruments](https://github.com/pichenettes/eurorack). Revisited by Ben Sergentanis for the [DaisySP DSP library](https://github.com/electro-smith/DaisySP). 
+- **LPG** - Virtual analog Buchla Lowpass-gate based on the work of Julian Parker and Stefano D'angelo.
+- **NeoFormant** - Formant oscillator with aliasing-free phase reset. Original code by [Èmilie Gillet / Mutable Instruments](https://github.com/pichenettes/eurorack). Revisited by Ben Sergentanis for the [DaisySP DSP library](https://github.com/electro-smith/DaisySP). 
+- **NeoVarSawOsc** - Variable saw oscillator. Original code by [Èmilie Gillet / Mutable Instruments](https://github.com/pichenettes/eurorack). Revisited by Ben Sergentanis for the [DaisySP DSP library](https://github.com/electro-smith/DaisySP). 
+- **OscBank** - A mixture of 7 sawtooth and square waveforms in the style of divide-down organs. Original code by [Èmilie Gillet / Mutable Instruments](https://github.com/pichenettes/eurorack). Revisited by Ben Sergentanis for the [DaisySP DSP library](https://github.com/electro-smith/DaisySP). 
+- **PhasorModal** - Ported from [Jatin Chowdhury's ChowDSP-VCV-rack project](https://github.com/jatinchowdhury18/ChowDSP-VCV).
+- **Resonator** - A resonant body simulation (originally found in the Mutable Instruments Rings synthesizer module). Original code by [Èmilie Gillet / Mutable Instruments](https://github.com/pichenettes/eurorack). Revisited by Ben Sergentanis for the [DaisySP DSP library](https://github.com/electro-smith/DaisySP). 
+- **Rongs** - A modal synthesis voice. This is a remix of the Mutable Instruments Rings algorithm allowing unrealistic sounds of sloppy gongs and 100km long strings. Original code by [Èmilie Gillet / Mutable Instruments](https://github.com/pichenettes/eurorack).
 See the overview helpfile [MKPlugins](/plugins/HelpSource/Overview/MKPlugins.schelp) for more information which plugins are included.
+- **StringVoice** - Extended Karplus-Strong. Original code by [Èmilie Gillet / Mutable Instruments](https://github.com/pichenettes/eurorack). Revisited by Ben Sergentanis for the [DaisySP DSP library](https://github.com/electro-smith/DaisySP). 
+- **VarShapeOsc** - Variable Waveshape Oscillator. Original code by [Èmilie Gillet / Mutable Instruments](https://github.com/pichenettes/eurorack). Revisited by Ben Sergentanis for the [DaisySP DSP library](https://github.com/electro-smith/DaisySP). 
+- **VosimOsc** - Vosim oscillator (Two sinewaves multiplied by and sync'ed to a carrier). Original code by [Èmilie Gillet / Mutable Instruments](https://github.com/pichenettes/eurorack). Revisited by Ben Sergentanis for the [DaisySP DSP library](https://github.com/electro-smith/DaisySP). 
+- **ZOsc** - Sinewave multiplied by and sync'ed to a carrier. Original code by [Èmilie Gillet / Mutable Instruments](https://github.com/pichenettes/eurorack). Revisited by Ben Sergentanis for the [DaisySP DSP library](https://github.com/electro-smith/DaisySP). 
 
 ## Installation
 
@@ -77,6 +99,13 @@ cmake --build . --config Release --target install
 
 This repository includes a script for the Raspberry Pi users (Raspberry Pi OS based) that installs the prerequisites for building (cmake), downloads all of the source code needed and compiles and installs it. 
 
+
+# Contributing
+Contributions are welcome! If you experience any problems, post it as an issue or if you have the skills to fix it yourself you may open up a PR with a suggested change. If you see any problems in documentation, feel free to do the same here (please submit a PR if you can - it makes it a lot easier for me). 
+
+If you have cool examples of these plugins in use, feel free to send me a code example that I can include in the documentation: mail [a] madskjeldgaard.dk 
+
+Thank you!
 
 # Credits
 Most of these plugins build on code, research and ideas of others, including:
