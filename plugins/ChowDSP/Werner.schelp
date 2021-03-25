@@ -1,0 +1,34 @@
+CLASS:: Werner
+SUMMARY:: A plugin... 
+RELATED::TODO
+CATEGORIES::TODO
+
+DESCRIPTION::
+
+Jatin Chowdhury writes in the documentation for his VCV-rack version of this:
+"This filter is an implementation of a generalized State Variable Filter architecture (shown below), presented by Kurt James Werner and Russell McClellan at the 2020 Digital Audio Effects (DAFx) conference, with a couple nonlinear modifications. The filter has modular controls for the frequency, resonant feedback, passband damping, and nonlinear drive."
+
+Links:
+
+link::https://dafx2020.mdw.ac.at/proceedings/papers/DAFx2020_paper_70.pdf##Original DAFX paper about this filter::
+
+link::https://dafx2020.mdw.ac.at/proceedings/presentations/paper_70.mp4##Kurt Werner's accompanying talk::
+
+
+CLASSMETHODS::
+
+METHOD::ar
+
+ARGUMENT::TODO
+
+ARGUMENT::TODO
+
+EXAMPLES::
+
+code::
+Ndef(\notam, {|freq=110, width=0.5|
+	var sig = VarSaw.ar(freq, width: width);
+	Werner.ar(sig);
+}).play;
+::
+

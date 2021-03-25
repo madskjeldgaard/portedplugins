@@ -9,7 +9,9 @@
 cmake_minimum_required(VERSION 3.5)
 set(project_name "MKPlugins")
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_modules ${CMAKE_MODULE_PATH})
-set(CMAKE_CXX_STANDARD 14)
+
+# Eigen seems to prefer 17
+set(CMAKE_CXX_STANDARD 17)
 
 message(STATUS "Cmake build type: " ${CMAKE_BUILD_TYPE})
 
@@ -70,8 +72,8 @@ option(NOVA_SIMD "Build plugins with nova-simd support." ON)
 
 # Exclude / include certain plugins
 option(INCPULSE "Include AnalogPulseShaper plugin" OFF)
+option(INCWERNER "Include Werner plugin" OFF)
 option(INCPHASORMODAL "Include PhasorModal plugin" ON)
-
 
 ####################################################################################################
 # include libraries
@@ -80,6 +82,52 @@ if(NOVA_SIMD)
   add_definitions(-DNOVA_SIMD)
   include_directories(${SC_PATH}/external_libraries/nova-simd)
 endif()
+
+####################################################################################################
+# DAISYSP LIBRARY
+####################################################################################################
+
+# DaisySP library
+add_subdirectory(DaisySP)
+
+# Link plugin with DaisySP library
+function(sc_link_with_daisy plugin_name)
+	message(STATUS "Linking ${plugin_name} with DaisySP library")
+	if(SCSYNTH)
+		include_directories("${plugin_name}_scsynth" DaisySP/Source)
+		target_link_libraries("${plugin_name}_scsynth" DaisySP )
+	endif()
+
+	if(SUPERNOVA)
+		include_directories("${plugin_name}_supernova" DaisySP/Source)
+		target_link_libraries("${plugin_name}_supernova" DaisySP )
+	endif()
+endfunction()
+
+####################################################################################################
+# EIGEN LIBRARY
+####################################################################################################
+
+if(INCWERNER)
+	# Eigen library
+	add_subdirectory(eigen)
+endif(INCWERNER)
+
+# Link plugin with eigen library
+function(sc_link_with_eigen plugin_name)
+	message(STATUS "Linking ${plugin_name} with eigen library")
+	if(SCSYNTH)
+		include_directories("${plugin_name}_scsynth" eigen/Eigen)
+		target_link_libraries("${plugin_name}_scsynth" eigen )
+	endif()
+
+	if(SUPERNOVA)
+		include_directories("${plugin_name}_supernova" eigen/Eigen)
+		target_link_libraries("${plugin_name}_supernova" eigen )
+	endif()
+endfunction()
+
+
 
 ####################################################################################################
 # Plugins
@@ -138,31 +186,6 @@ sc_add_server_plugin(
   "${Chen_sc_files}"
   "${Chen_schelp_files}"
 )
-
-####################################################################################################
-# DAISYSP LIBRARY
-####################################################################################################
-
-# DaisySP library
-add_subdirectory(DaisySP)
-
-# Link plugin with DaisySP library
-function(sc_link_with_daisy plugin_name)
-	message(STATUS "Linking ${plugin_name} with DaisySP library")
-	if(SCSYNTH)
-		include_directories("${plugin_name}_scsynth" DaisySP/Source)
-		target_link_libraries("${plugin_name}_scsynth" DaisySP )
-	endif()
-
-	if(SUPERNOVA)
-		include_directories("${plugin_name}_supernova" DaisySP/Source)
-		target_link_libraries("${plugin_name}_supernova" DaisySP )
-	endif()
-endfunction()
-
-####################################################################################################
-# END PLUGIN TARGET DEFINITION
-####################################################################################################
 # Rongs
 set(Rongs_cpp_files
     plugins/Rongs/Rongs.hpp
@@ -606,4 +629,27 @@ sc_add_server_plugin(
 
 # target_link_libraries("AnalogTape_scsynth" plugins/ChowDSP/HysteresisProcessing.hpp plugins/ChowDSP/HysteresisProcessing.cpp)
 # target_link_libraries("AnalogTape_supernova" plugins/ChowDSP/HysteresisProcessing.hpp plugins/ChowDSP/HysteresisProcessing.cpp)
+
+if(INCWERNER)
+	# Werner
+	set(Werner_cpp_files
+		plugins/ChowDSP/Werner.hpp
+		plugins/ChowDSP/Werner.cpp
+		)
+	set(Werner_sc_files
+		plugins/ChowDSP/Werner.sc
+		)
+	set(Werner_schelp_files
+		plugins/ChowDSP/Werner.schelp
+		)
+
+	sc_add_server_plugin(
+		"${project_name}" # destination directory
+		"Werner" # target name
+		"${Werner_cpp_files}"
+		"${Werner_sc_files}"
+		"${Werner_schelp_files}"
+		)
+	sc_link_with_eigen("Werner") 
+endif(INCWERNER)
 
