@@ -68,6 +68,11 @@ option(NATIVE "Optimize for native architecture" OFF)
 option(STRICT "Use strict warning flags" OFF)
 option(NOVA_SIMD "Build plugins with nova-simd support." ON)
 
+# Exclude / include certain plugins
+option(INCPULSE "Include AnalogPulseShaper plugin" OFF)
+option(INCPHASORMODAL "Include PhasorModal plugin" ON)
+
+
 ####################################################################################################
 # include libraries
 
@@ -533,23 +538,72 @@ sc_add_server_plugin(
 	"${AnalogPhaserMod_schelp_files}"
 	)
 
-# PhasorModal
-set(PhasorModal_cpp_files
-    plugins/ChowDSP/PhasorModal.hpp
-    plugins/ChowDSP/PhasorModal.cpp
+if(INCPHASORMODAL)
+	# PhasorModal
+	set(PhasorModal_cpp_files
+		plugins/ChowDSP/PhasorModal.hpp
+		plugins/ChowDSP/PhasorModal.cpp
+		)
+	set(PhasorModal_sc_files
+		plugins/ChowDSP/PhasorModal.sc
+		)
+	set(PhasorModal_schelp_files
+		plugins/ChowDSP/PhasorModal.schelp
+		)
+
+	sc_add_server_plugin(
+		"${project_name}" # destination directory
+		"PhasorModal" # target name
+		"${PhasorModal_cpp_files}"
+		"${PhasorModal_sc_files}"
+		"${PhasorModal_schelp_files}"
+		)
+endif(INCPHASORMODAL)
+
+if(INCPULSE)
+	# AnalogPulseShaper
+	set(AnalogPulseShaper_cpp_files
+		plugins/ChowDSP/AnalogPulseShaper.hpp
+		plugins/ChowDSP/AnalogPulseShaper.cpp
+		)
+	set(AnalogPulseShaper_sc_files
+		plugins/ChowDSP/AnalogPulseShaper.sc
+		)
+	set(AnalogPulseShaper_schelp_files
+		plugins/ChowDSP/AnalogPulseShaper.schelp
+		)
+
+	sc_add_server_plugin(
+		"${project_name}" # destination directory
+		"AnalogPulseShaper" # target name
+		"${AnalogPulseShaper_cpp_files}"
+		"${AnalogPulseShaper_sc_files}"
+		"${AnalogPulseShaper_schelp_files}"
+		)
+endif(INCPULSE)
+
+# AnalogTape
+set(AnalogTape_cpp_files
+	plugins/ChowDSP/AnalogTape.hpp
+	plugins/ChowDSP/AnalogTape.cpp
+	# plugins/ChowDSP/HysteresisProcessing.hpp
+	# plugins/ChowDSP/HysteresisProcessing.cpp
 )
-set(PhasorModal_sc_files
-    plugins/ChowDSP/PhasorModal.sc
+set(AnalogTape_sc_files
+	plugins/ChowDSP/AnalogTape.sc
 )
-set(PhasorModal_schelp_files
-    plugins/ChowDSP/PhasorModal.schelp
+set(AnalogTape_schelp_files
+	plugins/ChowDSP/AnalogTape.schelp
 )
 
 sc_add_server_plugin(
 	"${project_name}" # destination directory
-	"PhasorModal" # target name
-	"${PhasorModal_cpp_files}"
-	"${PhasorModal_sc_files}"
-	"${PhasorModal_schelp_files}"
+	"AnalogTape" # target name
+	"${AnalogTape_cpp_files}"
+	"${AnalogTape_sc_files}"
+	"${AnalogTape_schelp_files}"
 )
+
+# target_link_libraries("AnalogTape_scsynth" plugins/ChowDSP/HysteresisProcessing.hpp plugins/ChowDSP/HysteresisProcessing.cpp)
+# target_link_libraries("AnalogTape_supernova" plugins/ChowDSP/HysteresisProcessing.hpp plugins/ChowDSP/HysteresisProcessing.cpp)
 

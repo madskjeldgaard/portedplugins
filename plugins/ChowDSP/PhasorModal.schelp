@@ -19,9 +19,25 @@ EXAMPLES::
 
 code::
 (
-Ndef(\phasormodal, { 
-	PhasorModal.ar(Dust2.ar(50), freq: 900, decay: 0.25, damp: 1.0, amp: 0.05, phase: 0.01).poll;
-}).play
+Ndef(\phasormodal, { |pitchstretch=(-0.1), f0=80|
+	var amountVoices = 32;
+
+	var sig = Splay.ar(Array.fill(amountVoices, {|i|
+		PhasorModal.ar(
+			LPF.ar(Dust2.ar(i+1 / 3.0), 1500), 
+			freq: (i+1)*(pitchstretch+1)*f0, 
+			decay: rrand(0.225,0.35), 
+			damp: 1.0, 
+			amp: LFNoise2.kr(1).range(0.25,0.45), 
+			phase: 0
+		);
+	}).scramble, 
+	spread: LFNoise2.kr(0.1).unipolar,
+	center: 0
+);
+
+sig
+}).mold(2).play
 )
 ::
 
