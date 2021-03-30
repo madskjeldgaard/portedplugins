@@ -100,13 +100,15 @@ This repository includes a script for the Raspberry Pi users (Raspberry Pi OS ba
 
 
 # Contributing
-Contributions are welcome! If you experience any problems, post it as an issue or if you have the skills to fix it yourself you may open up a PR with a suggested change. If you see any problems in documentation, feel free to do the same here (please submit a PR if you can - it makes it a lot easier for me). 
+Contributions are welcome! 
 
-If you have cool examples of these plugins in use, feel free to send me a code example that I can include in the documentation: mail [a] madskjeldgaard.dk 
+If you experience any problems, post it as an issue or if you have the skills to fix it yourself you may open up a PR with a suggested change. 
 
-Thank you!
+If you see any problems in the documentation, feel free to do the same here (please submit a PR if you can - otherwise feel free to post an issue). 
 
 # Credits
+Thank you to [Notam](https://notam.no) for the support. 
+
 Most of these plugins build on code, research and ideas of others, including:
 
 - [Mutable Instruments / E. Pichenettes](https://mutable-instruments.net/)
@@ -116,6 +118,6 @@ Most of these plugins build on code, research and ideas of others, including:
 - [Jatin Chowdhury](https://https://ccrma.stanford.edu/~jatin/)
 
 
-A massive thank you to them for sharing their knowledge and ideas and making new sounds possible! 
+A massive thank you to them and everyone who contributed to the sub projects this relies on for sharing knowledge and ideas and making new sounds possible! 
 
 You can find more information about sources of information and code in the help files for the plugins.
