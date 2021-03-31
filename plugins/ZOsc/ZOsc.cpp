@@ -11,6 +11,7 @@ namespace ZOsc {
 ZOsc::ZOsc() {
   const float samplerate = sampleRate();
   zosc.Init(samplerate);
+  dcblocker.Init(samplerate);
 
   mCalcFunc = make_calc_function<ZOsc, &ZOsc::next>();
   next(1);
@@ -31,7 +32,8 @@ void ZOsc::next(int nSamples) {
     zosc.SetMode(slopedMode.consume());
     zosc.SetShape(slopedShape.consume());
 
-    outbuf[i] = zosc.Process();
+    // @TODO dc blocker should be temporary
+    outbuf[i] = dcblocker.Process(zosc.Process());
   }
 
   m_freq_past = slopedFreq.value;

@@ -11,6 +11,7 @@ namespace VosimOsc {
 VosimOsc::VosimOsc() {
   const float samplerate = sampleRate();
   vosim.Init(samplerate);
+  dcblocker.Init(samplerate);
 
   mCalcFunc = make_calc_function<VosimOsc, &VosimOsc::next>();
   next(1);
@@ -29,7 +30,7 @@ void VosimOsc::next(int nSamples) {
     vosim.SetForm2Freq(slopedForm1.consume());
     vosim.SetShape(slopedShape.consume());
 
-    outbuf[i] = vosim.Process();
+    outbuf[i] = dcblocker.Process(vosim.Process());
   }
 
   m_freq_past = slopedFreq.value;

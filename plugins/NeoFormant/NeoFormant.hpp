@@ -28,6 +28,7 @@ private:
 	float m_carrierfreq_past {0.f};
 
 	daisysp::FormantOscillator formantosc;
+	daisysp::DcBlock dcblocker;
 
 };
 

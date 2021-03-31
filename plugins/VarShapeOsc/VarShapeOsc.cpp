@@ -11,6 +11,7 @@ namespace VarShapeOsc {
 VarShapeOsc::VarShapeOsc() {
   const float samplerate = sampleRate();
   varshapeosc.Init(samplerate);
+  dcblocker.Init(samplerate);
 
   mCalcFunc = make_calc_function<VarShapeOsc, &VarShapeOsc::next>();
   next(1);
@@ -35,7 +36,7 @@ void VarShapeOsc::next(int nSamples) {
     varshapeosc.SetSyncFreq(slopedSyncFreq.consume());
     varshapeosc.SetPW(slopedPW.consume());
     varshapeosc.SetWaveshape(slopedwaveshape.consume());
-    outbuf[i] = varshapeosc.Process();
+    outbuf[i] = dcblocker.Process(varshapeosc.Process());
   }
 
   m_freq_past = slopedFreq.value;

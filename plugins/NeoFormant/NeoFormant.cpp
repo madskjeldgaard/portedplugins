@@ -11,6 +11,7 @@ namespace NeoFormant {
 NeoFormant::NeoFormant() {
   const float samplerate = sampleRate();
   formantosc.Init(samplerate);
+  dcblocker.Init(samplerate);
 
   mCalcFunc = make_calc_function<NeoFormant, &NeoFormant::next>();
   next(1);
@@ -37,7 +38,7 @@ void NeoFormant::next(int nSamples) {
     formantosc.SetCarrierFreq(carrierfreq);
     formantosc.SetFormantFreq(formantfreq);
     formantosc.SetPhaseShift(phaseshift);
-    outbuf[i] = formantosc.Process();
+    outbuf[i] = dcblocker.Process(formantosc.Process());
   }
 
   m_formantfreq_past = slopedFormantFreq.value;

@@ -25,6 +25,7 @@ private:
   float m_mode_past{0.5f};
 
   daisysp::ZOscillator zosc;
+  daisysp::DcBlock dcblocker;
 };
 
 } // namespace ZOsc

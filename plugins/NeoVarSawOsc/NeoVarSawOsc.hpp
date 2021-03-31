@@ -25,6 +25,7 @@ private:
 	float m_pw_past{0.f}; 
 	float m_waveshape_past{0.f}; 
 	daisysp::VariableSawOscillator varsawosc;
+	daisysp::DcBlock dcblocker;
 
     enum Outputs { Out1, NumOutputParams };
 

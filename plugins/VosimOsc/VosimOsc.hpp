@@ -20,6 +20,7 @@ private:
     enum InputParams { Freq, Form1, Form2, Shape, NumInputParams };
     enum Outputs { Out1, NumOutputParams };
 	daisysp::VosimOscillator vosim;
+	daisysp::DcBlock dcblocker;
 
 	float m_freq_past{100.f}, m_form1_past{100.f},m_form2_past{100.f},  m_shape_past{0.f};
 

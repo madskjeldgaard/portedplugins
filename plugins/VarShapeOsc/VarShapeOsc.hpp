@@ -28,6 +28,7 @@ private:
 	float m_syncfreq_past{100.f};
 
 	daisysp::VariableShapeOscillator varshapeosc;
+	daisysp::DcBlock dcblocker;
 };
 
 } // namespace VarShapeOsc

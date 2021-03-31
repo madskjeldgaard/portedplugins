@@ -11,6 +11,7 @@ namespace NeoVarSawOsc {
 NeoVarSawOsc::NeoVarSawOsc() {
   const float samplerate = sampleRate();
   varsawosc.Init(samplerate);
+  dcblocker.Init(samplerate);
 
   mCalcFunc = make_calc_function<NeoVarSawOsc, &NeoVarSawOsc::next>();
   next(1);
@@ -29,7 +30,7 @@ void NeoVarSawOsc::next(int nSamples) {
     varsawosc.SetFreq(slopedFreq.consume());
     varsawosc.SetPW(slopedPW.consume());
     varsawosc.SetWaveshape(slopedwaveshape.consume());
-    outbuf[i] = varsawosc.Process();
+    outbuf[i] = dcblocker.Process(varsawosc.Process());
   }
 
   m_freq_past = slopedFreq.value;
