@@ -1,3 +1,11 @@
+/*  The code is based on the work of Julian Parker and Stefano D'angelo. The
+ copyright is theirs.
+ *
+ * See the paper here for more information:
+ * https://www.dafx.de/paper-archive/2013/papers/44.dafx2013_submission_56.pdf
+ * A Digital Model of the Buchla Lowpass-Gate, DAFX-13.
+ *
+ */
 #pragma once
 
 namespace lpg {
