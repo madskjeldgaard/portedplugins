@@ -666,3 +666,43 @@ sc_add_server_plugin(
 	"${AnalogVintageDistortion_schelp_files}"
 )
 
+# TrigBurst
+set(TrigBurst_cpp_files
+    plugins/TrigBurst/TrigBurst.hpp
+    plugins/TrigBurst/TrigBurst.cpp
+)
+set(TrigBurst_sc_files
+    plugins/TrigBurst/TrigBurst.sc
+)
+set(TrigBurst_schelp_files
+    plugins/TrigBurst/TrigBurst.schelp
+)
+
+sc_add_server_plugin(
+	"${project_name}" # destination directory
+	"TrigBurst" # target name
+	"${TrigBurst_cpp_files}"
+	"${TrigBurst_sc_files}"
+	"${TrigBurst_schelp_files}"
+)
+
+# AnalogWaveFolder
+set(AnalogWaveFolder_cpp_files
+    plugins/AnalogWaveFolder/AnalogWaveFolder.hpp
+    plugins/AnalogWaveFolder/AnalogWaveFolder.cpp
+)
+set(AnalogWaveFolder_sc_files
+    plugins/AnalogWaveFolder/AnalogWaveFolder.sc
+)
+set(AnalogWaveFolder_schelp_files
+    plugins/AnalogWaveFolder/AnalogWaveFolder.schelp
+)
+
+sc_add_server_plugin(
+	"${project_name}" # destination directory
+	"AnalogWaveFolder" # target name
+	"${AnalogWaveFolder_cpp_files}"
+	"${AnalogWaveFolder_sc_files}"
+	"${AnalogWaveFolder_schelp_files}"
+)
+
