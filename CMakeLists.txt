@@ -690,7 +690,12 @@ sc_add_server_plugin(
 set(AnalogWaveFolder_cpp_files
     plugins/AnalogWaveFolder/AnalogWaveFolder.hpp
     plugins/AnalogWaveFolder/AnalogWaveFolder.cpp
+	plugins/AnalogWaveFolder/buchla259cell.cpp
+	plugins/AnalogWaveFolder/buchla259cell.hpp
+	plugins/AnalogWaveFolder/buchla259waveshaper.cpp
+	plugins/AnalogWaveFolder/buchla259waveshaper.hpp
 )
+
 set(AnalogWaveFolder_sc_files
     plugins/AnalogWaveFolder/AnalogWaveFolder.sc
 )

@@ -9,22 +9,24 @@ static InterfaceTable* ft;
 namespace AnalogWaveFolder {
 
 AnalogWaveFolder::AnalogWaveFolder() {
-	// const float samplerate = sampleRate();
+  const float samplerate = sampleRate();
+  waveshaper.init(samplerate);
 
-    mCalcFunc = make_calc_function<AnalogWaveFolder, &AnalogWaveFolder::next>();
-    next(1);
+  mCalcFunc = make_calc_function<AnalogWaveFolder, &AnalogWaveFolder::next>();
+  next(1);
 }
-
-AnalogWaveFolder::~AnalogWaveFolder() {}
 
 void AnalogWaveFolder::next(int nSamples) {
     const float* input = in(Input);
-	const float gain = in0(Gain);
+    const float amp = in0(Amp);
+    const float freq = in0(F0);
+    waveshaper.setAmplitude(amp);
+    waveshaper.setF0(freq);
 
     float* outbuf = out(Out1);
 
     for (int i = 0; i < nSamples; ++i) {
-        outbuf[i] = input[i] * gain;
+      outbuf[i] = waveshaper.process();
     }
 }
 

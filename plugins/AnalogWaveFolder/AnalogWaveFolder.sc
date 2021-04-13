@@ -1,7 +1,7 @@
 AnalogWaveFolder : UGen {
-	*ar { |input, gain|
+	*ar { |input, freq=100, amp=1|
 		/* TODO */
-		^this.multiNew('audio', input, gain);
+		^this.multiNew('audio', input, freq, amp);
 	}
 
 	checkInputs {
