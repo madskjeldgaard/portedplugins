@@ -15,11 +15,11 @@ namespace buchla259 {
 
 class Buchla259FoldingCell {
 public:
-  void init(float samplerate, double f0, double amp, double r1, double r3,
+  void init(double samplerate, double f0, double amp, double r1, double r3,
             double outputscalar);
   float process();
 
-  void setF0(float f0) {
+  void setF0(double f0) {
     m_f0 = f0;
 
     // Phase increment
@@ -28,9 +28,19 @@ public:
 
   void setAmplitude(float amp) { A = amp; }
 
-  void setR1(double R1val) { R1 = R1val; }
+  void setR1(double R1val) { 
+	  R1 = R1val; 
+	  recalculateG();
+  }
 
-  void setR3(double R3val) { R3 = R3val; }
+  void setR3(double R3val) { 
+	  R3 = R3val; 
+	  recalculateG();
+  }
+
+  void recalculateG(){
+	  G = ((R2 * R3) / (R1 * R3 + R2 * R3 + R1 * R2));
+  }
 
   void resetFlags() {
     for (int i = 0; i < 4; i++) {
@@ -40,7 +50,9 @@ public:
 
 private:
   float m_samplerate;
-  double m_f0, A, R1, R3;
+  double m_f0, A, R1, R2, R3, Ts, thresh, Vs, L;
+
+  double G;
 
   double m_output_scalar;
 
