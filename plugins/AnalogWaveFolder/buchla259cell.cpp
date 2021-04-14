@@ -30,15 +30,6 @@ void Buchla259FoldingCell::init(float samplerate, double f0, double amp,
 }
 
 float Buchla259FoldingCell::process() {
-  // History variables
-
-  // Flags
-  // Create flags vector
-  flags[0] = fl1;
-  flags[1] = fl2;
-  flags[2] = fl3;
-  flags[3] = fl4;
-
   // Read fundamental freq and ampl
   double Ts = 1.0 / m_samplerate;
   double thresh = 0.01;
@@ -56,7 +47,7 @@ float Buchla259FoldingCell::process() {
   double one_sixth = 1.0 / 6.0;
 
   // Synthesize input
-  double xn = A * sin(2 * pi * ph);
+  double xn = A * sin(twopi * ph);
 
   // Inverse Clipper
   if (std::abs(xn) > L) {
@@ -68,7 +59,7 @@ float Buchla259FoldingCell::process() {
   if (A >= L) {
 
     // Compute clipping points
-    double clp1 = asin(L / A) / (2 * pi);
+    double clp1 = std::asin(L / A) / twopi;
     double clp2 = 0.5 - clp1;
     double clp3 = 0.5 + clp1;
     double clp4 = 1 - clp1;
@@ -78,7 +69,7 @@ float Buchla259FoldingCell::process() {
     cl_pts[3] = clp4;
 
     // Reset counters and check for that really annoying first case.
-    fl4 = flags[3];
+    auto fl4 = flags[3];
 
     if ((ph < delta) && (fl4 == 1)) {
 
@@ -94,9 +85,9 @@ float Buchla259FoldingCell::process() {
       double h0 = -tripled * one_sixth + 0.5 * (d * d) - 0.5 * d + one_sixth;
       double h1 = tripled * one_sixth;
 
-      double twopiclp4 = 2 * pi * clp4;
+      double twopiclp4 = twopi * clp4;
       double pol = sign(A * sin(twopiclp4));
-      double mu = std::abs(A * cos(twopiclp4) * (2 * pi * m_f0 * Ts));
+      double mu = std::abs(A * cos(twopiclp4) * (twopi * m_f0 * Ts));
 
       if (mu < thresh) {
         mu = 0;
@@ -122,9 +113,9 @@ float Buchla259FoldingCell::process() {
         double h1 = tripled * one_sixth;
 
         // @FIXME: the sin and cos here could be optimized
-        double twopiclip = 2 * pi * clp;
+        double twopiclip = twopi * clp;
         double pol = sign(A * sin(twopiclip));
-        double mu = std::abs(A * cos(twopiclip) * (2 * pi * m_f0 * Ts));
+        double mu = std::abs(A * cos(twopiclip) * (twopi * m_f0 * Ts));
 
         if (mu < thresh) {
           mu = 0;
@@ -143,11 +134,6 @@ float Buchla259FoldingCell::process() {
 
   // Update States
   Vk_ic_n1 = Vk_ic;
-
-  fl1 = flags[0];
-  fl2 = flags[1];
-  fl3 = flags[2];
-  fl4 = flags[3];
 
   // Increase counter
   ph = fmod(delta + ph, 1);
