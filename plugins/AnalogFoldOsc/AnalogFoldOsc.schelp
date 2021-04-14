@@ -1,4 +1,4 @@
-CLASS:: AnalogWaveFolder
+CLASS:: AnalogFoldOsc
 SUMMARY:: A Buchla 259 Oscillator / Wavefolder
 RELATED::HelpSource/Classes/LPG
 CATEGORIES::UGens>Distortion
@@ -26,7 +26,7 @@ EXAMPLES::
 code::
 (
 Ndef(\wavefolder, {
-	var sig = AnalogWaveFolder.ar(
+	var sig = AnalogFoldOsc.ar(
 		freq: \freq.kr(60) + [0, 1],
 		amp: SinOsc.ar(LFSaw.kr(0.1) * 4).range(0.0,1.0),
 	);

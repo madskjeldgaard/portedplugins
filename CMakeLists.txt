@@ -686,28 +686,28 @@ sc_add_server_plugin(
 	"${TrigBurst_schelp_files}"
 )
 
-# AnalogWaveFolder
-set(AnalogWaveFolder_cpp_files
-    plugins/AnalogWaveFolder/AnalogWaveFolder.hpp
-    plugins/AnalogWaveFolder/AnalogWaveFolder.cpp
-	plugins/AnalogWaveFolder/buchla259cell.cpp
-	plugins/AnalogWaveFolder/buchla259cell.hpp
-	plugins/AnalogWaveFolder/buchla259waveshaper.cpp
-	plugins/AnalogWaveFolder/buchla259waveshaper.hpp
+# AnalogFoldOsc
+set(AnalogFoldOsc_cpp_files
+    plugins/AnalogFoldOsc/AnalogFoldOsc.hpp
+    plugins/AnalogFoldOsc/AnalogFoldOsc.cpp
+	plugins/AnalogFoldOsc/buchla259cell.cpp
+	plugins/AnalogFoldOsc/buchla259cell.hpp
+	plugins/AnalogFoldOsc/buchla259waveshaper.cpp
+	plugins/AnalogFoldOsc/buchla259waveshaper.hpp
 )
 
-set(AnalogWaveFolder_sc_files
-    plugins/AnalogWaveFolder/AnalogWaveFolder.sc
+set(AnalogFoldOsc_sc_files
+    plugins/AnalogFoldOsc/AnalogFoldOsc.sc
 )
-set(AnalogWaveFolder_schelp_files
-    plugins/AnalogWaveFolder/AnalogWaveFolder.schelp
+set(AnalogFoldOsc_schelp_files
+    plugins/AnalogFoldOsc/AnalogFoldOsc.schelp
 )
 
 sc_add_server_plugin(
 	"${project_name}" # destination directory
-	"AnalogWaveFolder" # target name
-	"${AnalogWaveFolder_cpp_files}"
-	"${AnalogWaveFolder_sc_files}"
-	"${AnalogWaveFolder_schelp_files}"
+	"AnalogFoldOsc" # target name
+	"${AnalogFoldOsc_cpp_files}"
+	"${AnalogFoldOsc_sc_files}"
+	"${AnalogFoldOsc_schelp_files}"
 )
 

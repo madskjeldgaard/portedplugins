@@ -1,4 +1,4 @@
-// AnalogWaveFolder.hpp
+// AnalogFoldOsc.hpp
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #pragma once
@@ -6,11 +6,11 @@
 #include "SC_PlugIn.hpp"
 #include "buchla259waveshaper.hpp"
 
-namespace AnalogWaveFolder {
+namespace AnalogFoldOsc {
 
-class AnalogWaveFolder : public SCUnit {
+class AnalogFoldOsc : public SCUnit {
 public:
-    AnalogWaveFolder();
+    AnalogFoldOsc();
 
 private:
     // Calc function
@@ -24,5 +24,5 @@ private:
 
 };
 
-} // namespace AnalogWaveFolder
+} // namespace AnalogFoldOsc
 
