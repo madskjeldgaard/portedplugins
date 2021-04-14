@@ -4,16 +4,8 @@
  *
  */
 #include "buchla259cell.hpp"
-#include "SC_BoundsMacros.h"
-#include "SC_Constants.h"
-#include <iostream>
-#include <ostream>
 
 namespace buchla259 {
-
-// Signum function from
-// https://stackoverflow.com/questions/1903954/is-there-a-standard-sign-function-signum-sgn-in-c-c
-template <typename T> int sign(T val) { return (T(0) < val) - (val < T(0)); }
 
 void Buchla259FoldingCell::init(double samplerate, double f0, double amp,
                                 double r1, double r3, double outputscalar) {
@@ -41,9 +33,6 @@ void Buchla259FoldingCell::init(double samplerate, double f0, double amp,
 
 float Buchla259FoldingCell::process() {
   double Vk_ic = 0;
-
-  // Helper constants
-  constexpr double one_sixth = 1.0 / 6.0;
 
   // Synthesize input
   double xn = A * sin(twopi * ph);
@@ -77,29 +66,8 @@ float Buchla259FoldingCell::process() {
       clp4 = cl_pts[3];
 
       double d = 1 - ((1 - clp4 + ph) / delta);
-      /* if (d < 0 || d > 1.0) { */
-      /*   std::cout << "d exceeded limits: " << std::to_string(d) */
-      /*             << "\n clp4: " << std::to_string(clp4) */
-      /*             << "\n ph: " << std::to_string(ph) */
-      /*             << "\n delta: " << std::to_string(delta) << std::endl; */
-      /* }; */
       d = sc_clip(d, 0.0, 1.0);
-      double twod = d * d;
-      double tripled = twod * d;
-      double h0 = -tripled * one_sixth + 0.5 * twod - 0.5 * d + one_sixth;
-      double h1 = tripled * one_sixth;
-
-      double twopiclp4 = twopi * clp4;
-      double pol = sign(A * sin(twopiclp4));
-      double mu = std::abs(A * cos(twopiclp4) * (twopi * m_f0 * Ts));
-
-      if (mu < thresh) {
-        mu = 0;
-      }
-
-      Vk_ic = Vk_ic + pol * mu * h1;
-      Vk_ic_n1 = Vk_ic_n1 + pol * mu * h0;
-
+      clippingPointCalc(d, clp4, Vk_ic_n1, Vk_ic);
       resetFlags();
     }
 
@@ -115,32 +83,8 @@ float Buchla259FoldingCell::process() {
         // clipped at the moment but that only removes the symptom and not the
         // cause.
         double d = 1 - (ph - clp) / delta;
-        /* if (d < 0 || d > 1.0) { */
-        /*   std::cout << "d exceeded limits: " << std::to_string(d) */
-        /*             << "\n clp4: " << std::to_string(clp4) */
-        /*             << "\n ph: " << std::to_string(ph) */
-        /*             << "\n delta: " << std::to_string(delta) << std::endl; */
-        /* }; */
-        /* std::cout << "d :" << std::to_string(d) << std::endl; */
-
         d = sc_clip(d, 0.0, 1.0);
-        double twod = d * d;
-        double tripled = twod * d;
-        double h0 = -tripled * one_sixth + 0.5 * twod - 0.5 * d + one_sixth;
-        double h1 = tripled * one_sixth;
-
-        // @FIXME: the sin and cos here could be optimized
-        double twopiclip = twopi * clp;
-        double pol = sign(A * sin(twopiclip));
-        double mu = std::abs(A * cos(twopiclip) * (twopi * m_f0 * Ts));
-
-        if (mu < thresh) {
-          mu = 0;
-        }
-
-        Vk_ic = Vk_ic + pol * mu * h1;
-        Vk_ic_n1 = Vk_ic_n1 + pol * mu * h0;
-
+        clippingPointCalc(d, clp, Vk_ic_n1, Vk_ic);
         flags[m] = 1;
       }
     }

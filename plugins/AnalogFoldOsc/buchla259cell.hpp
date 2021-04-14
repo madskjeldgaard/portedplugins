@@ -1,8 +1,18 @@
 #ifndef MK_BUCHLA259
 #define MK_BUCHLA259
 #pragma once
+#include "SC_BoundsMacros.h"
+#include "SC_Constants.h"
+#include <iostream>
+#include <ostream>
 
 namespace buchla259 {
+// Signum function from
+// https://stackoverflow.com/questions/1903954/is-there-a-standard-sign-function-signum-sgn-in-c-c
+template <typename T> int sign(T val) { return (T(0) < val) - (val < T(0)); }
+
+// Helper constants
+constexpr double one_sixth = 1.0 / 6.0;
 
 /**
  * @brief A virtual analog Buchla 259 wavefolder folding cell
@@ -12,7 +22,6 @@ namespace buchla259 {
  * @details This is a folding cell sub circuit using in a parallel waveshaper
  * ala Buchla 259.
  */
-
 class Buchla259FoldingCell {
 public:
   void init(double samplerate, double f0, double amp, double r1, double r3,
@@ -28,25 +37,43 @@ public:
 
   void setAmplitude(float amp) { A = amp; }
 
-  void setR1(double R1val) { 
-	  R1 = R1val; 
-	  recalculateG();
+  void setR1(double R1val) {
+    R1 = R1val;
+    recalculateG();
   }
 
-  void setR3(double R3val) { 
-	  R3 = R3val; 
-	  recalculateG();
+  void setR3(double R3val) {
+    R3 = R3val;
+    recalculateG();
   }
 
-  void recalculateG(){
-	  G = ((R2 * R3) / (R1 * R3 + R2 * R3 + R1 * R2));
-  }
+  void recalculateG() { G = ((R2 * R3) / (R1 * R3 + R2 * R3 + R1 * R2)); }
 
   void resetFlags() {
     for (int i = 0; i < 4; i++) {
       flags[i] = 0;
     }
   }
+
+  inline void clippingPointCalc(double d, double clippingPoint,
+                                double &vk_ic_n1, double &vk_ic) {
+    double twod = d * d;
+    double tripled = twod * d;
+    double h0 = -tripled * one_sixth + 0.5 * twod - 0.5 * d + one_sixth;
+    double h1 = tripled * one_sixth;
+
+    // @FIXME: the sin and cos here could be optimized
+    double twopiclip = twopi * clippingPoint;
+    double pol = sign(A * sin(twopiclip));
+    double mu = std::abs(A * cos(twopiclip) * (twopi * m_f0 * Ts));
+
+    if (mu < thresh) {
+      mu = 0;
+    }
+
+    vk_ic = vk_ic + pol * mu * h1;
+    vk_ic_n1 = vk_ic_n1 + pol * mu * h0;
+  };
 
 private:
   float m_samplerate;
