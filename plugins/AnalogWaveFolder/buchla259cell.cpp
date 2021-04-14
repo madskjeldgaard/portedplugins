@@ -4,6 +4,7 @@
  *
  */
 #include "buchla259cell.hpp"
+#include "SC_BoundsMacros.h"
 #include "SC_Constants.h"
 #include <iostream>
 #include <ostream>
@@ -80,9 +81,16 @@ float Buchla259FoldingCell::process() {
       clp4 = cl_pts[3];
 
       double d = 1 - ((1 - clp4 + ph) / delta);
-
-      double tripled = d * d * d;
-      double h0 = -tripled * one_sixth + 0.5 * (d * d) - 0.5 * d + one_sixth;
+      if (d < 0 || d > 1.0) {
+        std::cout << "d exceeded limits: " << std::to_string(d)
+                  << "\n clp4: " << std::to_string(clp4)
+                  << "\n ph: " << std::to_string(ph)
+                  << "\n delta: " << std::to_string(delta) << std::endl;
+      };
+      d = sc_clip(d, 0.0, 1.0);
+      double twod = d * d;
+      double tripled = twod * d;
+      double h0 = -tripled * one_sixth + 0.5 * twod - 0.5 * d + one_sixth;
       double h1 = tripled * one_sixth;
 
       double twopiclp4 = twopi * clp4;
@@ -107,9 +115,22 @@ float Buchla259FoldingCell::process() {
 
       if ((ph > clp) && (ph > (ph - delta)) && (flg == 0)) {
 
+        // @FIXME: d occasionally exceeds it's limits of 0.0-1.0. This is hard
+        // clipped at the moment but that only removes the symptom and not the
+        // cause.
         double d = 1 - (ph - clp) / delta;
-        double tripled = d * d * d;
-        double h0 = -tripled * one_sixth + 0.5 * (d * d) - 0.5 * d + one_sixth;
+
+        if (d < 0 || d > 1.0) {
+          std::cout << "d exceeded limits: " << std::to_string(d)
+                    << "\n clp4: " << std::to_string(clp4)
+                    << "\n ph: " << std::to_string(ph)
+                    << "\n delta: " << std::to_string(delta) << std::endl;
+        };
+
+        d = sc_clip(d, 0.0, 1.0);
+        double twod = d * d;
+        double tripled = twod * d;
+        double h0 = -tripled * one_sixth + 0.5 * twod - 0.5 * d + one_sixth;
         double h1 = tripled * one_sixth;
 
         // @FIXME: the sin and cos here could be optimized
