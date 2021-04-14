@@ -15,37 +15,35 @@ namespace buchla259 {
 // https://stackoverflow.com/questions/1903954/is-there-a-standard-sign-function-signum-sgn-in-c-c
 template <typename T> int sign(T val) { return (T(0) < val) - (val < T(0)); }
 
-void Buchla259FoldingCell::init(float samplerate, double f0, double amp,
+void Buchla259FoldingCell::init(double samplerate, double f0, double amp,
                                 double r1, double r3, double outputscalar) {
   m_output_scalar = outputscalar;
   m_samplerate = samplerate;
+
   for (int i = 0; i < 4; i++) {
     flags[i] = 0;
     cl_pts[i] = 0;
   }
 
+  Ts = 1.0 / m_samplerate;
+  thresh = 0.01;
+  Vs = 6;
+
   setF0(f0);
+  R2 = 100e3;
   setR1(r1);
   setR3(r3);
+  recalculateG();
   setAmplitude(amp);
+
+  L = Vs * (R1 / R2);
 }
 
 float Buchla259FoldingCell::process() {
-  // Read fundamental freq and ampl
-  double Ts = 1.0 / m_samplerate;
-  double thresh = 0.01;
-
-  // Compute clipping threshold L
-  double Vs = 6;
-  double R2 = 100e3;
-  double L = Vs * (R1 / R2);
-
-  // Dummy variable(s)
   double Vk_ic = 0;
 
   // Helper constants
-  double G = ((R2 * R3) / (R1 * R3 + R2 * R3 + R1 * R2));
-  double one_sixth = 1.0 / 6.0;
+  constexpr double one_sixth = 1.0 / 6.0;
 
   // Synthesize input
   double xn = A * sin(twopi * ph);
@@ -69,9 +67,7 @@ float Buchla259FoldingCell::process() {
     cl_pts[2] = clp3;
     cl_pts[3] = clp4;
 
-    // Reset counters and check for that really annoying first case.
     auto fl4 = flags[3];
-
     if ((ph < delta) && (fl4 == 1)) {
 
       resetFlags();
@@ -125,7 +121,7 @@ float Buchla259FoldingCell::process() {
         /*             << "\n ph: " << std::to_string(ph) */
         /*             << "\n delta: " << std::to_string(delta) << std::endl; */
         /* }; */
-        std::cout << "d :" << std::to_string(d) << std::endl;
+        /* std::cout << "d :" << std::to_string(d) << std::endl; */
 
         d = sc_clip(d, 0.0, 1.0);
         double twod = d * d;
