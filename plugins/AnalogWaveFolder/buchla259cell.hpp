@@ -38,7 +38,8 @@ public:
 
 private:
   float m_samplerate;
-  double m_f0, A, R1, R3, fl1{0}, fl2{0}, fl3{0}, fl4{0};
+  double m_f0, A, R1, R3;
+
   double m_output_scalar;
 
   double Vk_ic_n1{0}, delta{0};
