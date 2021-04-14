@@ -1,26 +1,40 @@
 CLASS:: AnalogWaveFolder
-SUMMARY:: A plugin... 
-RELATED::TODO
-CATEGORIES::TODO
+SUMMARY:: A Buchla 259 Oscillator / Wavefolder
+RELATED::HelpSource/Classes/LPG
+CATEGORIES::UGens>Distortion
 
 DESCRIPTION::
 
-This is a short description
+This UGen is based on research by Fabián Esqueda, Henri Pöntynen, Vesa Välimäki and Julian D. Parker.
+
+It models the Buchla type of wavefolder circuit with six parallel folder "cells", one of which is the clean signal and features oversampling to reduce the distortion artifacts. The implementation here is tightly coupled to the sine wave input and thus has a built in oscillator as well. Think of it as half of a Buchla complex oscillator basically. Also, it's quite ineffective as it is right now and uses up more CPU than it should.
+ 
+See LINK::http://research.spa.aalto.fi/publications/papers/dafx17-wavefolder/##The original paper for more information about the ideas behind this::.
 
 CLASSMETHODS::
 
 METHOD::ar
 
-ARGUMENT::TODO
+ARGUMENT::freq
+The oscillator sinewave frequency
 
-ARGUMENT::TODO
+ARGUMENT::amp
+The amplitude/gain of the signal being folded. 0.0 to 1.0.
 
 EXAMPLES::
 
 code::
-Ndef(\notam, {|freq=110, width=0.5|
-	var sig = VarSaw.ar(freq, width: width);
-	AnalogWaveFolder.ar(sig);
+(
+Ndef(\wavefolder, {
+	var sig = AnalogWaveFolder.ar(
+		freq: \freq.kr(60) + [0, 1],
+		amp: SinOsc.ar(LFSaw.kr(0.1) * 4).range(0.0,1.0),
+	);
+
+	// The original circuit has a onepole LPF filter at it's output to control the "tone"
+	sig = LPF.ar(sig, 1330);
+	sig;
 }).play;
+)
 ::
 

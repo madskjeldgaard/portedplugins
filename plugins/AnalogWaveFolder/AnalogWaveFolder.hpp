@@ -17,7 +17,7 @@ private:
     void next(int nSamples);
     void clear(int nSamples);
 
-    enum InputParams { Input, F0, Amp, NumInputParams };
+    enum InputParams { F0, Amp, NumInputParams };
     enum Outputs { Out1, NumOutputParams };
 
 	buchla259waveshaper::Buchla259WaveShaper waveshaper;

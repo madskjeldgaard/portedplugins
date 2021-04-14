@@ -41,7 +41,6 @@ float Buchla259FoldingCell::process() {
 
   // Read fundamental freq and ampl
   double Ts = 1.0 / m_samplerate;
-
   double thresh = 0.01;
 
   // Compute clipping threshold L
@@ -57,7 +56,6 @@ float Buchla259FoldingCell::process() {
   double one_sixth = 1.0 / 6.0;
 
   // Synthesize input
-  // @TODO: Replace this with sample input
   double xn = A * sin(2 * pi * ph);
 
   // Inverse Clipper
@@ -145,16 +143,14 @@ float Buchla259FoldingCell::process() {
 
   // Update States
   Vk_ic_n1 = Vk_ic;
+
   fl1 = flags[0];
   fl2 = flags[1];
   fl3 = flags[2];
   fl4 = flags[3];
 
   // Increase counter
-  /* std::cout << "delta " << std::to_string(delta) << std::endl; */
-
-  // ph = static_cast<int>(ph + delta) % 1;
-  ph += delta;
+  ph = fmod(delta + ph, 1);
 
   return out1 * m_output_scalar;
 }

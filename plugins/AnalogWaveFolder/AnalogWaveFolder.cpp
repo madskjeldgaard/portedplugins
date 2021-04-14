@@ -17,7 +17,6 @@ AnalogWaveFolder::AnalogWaveFolder() {
 }
 
 void AnalogWaveFolder::next(int nSamples) {
-    const float* input = in(Input);
     const float amp = in0(Amp);
     const float freq = in0(F0);
     waveshaper.setAmplitude(amp);
