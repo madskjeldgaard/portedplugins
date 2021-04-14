@@ -81,12 +81,12 @@ float Buchla259FoldingCell::process() {
       clp4 = cl_pts[3];
 
       double d = 1 - ((1 - clp4 + ph) / delta);
-      if (d < 0 || d > 1.0) {
-        std::cout << "d exceeded limits: " << std::to_string(d)
-                  << "\n clp4: " << std::to_string(clp4)
-                  << "\n ph: " << std::to_string(ph)
-                  << "\n delta: " << std::to_string(delta) << std::endl;
-      };
+      /* if (d < 0 || d > 1.0) { */
+      /*   std::cout << "d exceeded limits: " << std::to_string(d) */
+      /*             << "\n clp4: " << std::to_string(clp4) */
+      /*             << "\n ph: " << std::to_string(ph) */
+      /*             << "\n delta: " << std::to_string(delta) << std::endl; */
+      /* }; */
       d = sc_clip(d, 0.0, 1.0);
       double twod = d * d;
       double tripled = twod * d;
@@ -119,13 +119,13 @@ float Buchla259FoldingCell::process() {
         // clipped at the moment but that only removes the symptom and not the
         // cause.
         double d = 1 - (ph - clp) / delta;
-
-        if (d < 0 || d > 1.0) {
-          std::cout << "d exceeded limits: " << std::to_string(d)
-                    << "\n clp4: " << std::to_string(clp4)
-                    << "\n ph: " << std::to_string(ph)
-                    << "\n delta: " << std::to_string(delta) << std::endl;
-        };
+        /* if (d < 0 || d > 1.0) { */
+        /*   std::cout << "d exceeded limits: " << std::to_string(d) */
+        /*             << "\n clp4: " << std::to_string(clp4) */
+        /*             << "\n ph: " << std::to_string(ph) */
+        /*             << "\n delta: " << std::to_string(delta) << std::endl; */
+        /* }; */
+        std::cout << "d :" << std::to_string(d) << std::endl;
 
         d = sc_clip(d, 0.0, 1.0);
         double twod = d * d;
