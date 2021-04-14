@@ -12,8 +12,8 @@ constexpr int kNumCells = 5;
 
 /**
  * @brief A virtual analog Buchla 259 wavefolder
- * @author Mads Kjeldgaard (C++ / SuperCollider port), Fabian Esqueda and Julian
- * Parker (original authors)
+ * @author Mads Kjeldgaard (C++ / SuperCollider port), based on research by
+ * Fabián Esqueda, Henri Pöntynen, Vesa Välimäki and Julian D. Parker.
  * @date 12-04-2021
  * @details A realistic, oversampled virtual analog representation of the Buchla
  * 259 wavefolder circuit. See the original paper for details:
