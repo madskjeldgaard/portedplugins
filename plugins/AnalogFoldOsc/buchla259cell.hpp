@@ -6,15 +6,17 @@ namespace buchla259 {
 
 /**
  * @brief A virtual analog Buchla 259 wavefolder folding cell
- * @author Mads Kjeldgaard (C++ / SuperCollider port), Fabian Esqueda and Julian
- * Parker (original authors)
+ * @author Mads Kjeldgaard (C++ / SuperCollider port), based on research by
+ * Fabián Esqueda, Henri Pöntynen, Vesa Välimäki and Julian D. Parker.
  * @date 12-04-2021
- * @details This is a folding cell sub circuit using in a parallel waveshaper ala Buchla 259.
+ * @details This is a folding cell sub circuit using in a parallel waveshaper
+ * ala Buchla 259.
  */
 
 class Buchla259FoldingCell {
 public:
-  void init(float samplerate, double f0, double amp, double r1, double r3, double outputscalar);
+  void init(float samplerate, double f0, double amp, double r1, double r3,
+            double outputscalar);
   float process();
 
   void setF0(float f0) {
@@ -49,4 +51,3 @@ private:
 } // namespace buchla259
 
 #endif
-
