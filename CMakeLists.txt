@@ -666,26 +666,6 @@ sc_add_server_plugin(
 	"${AnalogVintageDistortion_schelp_files}"
 )
 
-# TrigBurst
-set(TrigBurst_cpp_files
-    plugins/TrigBurst/TrigBurst.hpp
-    plugins/TrigBurst/TrigBurst.cpp
-)
-set(TrigBurst_sc_files
-    plugins/TrigBurst/TrigBurst.sc
-)
-set(TrigBurst_schelp_files
-    plugins/TrigBurst/TrigBurst.schelp
-)
-
-sc_add_server_plugin(
-	"${project_name}" # destination directory
-	"TrigBurst" # target name
-	"${TrigBurst_cpp_files}"
-	"${TrigBurst_sc_files}"
-	"${TrigBurst_schelp_files}"
-)
-
 # AnalogFoldOsc
 set(AnalogFoldOsc_cpp_files
     plugins/AnalogFoldOsc/AnalogFoldOsc.hpp
