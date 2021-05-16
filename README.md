@@ -14,6 +14,7 @@ See the `MKPlugins.schelp` help file for an overview inside of SuperCollider and
 - **AnalogSnareDrum** - Virtual analog 808 snare drum model. Original code by [Èmilie Gillet / Mutable Instruments](https://github.com/pichenettes/eurorack). Revisited by Ben Sergentanis for the [DaisySP DSP library](https://github.com/electro-smith/DaisySP). 
 - **AnalogTape** - Virtual analog tape model with variable oversampling and anti aliasing. Ported from [Jatin Chowdhury's ChowDSP-VCV-rack project](https://github.com/jatinchowdhury18/ChowDSP-VCV).
 - **AnalogVintageDistortion** - A virtual analog vintage EQ and distortion by Jatin Chowdhury. Features oversampling. Ported from [Jatin Chowdhury's ChowDSP-VCV-rack project](https://github.com/jatinchowdhury18/ChowDSP-VCV).
+- **AnalogFoldOsc** - Buchla type of Oscillator with built in wavefolder circuit. Based on research by Fabián Esqueda, Henri Pöntynen, Vesa Välimäki and Julian D. Parker.
 - **BLOsc** - Band limited oscillator. Original Author(s): Paul Batchelor, saw2 Faust by Julius Smith. Revisited by Ben Sergentanis for the [DaisySP DSP library](https://github.com/electro-smith/DaisySP). 
 - **Chen** - Chen's chaotic double scroll attractor, based on code from [Bryan Head's alternative Mutable Instruments firmware](https://github.com/qiemem/eurorack/releases/tag/v1.1.0).
 - **DCompressor** - Compressor from [DaisySP DSP library](https://github.com/electro-smith/DaisySP), ported from faust originally by shensley andAvAars originally.
