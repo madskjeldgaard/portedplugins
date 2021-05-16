@@ -24,9 +24,7 @@ ARGUMENT::sustain
 A trigger/gate input to keep the resonator open (feeding it crackling noise)
 
 ARGUMENT::f0
-The base scale for the frequency. This is sort of arbitrary and will be scaled by amount of modes and a combination of the other parameters.
-
-Values should be between 0.0 and 1.0.
+The base scale for the frequency expressed in herz. This is sort of arbitrary and will be scaled by amount of modes and a combination of the other parameters.
 
 ARGUMENT::structure
 Harmonic structure. Sets the ratio between partials and thus the perception of what kind of material it is.
