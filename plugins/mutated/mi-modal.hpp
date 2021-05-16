@@ -14,7 +14,7 @@ public:
   ModalVoice() {}
   ~ModalVoice() {}
 
-  void Init(ResonatorProcessingMode mode, float initCosFreq) ;
+  void Init(ResonatorProcessingMode mode, float initCosFreq, float samplerate);
   void Render(bool sustain, bool trigger, float accent, float f0,
               float structure, float brightness, float damping, float stretch, float position, float loss, float *temp,
               float *out, size_t size);

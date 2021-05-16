@@ -10,7 +10,7 @@ Rongs : UGen {
 			\modeNum -> [\scalar],
 			\cosFreq -> [\scalar],
 
-			\trigger -> [\control, \scalar],
+			\trigger -> [\control, \scalar, \audio],
 			\sustain -> [\control, \scalar],
 			\f0 -> [\control, \scalar],
 			\structure -> [\control, \scalar],

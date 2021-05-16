@@ -38,7 +38,8 @@ Rongs::Rongs() {
     mode = mi::ResonatorProcessingMode::BUDGET;
   }
 
-  modalvoice.Init(mode, cosFreq);
+  const auto sr = sampleRate();
+  modalvoice.Init(mode, cosFreq, sr);
   const size_t temp_buffer_size = bufferSize() * sizeof(float);
   m_internal_noise_buffer = (float *)RTAlloc(mWorld, temp_buffer_size);
 

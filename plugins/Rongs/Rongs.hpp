@@ -28,11 +28,11 @@ private:
     Brightness,
     Damping,
     Accent,
-	Stretch,
-	Position,
-	Loss,
-	NumModes,
-	CosFreq,
+    Stretch,
+    Position,
+    Loss,
+    NumModes,
+    CosFreq,
     NumInputParams
   };
   enum Outputs { Output, NumOutputParams };
