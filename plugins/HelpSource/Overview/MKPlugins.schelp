@@ -6,7 +6,7 @@ related:: Classes/LPG
 LINK::https://github.com/madskjeldgaard/mkplugins/##MKPlugins:: is a collection of UGens written by Mads Kjeldgaard.
 
 The collection contains the following UGens:
- 
+
 LIST::
 ## LINK::Classes/AnalogBassDrum::
 ## LINK::Classes/AnalogFoldOsc::
@@ -28,6 +28,7 @@ LIST::
 ## LINK::Classes/Rongs::
 ## LINK::Classes/StringVoice::
 ## LINK::Classes/VarShapeOsc::
+## LINK::Classes/VadimFilter::
 ## LINK::Classes/VosimOsc::
 ## LINK::Classes/ZOsc::
 ::
