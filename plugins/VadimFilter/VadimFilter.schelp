@@ -1,26 +1,50 @@
 CLASS:: VadimFilter
-SUMMARY:: A plugin... 
-RELATED::TODO
-CATEGORIES::TODO
+SUMMARY:: Vadim Zavalishin's virtual analog filters
+RELATED::Classes/LPF, Classes/RLPF, Classes/RHPF
+CATEGORIES::UGens>Filters>Linear
 
 DESCRIPTION::
 
-This is a short description
+This UGen contains virtual analog low pass, band pass and high pass filters based on the ground breaking work of Vadim Zavalishin (LINK::https://www.native-instruments.com/fileadmin/ni_media/downloads/pdf/VAFilterDesign_1.1.1.pdf::). The filters here are fairly cheap in CPU usage and behaves well throughout the frequency spectrum and under modulation.
+
+Ported from LINK::https://codeberg.org/nonmateria/folderkit::.
 
 CLASSMETHODS::
 
 METHOD::ar
 
-ARGUMENT::TODO
+ARGUMENT::input
+Audio input
 
-ARGUMENT::TODO
+ARGUMENT::freq
+Cutoff / center frequency (depending on type) in herz. May be modulated at control rate.
+
+ARGUMENT::resonance
+Resonance. Range: 0.0 to 4.0.
+
+ARGUMENT::type
+An integer that sets the filter up as one of the following types:
+0 = LPF2
+1 = LPF4
+2 = BPF2
+3 = BPF4
+4 = HPF2
+5 = HPF4
 
 EXAMPLES::
 
 code::
-Ndef(\notam, {|freq=110, width=0.5|
-	var sig = VarSaw.ar(freq, width: width);
-	VadimFilter.ar(sig);
-}).play;
-::
+(
+// Random LPF 4
+Ndef(\va, { |freq=150|
+	var in = Saw.ar(freq);
 
+	VadimFilter.ar(
+		input: in,
+		type: 1,
+		freq: LFNoise2.kr(10).exprange(20.0,20000.0),
+		resonance: LFNoise2.kr(1).range(0.0,4.0)
+	)!2
+}).play;
+)
+::

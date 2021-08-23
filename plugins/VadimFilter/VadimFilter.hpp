@@ -48,7 +48,7 @@ private:
   /* void hpf4(); */
   /* void hpf2(); */
 
-  enum InputParams { Type, Input, Freq, Resonance, NumInputParams };
+  enum InputParams { Input, Freq, Resonance, Type, NumInputParams };
   enum Outputs { Out1, NumOutputParams };
 };
 

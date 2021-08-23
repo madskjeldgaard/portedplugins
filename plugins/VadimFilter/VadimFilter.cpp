@@ -95,23 +95,21 @@ void VadimFilter::next(int nSamples) {
     case LPF4:
       outbuf[n] = lpf4;
       break;
-			case BPF2:
+    case BPF2:
       outbuf[n] = lpf1 * 2.0f + lpf2 * -2.0f;
       break;
     case BPF4:
       outbuf[n] = lpf2 * 4.0f + lpf3 * -8.0f + lpf4 * 4.0f;
       break;
-
-case HPF2:
+    case HPF2:
       outbuf[n] = u + (lpf1 * -2.0f) + lpf2;
       break;
     case HPF4:
       outbuf[n] = u + (lpf1 * -4.0f) + (lpf2 * 6.0f) + (lpf3 * -4.0f) + lpf4;
       break;
-
     default:
       outbuf[n] = 0;
-		}
+    }
   }
 
   m_resonance_past = slopedResonance.value;
