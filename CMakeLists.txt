@@ -691,3 +691,23 @@ sc_add_server_plugin(
 	"${AnalogFoldOsc_schelp_files}"
 )
 
+# VadimFilter
+set(VadimFilter_cpp_files
+    plugins/VadimFilter/VadimFilter.hpp
+    plugins/VadimFilter/VadimFilter.cpp
+)
+set(VadimFilter_sc_files
+    plugins/VadimFilter/VadimFilter.sc
+)
+set(VadimFilter_schelp_files
+    plugins/VadimFilter/VadimFilter.schelp
+)
+
+sc_add_server_plugin(
+	"${project_name}" # destination directory
+	"VadimFilter" # target name
+	"${VadimFilter_cpp_files}"
+	"${VadimFilter_sc_files}"
+	"${VadimFilter_schelp_files}"
+)
+
