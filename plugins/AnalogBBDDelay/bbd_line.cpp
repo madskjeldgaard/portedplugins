@@ -68,6 +68,9 @@ void BBD_Line::setup(World *mWorld, double fs, unsigned ns,
 
 void BBD_Line::clear() {
   memset(mem_, 0.0, mem_size);
+  memset(Xin_, 0.0, Xin_size);
+  memset(Xout_, 0.0, Xout_size);
+  memset(Xout_mem_, 0.0, Xout_mem_size);
 
   imem_ = 0;
   pclk_ = 0;
@@ -76,9 +79,6 @@ void BBD_Line::clear() {
   unsigned Min = fin_->M;
   unsigned Mout = fout_->M;
 
-  memset(Xin_, 0.0, Xin_size);
-  memset(Xout_, 0.0, Xout_size);
-  memset(Xout_mem_, 0.0, Xout_mem_size);
 }
 
 void BBD_Line::process(unsigned n, const float *input, float *output,
