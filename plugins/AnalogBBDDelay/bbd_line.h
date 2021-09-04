@@ -4,6 +4,9 @@
 #include <complex>
 #include <memory>
 #include <vector>
+
+#include "SC_InterfaceTable.h"
+#include "SC_World.h"
 typedef std::complex<double> cdouble;
 
 class BBD_Line {
@@ -15,8 +18,10 @@ public:
    * @param fsin analog specification of the input filter
    * @param fsout analog specification of the output filter
    */
-  void setup(double fs, unsigned ns, const BBD_Filter_Spec &fsin,
+  void setup(World * mWorld, double fs, unsigned ns, const BBD_Filter_Spec &fsin,
              const BBD_Filter_Spec &fsout);
+
+	void free(World * mWorld);
 
   /**
    * Change the number of stages. (RT?)
@@ -101,9 +106,9 @@ private:
   double ybbd_old_;
   const BBD_Filter_Coef *fin_;
   const BBD_Filter_Coef *fout_;
-  std::unique_ptr<cdouble[]> Xin_;
-  std::unique_ptr<cdouble[]> Xout_;
-  std::unique_ptr<cdouble[]> Xout_mem_; // sample memory of output filter
-  std::unique_ptr<cdouble[]> Gin_;
-  std::unique_ptr<cdouble[]> Gout_;
+  cdouble* Xin_;
+  cdouble* Xout_;
+  cdouble* Xout_mem_; // sample memory of output filter
+  cdouble* Gin_;
+  cdouble* Gout_;
 };

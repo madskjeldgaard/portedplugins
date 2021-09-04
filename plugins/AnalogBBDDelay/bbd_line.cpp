@@ -3,9 +3,20 @@
 #include <cassert>
 #include <iostream>
 
+extern InterfaceTable *ft;
+
 static unsigned interp_size = 128;
 
-void BBD_Line::setup(double fs, unsigned ns, const BBD_Filter_Spec &fsin,
+void BBD_Line::free(World * mWorld){
+  RTFree( mWorld, Xin_);
+  RTFree( mWorld, Xout_);
+  RTFree( mWorld, Xout_mem_);
+  RTFree( mWorld, Gin_);
+  RTFree( mWorld, Gout_);
+};
+
+void BBD_Line::setup(World *mWorld, double fs, unsigned ns,
+                     const BBD_Filter_Spec &fsin,
                      const BBD_Filter_Spec &fsout) {
   mem_.reserve(8192);
 
@@ -19,11 +30,16 @@ void BBD_Line::setup(double fs, unsigned ns, const BBD_Filter_Spec &fsin,
   unsigned Min = fin.M;
   unsigned Mout = fout.M;
   /* Xin_ = RTAlloc(); */
-  Xin_.reset(new cdouble[Min]);
-  Xout_.reset(new cdouble[Mout]);
-  Xout_mem_.reset(new cdouble[Mout]);
-  Gin_.reset(new cdouble[Min]);
-  Gout_.reset(new cdouble[Mout]);
+
+  /* const size_t temp_buffer_size = bufferSize() * sizeof(float); */
+  /* m_internal_noise_buffer = (float *)RTAlloc(mWorld, temp_buffer_size); */
+
+  const auto cdoubleSize = sizeof(cdouble);
+  Xin_ = (cdouble *)RTAlloc(mWorld, Min * cdoubleSize);
+  Xout_ = (cdouble *)RTAlloc(mWorld, Mout * cdoubleSize);
+  Xout_mem_ = (cdouble *)RTAlloc(mWorld, Mout * cdoubleSize);
+  Gin_ = (cdouble *)RTAlloc(mWorld, Min * cdoubleSize);
+  Gout_ = (cdouble *)RTAlloc(mWorld, Mout * cdoubleSize);
 
   set_delay_size(ns);
   clear();
@@ -60,9 +76,9 @@ void BBD_Line::process(unsigned n, const float *input, float *output,
 
   const BBD_Filter_Coef &fin = *fin_, &fout = *fout_;
   unsigned Min = fin.M, Mout = fout.M;
-  cdouble *Xin = Xin_.get(), *Xout = Xout_.get();
-  cdouble *Xout_mem = Xout_mem_.get();
-  cdouble *Gin = Gin_.get(), *Gout = Gout_.get();
+  cdouble *Xin = Xin_, *Xout = Xout_;
+  cdouble *Xout_mem = Xout_mem_;
+  cdouble *Gin = Gin_, *Gout = Gout_;
   const cdouble *Pin = fin.P.get(), *Pout = fout.P.get();
 
   for (unsigned i = 0; i < n; ++i) {
@@ -131,9 +147,9 @@ float BBD_Line::process_single(float input, float fclk /*clock*/) {
 
   const BBD_Filter_Coef &fin = *fin_, &fout = *fout_;
   unsigned Min = fin.M, Mout = fout.M;
-  cdouble *Xin = Xin_.get(), *Xout = Xout_.get();
-  cdouble *Xout_mem = Xout_mem_.get();
-  cdouble *Gin = Gin_.get(), *Gout = Gout_.get();
+  cdouble *Xin = Xin_, *Xout = Xout_;
+  cdouble *Xout_mem = Xout_mem_;
+  cdouble *Gin = Gin_, *Gout = Gout_;
   const cdouble *Pin = fin.P.get(), *Pout = fout.P.get();
 
   for (unsigned m = 0; m < Mout; ++m)

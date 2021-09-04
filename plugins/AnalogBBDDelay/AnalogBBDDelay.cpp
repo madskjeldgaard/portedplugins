@@ -5,7 +5,7 @@
 #include "SC_PlugIn.hpp"
 #include <iostream>
 
-static InterfaceTable *ft;
+InterfaceTable *ft;
 
 namespace AnalogBBDDelay {
 
@@ -50,14 +50,16 @@ AnalogBBDDelay::AnalogBBDDelay() {
   /* auto clockbufsize = fullBufferSize(); */
   /* this->clockbuf = (float *)RTAlloc(this->mWorld, clockbufsize *
    * sizeof(float)); */
-  bbd_delay.setup(samplerate, m_number_of_stages, bbd_fin_j60, bbd_fout_j60);
+  bbd_delay.setup(this->mWorld, samplerate, m_number_of_stages, bbd_fin_j60, bbd_fout_j60);
   bbd_delay.clear();
 
   mCalcFunc = make_calc_function<AnalogBBDDelay, &AnalogBBDDelay::next>();
   next(1);
 }
 
-AnalogBBDDelay::~AnalogBBDDelay() { bbd_delay.clear(); }
+AnalogBBDDelay::~AnalogBBDDelay() {
+	bbd_delay.free(mWorld);
+}
 
 void AnalogBBDDelay::next(int nSamples) {
   const float *input = in(Input);
