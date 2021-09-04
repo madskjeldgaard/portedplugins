@@ -2,8 +2,6 @@
 #include "bbd_filter.h"
 #include <algorithm>
 #include <complex>
-#include <memory>
-#include <vector>
 
 #include "SC_InterfaceTable.h"
 #include "SC_World.h"
@@ -28,7 +26,7 @@ public:
    * @note It guarantees not to reallocate the buffer for \f$ns \leq 8192\f$.
    * @param ns number of stages / length of the virtual capacitor array
    */
-  void set_delay_size(unsigned ns);
+  /* void set_delay_size(unsigned ns); */
 
   /**
    * Reinitialize all the internal state to zero. (RT)
@@ -99,7 +97,8 @@ public:
 
 private:
   unsigned ns_;            // delay size
-  std::vector<float> mem_; // delay memory
+  float* mem_; // delay memory
+  int mem_size;
   unsigned imem_;          // delay memory index
   double pclk_;            // clock phase
   unsigned ptick_;         // clock tick counter

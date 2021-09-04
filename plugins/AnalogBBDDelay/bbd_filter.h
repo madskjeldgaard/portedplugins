@@ -1,6 +1,7 @@
 #pragma once
 #include <complex>
 #include <memory>
+#include "../constants.h"
 typedef std::complex<double> cdouble;
 
 enum class BBD_Filter_Kind {
@@ -30,7 +31,11 @@ struct BBD_Filter_Spec {
 struct BBD_Filter_Coef {
   unsigned M;
   unsigned N;
+
+  // @TODO change to RTAlloc style to make realtime safe
   std::unique_ptr<cdouble[]> G; /*[M*N]*/
+
+  // @TODO change to RTAlloc style to make realtime safe
   std::unique_ptr<cdouble[]> P; /*[M]*/
   double H;
   //

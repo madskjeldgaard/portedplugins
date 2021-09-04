@@ -8,6 +8,7 @@ extern InterfaceTable *ft;
 static unsigned interp_size = 128;
 
 void BBD_Line::free(World *mWorld) {
+  RTFree(mWorld, mem_);
   RTFree(mWorld, Xin_);
   RTFree(mWorld, Xout_);
   RTFree(mWorld, Xout_mem_);
@@ -18,7 +19,11 @@ void BBD_Line::free(World *mWorld) {
 void BBD_Line::setup(World *mWorld, double fs, unsigned ns,
                      const BBD_Filter_Spec &fsin,
                      const BBD_Filter_Spec &fsout) {
-  mem_.reserve(8192);
+
+  // This is a trade off: Make the memory realtime safe, no longer making it
+  // possible to change size after setup.
+  mem_size = ns * sizeof(float);
+  mem_ = (float *)RTAlloc(mWorld, mem_size);
 
   const BBD_Filter_Coef &fin =
       BBD::compute_filter_cached(fs, interp_size, fsin);
@@ -47,20 +52,23 @@ void BBD_Line::setup(World *mWorld, double fs, unsigned ns,
   Gout_size = cdoubleSize * Mout;
   Gout_ = (cdouble *)RTAlloc(mWorld, Mout * cdoubleSize);
 
-  set_delay_size(ns);
+  /* set_delay_size(ns); */
+
+  imem_ = 0;
+  ns_ = ns;
   clear();
 }
 
-void BBD_Line::set_delay_size(unsigned ns) {
-  mem_.clear();
-  mem_.resize(ns);
-  imem_ = 0;
-  ns_ = ns;
-}
+/* void BBD_Line::set_delay_size(unsigned ns) { */
+/*   mem_.clear(); */
+/*   mem_.resize(ns); */
+/*   imem_ = 0; */
+/*   ns_ = ns; */
+/* } */
 
 void BBD_Line::clear() {
   // @TODO change to memset like below
-  std::fill(mem_.begin(), mem_.end(), 0);
+  memset(mem_, 0.0, mem_size);
 
   imem_ = 0;
   pclk_ = 0;
@@ -77,7 +85,7 @@ void BBD_Line::clear() {
 void BBD_Line::process(unsigned n, const float *input, float *output,
                        const float *clock) {
   unsigned ns = ns_;
-  float *mem = mem_.data();
+  float *mem = mem_;
   unsigned imem = imem_;
   double pclk = pclk_;
   unsigned ptick = ptick_;
@@ -148,7 +156,7 @@ void BBD_Line::process(unsigned n, float *inout, const float *clock) {
 
 float BBD_Line::process_single(float input, float fclk /*clock*/) {
   unsigned ns = ns_;
-  float *mem = mem_.data();
+  float *mem = mem_;
   unsigned imem = imem_;
   double pclk = pclk_;
   unsigned ptick = ptick_;
