@@ -1,11 +1,11 @@
 #pragma once
-#include <memory>
 #include <complex>
+#include <memory>
 typedef std::complex<double> cdouble;
 
 enum class BBD_Filter_Kind {
-    Input,
-    Output,
+  Input,
+  Output,
 };
 
 /*
@@ -15,12 +15,12 @@ enum class BBD_Filter_Kind {
 */
 
 struct BBD_Filter_Spec {
-    BBD_Filter_Kind kind;
-    unsigned M;
-    const cdouble *R;/*[M]*/
-    const cdouble *P;/*[M]*/
-    //
-    cdouble transfer(double frequency) const noexcept;
+  BBD_Filter_Kind kind;
+  unsigned M;
+  const cdouble *R; /*[M]*/
+  const cdouble *P; /*[M]*/
+  //
+  cdouble transfer(double frequency) const noexcept;
 };
 
 /*
@@ -28,18 +28,20 @@ struct BBD_Filter_Spec {
   M=order, N=interpolation steps, H=feedback factor
 */
 struct BBD_Filter_Coef {
-    unsigned M;
-    unsigned N;
-    std::unique_ptr<cdouble[]> G;/*[M*N]*/
-    std::unique_ptr<cdouble[]> P;/*[M]*/
-    double H;
-    //
-    void interpolate_G(double d, cdouble *g/*[M]*/) const noexcept;
+  unsigned M;
+  unsigned N;
+  std::unique_ptr<cdouble[]> G; /*[M*N]*/
+  std::unique_ptr<cdouble[]> P; /*[M]*/
+  double H;
+  //
+  void interpolate_G(double d, cdouble *g /*[M]*/) const noexcept;
 };
 
 namespace BBD {
-BBD_Filter_Coef compute_filter(float fs, unsigned steps, const BBD_Filter_Spec &spec);
-const BBD_Filter_Coef &compute_filter_cached(float fs, unsigned steps, const BBD_Filter_Spec &spec);
+BBD_Filter_Coef compute_filter(float fs, unsigned steps,
+                               const BBD_Filter_Spec &spec);
+const BBD_Filter_Coef &compute_filter_cached(float fs, unsigned steps,
+                                             const BBD_Filter_Spec &spec);
 void clear_filter_cache();
 } // namespace BBD
 
