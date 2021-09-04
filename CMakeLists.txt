@@ -11,7 +11,7 @@ set(project_name "MKPlugins")
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_modules ${CMAKE_MODULE_PATH})
 
 # Eigen seems to prefer 17
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 ####################################################################################################
 # load modules
@@ -119,8 +119,6 @@ function(sc_link_with_eigen plugin_name)
 		target_link_libraries("${plugin_name}_supernova" eigen )
 	endif()
 endfunction()
-
-
 
 ####################################################################################################
 # Plugins
@@ -431,7 +429,6 @@ sc_add_server_plugin(
 )
 sc_link_with_daisy("StringVoice")
 
-
 # NeoFormant
 set(NeoFormant_cpp_files
     plugins/NeoFormant/NeoFormant.hpp
@@ -643,7 +640,7 @@ if(INCWERNER)
 		"${Werner_sc_files}"
 		"${Werner_schelp_files}"
 		)
-	sc_link_with_eigen("Werner") 
+	sc_link_with_eigen("Werner")
 endif()
 
 # AnalogVintageDistortion
@@ -711,3 +708,26 @@ sc_add_server_plugin(
 	"${VadimFilter_schelp_files}"
 )
 
+# AnalogBBDDelay
+set(AnalogBBDDelay_cpp_files
+	plugins/AnalogBBDDelay/AnalogBBDDelay.hpp
+	plugins/AnalogBBDDelay/AnalogBBDDelay.cpp
+	plugins/AnalogBBDDelay/bbd_filter.h
+	plugins/AnalogBBDDelay/bbd_line.h
+	plugins/AnalogBBDDelay/bbd_filter.cpp
+	plugins/AnalogBBDDelay/bbd_line.cpp
+	)
+set(AnalogBBDDelay_sc_files
+    plugins/AnalogBBDDelay/AnalogBBDDelay.sc
+)
+set(AnalogBBDDelay_schelp_files
+    plugins/AnalogBBDDelay/AnalogBBDDelay.schelp
+)
+
+sc_add_server_plugin(
+	"${project_name}" # destination directory
+	"AnalogBBDDelay" # target name
+	"${AnalogBBDDelay_cpp_files}"
+	"${AnalogBBDDelay_sc_files}"
+	"${AnalogBBDDelay_schelp_files}"
+)
