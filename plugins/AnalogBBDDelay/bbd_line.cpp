@@ -67,7 +67,6 @@ void BBD_Line::setup(World *mWorld, double fs, unsigned ns,
 /* } */
 
 void BBD_Line::clear() {
-  // @TODO change to memset like below
   memset(mem_, 0.0, mem_size);
 
   imem_ = 0;
