@@ -35,7 +35,9 @@ static constexpr cdouble P_out[M_out] = {{-176261, 0},
 } // namespace j60
 AnalogBBDDelay::AnalogBBDDelay() {
   const float samplerate = sampleRate();
-  number_of_stages = 185; // the TCA-350-Y IC
+
+  m_delaytime_past = in0(DelayTime);
+  m_number_of_stages = in0(NumStages);
 
   // Juno 60 filter setup
   const BBD_Filter_Spec bbd_fin_j60 = {BBD_Filter_Kind::Input, j60::M_in,
@@ -45,17 +47,21 @@ AnalogBBDDelay::AnalogBBDDelay() {
 
   auto clockbufsize = fullBufferSize();
   this->clockbuf = (float *)RTAlloc(this->mWorld, clockbufsize * sizeof(float));
-  bbd_delay.setup(samplerate, number_of_stages, bbd_fin_j60, bbd_fout_j60);
+  bbd_delay.setup(samplerate, m_number_of_stages, bbd_fin_j60, bbd_fout_j60);
   bbd_delay.clear();
 
   mCalcFunc = make_calc_function<AnalogBBDDelay, &AnalogBBDDelay::next>();
   next(1);
 }
 
-AnalogBBDDelay::~AnalogBBDDelay() {}
+AnalogBBDDelay::~AnalogBBDDelay() {
+	bbd_delay.clear();
+}
 
 void AnalogBBDDelay::next(int nSamples) {
-  /* bbd_delay.set_delay_size(numStages); */
+  /* bbd_delay.set_delay_size(m_number_of_stages); */
+
+  auto fSampleTime = (1.0f / sampleRate());
 
   SlopeSignal<float> slopedDelayTime =
       makeSlope(in0(DelayTime), m_delaytime_past);
@@ -66,8 +72,9 @@ void AnalogBBDDelay::next(int nSamples) {
   for (size_t i = 0; i < nSamples; i++) {
     const float delaytime = slopedDelayTime.consume();
 
-    auto clockRate = bbd_delay.hz_rate_for_delay(delaytime, number_of_stages) *
-                     (1.0f / sampleRate());
+    auto clockRate =
+        bbd_delay.hz_rate_for_delay(delaytime, m_number_of_stages) * fSampleTime;
+
     outbuf[i] = bbd_delay.process_single(input[i], clockRate);
   }
 

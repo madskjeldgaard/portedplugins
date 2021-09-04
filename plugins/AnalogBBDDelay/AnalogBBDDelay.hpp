@@ -20,11 +20,11 @@ private:
   void next(int nSamples);
   void clear(int nSamples);
 
-  enum InputParams { Input, DelayTime, NumInputParams };
+  enum InputParams { Input, DelayTime, NumStages, NumInputParams };
   enum Outputs { Out1, NumOutputParams };
 
   BBD_Line bbd_delay;
-  int number_of_stages;
+  int m_number_of_stages;
   float *clockbuf;
   float m_delaytime_past;
 };

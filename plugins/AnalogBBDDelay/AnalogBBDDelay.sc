@@ -1,6 +1,6 @@
 AnalogBBDDelay : UGen {
-	*ar { |input, delaytime=0.1|
-		^this.multiNew('audio', input, delaytime);
+	*ar { |input, delaytime=0.1, numStages=182|
+		^this.multiNew('audio', input, delaytime, numStages);
 	}
 
 	checkInputs {

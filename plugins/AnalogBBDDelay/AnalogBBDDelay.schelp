@@ -1,5 +1,5 @@
 CLASS:: AnalogBBDDelay
-SUMMARY:: A plugin... 
+SUMMARY:: A plugin...
 RELATED::TODO
 CATEGORIES::TODO
 
@@ -18,9 +18,19 @@ ARGUMENT::TODO
 EXAMPLES::
 
 code::
-Ndef(\notam, {|freq=110, width=0.5|
-	var sig = VarSaw.ar(freq, width: width);
-	AnalogBBDDelay.ar(sig);
-}).play;
-::
+(
+Ndef(\pseudo60, {|modFreq=1|
+	// var clean = Env.perc.kr(gate: Impulse.kr(1)) * PinkNoise.ar(1.0);
+	var delayed, sig;
+	var clean = NeoVarSawOsc.ar(freq: 100 * [1,1.25,1.75],  pw: 0.5,  waveshape: 0.65).sum / 3;
+	// clean = VadimFilter.ar(input: clean,  freq: 9500,  resonance: 1.0,  type: 1);
+	// delayed = AnalogBBDDelay.ar(clean, delaytime: SinOsc.kr(modFreq, phase: [0, 0.5pi]).range(5e-3, 1e-3), numStages: 185);
 
+	delayed = Array.fill(4, {|i| AnalogBBDDelay.ar(clean, delaytime: SinOsc.kr(modFreq * (i+1), phase: [0, 0.5pi]).range(5e-3, 1e-3), numStages: 25)}).sum;
+	sig = XFade2.ar(inA: clean,  inB: delayed,  pan: 0.0,  level: 1.0);
+
+	// Pan2.ar(, pos:0);
+}).play;
+)
+Ndef(\pseudo60).set(\modFreq, 0.5099)
+::
