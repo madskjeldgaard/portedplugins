@@ -171,12 +171,6 @@ float BBD_Line::process_single(float input, float fclk/*clock*/)
         }
     }
 
-	/* std::cout << "gout 1: " << std::to_string(Gout[0].real()) << std::endl; */
-	/* std::cout << "xout 1: " << std::to_string(Xout[0].real()) << std::endl; */
-	/* std::cout << "from ybbd_old: " << std::to_string(ybbd_old) << std::endl; */
-	/* std::cout << "m0: " << std::to_string(mem[0] ) << std::endl; */
-	/* std::cout << "delta: " << std::to_string(mem[Min] - ybbd_old) << std::endl; */
-
     for (unsigned m = 0; m < Min; ++m)
         Xin[m] = Pin[m] * Xin[m] + cdouble(input);
 

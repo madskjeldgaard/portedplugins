@@ -1,2 +1,3 @@
+- Make bbddelay realtime safe
 - audio modulateable freq on all oscs
 - check input rates

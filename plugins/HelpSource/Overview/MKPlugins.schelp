@@ -9,6 +9,7 @@ The collection contains the following UGens:
 
 LIST::
 ## LINK::Classes/AnalogBassDrum::
+## LINK::Classes/AnalogBBDDelay::
 ## LINK::Classes/AnalogFoldOsc::
 ## LINK::Classes/AnalogPhaser::
 ## LINK::Classes/AnalogPhaserMod::

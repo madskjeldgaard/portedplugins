@@ -9,6 +9,8 @@ A collection of plugins for the [SuperCollider sound environment](https://superc
 See the `MKPlugins.schelp` help file for an overview inside of SuperCollider and the respective help files for each plugin for more information about the particularities of each plugin.
 
 - **AnalogBassDrum** - Virtual analog 808 bass drum model. Original code by [Èmilie Gillet / Mutable Instruments](https://github.com/pichenettes/eurorack). Revisited by Ben Sergentanis for the [DaisySP DSP library](https://github.com/electro-smith/DaisySP). 
+
+- **AnalogBBDDelay** - Virtual analog Bucket Brigade Delay (used in old circuits). Ported from code by [J.P. Cimalando](https://github.com/jpcima/rc-effect-playground).
 - **AnalogPhaserMod** - The modulation section of a phaser based on/inspired by classic krautrock phasers. Ported from [Jatin Chowdhury's ChowDSP-VCV-rack project](https://github.com/jatinchowdhury18/ChowDSP-VCV).
 - **AnalogPhaser** - Virtual analog feedback phaser based on/inspired by classic krautrock phasers. Ported from [Jatin Chowdhury's ChowDSP-VCV-rack project](https://github.com/jatinchowdhury18/ChowDSP-VCV).
 - **AnalogSnareDrum** - Virtual analog 808 snare drum model. Original code by [Èmilie Gillet / Mutable Instruments](https://github.com/pichenettes/eurorack). Revisited by Ben Sergentanis for the [DaisySP DSP library](https://github.com/electro-smith/DaisySP). 
