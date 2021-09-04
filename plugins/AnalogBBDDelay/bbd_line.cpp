@@ -7,12 +7,12 @@ extern InterfaceTable *ft;
 
 static unsigned interp_size = 128;
 
-void BBD_Line::free(World * mWorld){
-  RTFree( mWorld, Xin_);
-  RTFree( mWorld, Xout_);
-  RTFree( mWorld, Xout_mem_);
-  RTFree( mWorld, Gin_);
-  RTFree( mWorld, Gout_);
+void BBD_Line::free(World *mWorld) {
+  RTFree(mWorld, Xin_);
+  RTFree(mWorld, Xout_);
+  RTFree(mWorld, Xout_mem_);
+  RTFree(mWorld, Gin_);
+  RTFree(mWorld, Gout_);
 };
 
 void BBD_Line::setup(World *mWorld, double fs, unsigned ns,
@@ -29,16 +29,22 @@ void BBD_Line::setup(World *mWorld, double fs, unsigned ns,
 
   unsigned Min = fin.M;
   unsigned Mout = fout.M;
-  /* Xin_ = RTAlloc(); */
-
-  /* const size_t temp_buffer_size = bufferSize() * sizeof(float); */
-  /* m_internal_noise_buffer = (float *)RTAlloc(mWorld, temp_buffer_size); */
 
   const auto cdoubleSize = sizeof(cdouble);
-  Xin_ = (cdouble *)RTAlloc(mWorld, Min * cdoubleSize);
-  Xout_ = (cdouble *)RTAlloc(mWorld, Mout * cdoubleSize);
-  Xout_mem_ = (cdouble *)RTAlloc(mWorld, Mout * cdoubleSize);
-  Gin_ = (cdouble *)RTAlloc(mWorld, Min * cdoubleSize);
+
+  Xin_size = Min * cdoubleSize;
+  Xin_ = (cdouble *)RTAlloc(mWorld, Xin_size);
+
+  Xout_size = Mout * cdoubleSize;
+  Xout_ = (cdouble *)RTAlloc(mWorld, Xout_size);
+
+  Xout_mem_size = cdoubleSize * Mout;
+  Xout_mem_ = (cdouble *)RTAlloc(mWorld, Xout_mem_size);
+
+  Gin_size = cdoubleSize * Min;
+  Gin_ = (cdouble *)RTAlloc(mWorld, Gin_size);
+
+  Gout_size = cdoubleSize * Mout;
   Gout_ = (cdouble *)RTAlloc(mWorld, Mout * cdoubleSize);
 
   set_delay_size(ns);
@@ -53,16 +59,19 @@ void BBD_Line::set_delay_size(unsigned ns) {
 }
 
 void BBD_Line::clear() {
+  // @TODO change to memset like below
   std::fill(mem_.begin(), mem_.end(), 0);
+
   imem_ = 0;
   pclk_ = 0;
   ptick_ = 0;
   ybbd_old_ = 0;
   unsigned Min = fin_->M;
   unsigned Mout = fout_->M;
-  std::fill(&Xin_[0], &Xin_[Min], 0);
-  std::fill(&Xout_[0], &Xout_[Mout], 0);
-  std::fill(&Xout_mem_[0], &Xout_mem_[Mout], 0);
+
+  memset(Xin_, 0.0, Xin_size);
+  memset(Xout_, 0.0, Xout_size);
+  memset(Xout_mem_, 0.0, Xout_mem_size);
 }
 
 void BBD_Line::process(unsigned n, const float *input, float *output,

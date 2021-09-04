@@ -107,8 +107,13 @@ private:
   const BBD_Filter_Coef *fin_;
   const BBD_Filter_Coef *fout_;
   cdouble* Xin_;
+  int Xin_size;
   cdouble* Xout_;
+  int Xout_size;
   cdouble* Xout_mem_; // sample memory of output filter
+  int Xout_mem_size;
   cdouble* Gin_;
+  int Gin_size;
   cdouble* Gout_;
+  int Gout_size;
 };
