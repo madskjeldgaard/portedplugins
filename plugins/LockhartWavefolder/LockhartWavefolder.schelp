@@ -1,5 +1,5 @@
 CLASS:: LockhartWavefolder
-SUMMARY:: A plugin... 
+SUMMARY:: A plugin...
 RELATED::TODO
 CATEGORIES::TODO
 
@@ -18,9 +18,10 @@ ARGUMENT::TODO
 EXAMPLES::
 
 code::
-Ndef(\notam, {|freq=110, width=0.5|
-	var sig = VarSaw.ar(freq, width: width);
-	LockhartWavefolder.ar(sig);
+(
+Ndef(\buchlaesque, {|gain=5, amp=0.5, bias=0.9, biasfreq=0.1|
+	var biasOsc = SinOsc.ar(biasfreq, mul: bias);
+	LockhartWavefolder.ar(input: SinOsc.ar(140) + biasOsc, gain: gain) * amp
 }).play;
+)
 ::
-
