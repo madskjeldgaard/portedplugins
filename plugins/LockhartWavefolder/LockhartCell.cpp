@@ -1,6 +1,6 @@
 #include "LockhartCell.hpp"
 
-double LockhartCell::lambert_w(double x) {
+float LockhartCell::lambert_w(float x) {
 
   // Error threshold
   constexpr auto thresh = 10e-10;
@@ -15,11 +15,11 @@ double LockhartCell::lambert_w(double x) {
     /* const auto expw = pow(e, w); */
 
     const auto p = w * expw - x;
-    const auto r = (w + 1.0) * expw;
-    const auto s = (w + 2.0) / (2.0 * (w + 1.0));
+    const auto r = (w + 1) * expw;
+    const auto s = (w + 2) / (2 * (w + 1));
     const auto err = (p / (r - (p * s)));
 
-    if (std::abs(err) < thresh) {
+    if (abs(err) < thresh) {
       break;
     }
 
@@ -30,7 +30,7 @@ double LockhartCell::lambert_w(double x) {
 };
 
 float LockhartCell::process(float in1) {
-  float out1 = 0.0;
+  float out1 = 0;
 
   // Constants
   constexpr auto RL = 7.5e3;
@@ -38,8 +38,8 @@ float LockhartCell::process(float in1) {
   constexpr auto VT = 26e-3;
   constexpr auto Is = 10e-16;
 
-  constexpr auto a = 2.0 * RL / R;
-  constexpr auto b = (R + 2.0 * RL) / (VT * R);
+  constexpr auto a = 2 * RL / R;
+  constexpr auto b = (R + 2 * RL) / (VT * R);
   constexpr auto d = (RL * Is) / VT;
 
   // Antialiasing error threshold
@@ -50,13 +50,13 @@ float LockhartCell::process(float in1) {
   /* const auto u = d * pow(e, l * b * in1); */
   auto u = d * exp(l * b * in1);
   auto Ln = lambert_w(u);
-  const auto Fn = (0.5 * VT / b) * (Ln * (Ln + 2.0)) - 0.5 * a * in1 * in1;
+  const auto Fn = (0.5 * VT / b) * (Ln * (Ln + 2)) - 0.5 * a * in1 * in1;
 
   // Check for ill-conditioning
   if (std::abs(in1 - xn1) < thresh) {
 
     // Compute Averaged Wavefolder Output
-    const auto xn = 0.5 * (in1 + xn1);
+    const float xn = 0.5 * (in1 + xn1);
     /* u = d * pow(e, l * b * xn); */
 
     u = d * exp(l * b * xn);

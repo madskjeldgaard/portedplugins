@@ -8,7 +8,7 @@ public:
   float process(float in1);
 
 private:
-  double lambert_w(double x);
+  float lambert_w(float x);
   double Ln1{0.0}, Fn1{0.0}, xn1{0.0};
 };
 #endif
