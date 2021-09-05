@@ -24,7 +24,16 @@ void LockhartWavefolder::next(int nSamples) {
     float* outbuf = out(Out1);
 
     for (int i = 0; i < nSamples; ++i) {
-        outbuf[i] = input[i] * gain;
+		auto in = input[i] * gain;
+		in *= 0.33; // @TODO is this needed?
+		in = cell1.process(in);
+		in = cell2.process(in);
+		in = cell3.process(in);
+		in = cell4.process(in);
+		in *= 3.0; // @TODO is this needed?
+		in *= 0.2; // @TODO is this needed?
+		in = std::tanh(in);
+        outbuf[i] = in;
     }
 }
 
@@ -37,4 +46,3 @@ PluginLoad(LockhartWavefolderUGens) {
     ft = inTable;
     registerUnit<LockhartWavefolder::LockhartWavefolder>(ft, "LockhartWavefolder", false);
 }
-

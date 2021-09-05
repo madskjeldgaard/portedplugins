@@ -709,9 +709,12 @@ sc_add_server_plugin(
 )
 # LockhartWavefolder
 set(LockhartWavefolder_cpp_files
-    plugins/LockhartWavefolder/LockhartWavefolder.hpp
-    plugins/LockhartWavefolder/LockhartWavefolder.cpp
-)
+	plugins/LockhartWavefolder/LockhartCell.cpp
+	plugins/LockhartWavefolder/LockhartCell.hpp
+	plugins/LockhartWavefolder/LockhartWavefolder.cpp
+	plugins/LockhartWavefolder/LockhartWavefolder.hpp
+	)
+
 set(LockhartWavefolder_sc_files
     plugins/LockhartWavefolder/LockhartWavefolder.sc
 )
@@ -726,4 +729,3 @@ sc_add_server_plugin(
 	"${LockhartWavefolder_sc_files}"
 	"${LockhartWavefolder_schelp_files}"
 )
-

@@ -1,5 +1,5 @@
 LockhartWavefolder : UGen {
-	*ar { |input, gain|
+	*ar { |input, gain=1|
 		/* TODO */
 		^this.multiNew('audio', input, gain);
 	}
@@ -9,4 +9,3 @@ LockhartWavefolder : UGen {
 		^this.checkValidInputs;
 	}
 }
-

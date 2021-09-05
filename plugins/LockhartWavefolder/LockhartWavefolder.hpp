@@ -4,6 +4,7 @@
 #pragma once
 
 #include "SC_PlugIn.hpp"
+#include "LockhartCell.hpp"
 
 namespace LockhartWavefolder {
 
@@ -22,7 +23,8 @@ private:
     enum InputParams { Input, Gain, NumInputParams };
     enum Outputs { Out1, NumOutputParams };
 
+	LockhartCell cell1, cell2, cell3, cell4;
+
 };
 
 } // namespace LockhartWavefolder
-
