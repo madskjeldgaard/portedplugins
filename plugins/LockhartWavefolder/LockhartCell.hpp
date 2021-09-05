@@ -5,10 +5,10 @@
 
 class LockhartCell {
 public:
-  float process(float in1);
+  double process(double in1);
 
 private:
-  float lambert_w(float x);
+  double lambert_w(double x);
   double Ln1{0.0}, Fn1{0.0}, xn1{0.0};
 };
 #endif
