@@ -2,6 +2,7 @@
 #ifndef NODSP_MK_Lockhart
 #define NODSP_MK_Lockhart
 #include "../mkutils.hpp"
+#include "SC_InlineUnaryOp.h"
 
 class LockhartCell {
 public:

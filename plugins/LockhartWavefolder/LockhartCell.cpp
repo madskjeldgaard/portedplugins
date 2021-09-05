@@ -1,23 +1,24 @@
 #include "LockhartCell.hpp"
+#include "SC_InlineUnaryOp.h"
 
 double LockhartCell::lambert_w(double x) {
 
   // Error threshold
-  constexpr auto thresh = 10e-10;
+  constexpr double thresh = 10e-10;
 
   // Initial guess (use previous value)
-  auto w = Ln1;
-  const auto expw = exp(w);
+  double w = Ln1;
 
   // Haley's method (Sec. 4.2 of the paper)
   for (int i = 0; i < 1000; i++) {
 
     /* const auto expw = pow(e, w); */
 
-    const auto p = w * expw - x;
-    const auto r = (w + 1) * expw;
-    const auto s = (w + 2) / (2 * (w + 1));
-    const auto err = (p / (r - (p * s)));
+    const double expw = exp(w);
+    const double p = w * expw - x;
+    const double r = (w + 1.0) * expw;
+    const double s = (w + 2.0) / (2.0 * (w + 1.0));
+    const double err = (p / (r - (p * s)));
 
     if (abs(err) < thresh) {
       break;
@@ -46,17 +47,18 @@ double LockhartCell::process(double in1) {
   constexpr auto thresh = 10e-10;
 
   // Compute Antiderivative
-  const auto l = mkutils::sign(in1);
+  const double l = mkutils::sign(in1);
+
   /* const auto u = d * pow(e, l * b * in1); */
-  auto u = d * exp(l * b * in1);
-  auto Ln = lambert_w(u);
-  const auto Fn = (0.5 * VT / b) * (Ln * (Ln + 2)) - 0.5 * a * in1 * in1;
+  double u = d * exp(l * b * in1);
+  double Ln = lambert_w(u);
+  const double Fn = (0.5 * VT / b) * (Ln * (Ln + 2)) - 0.5 * a * in1 * in1;
 
   // Check for ill-conditioning
   if (std::fabs(in1 - xn1) < thresh) {
 
     // Compute Averaged Wavefolder Output
-    const float xn = 0.5 * (in1 + xn1);
+    const double xn = 0.5 * (in1 + xn1);
     /* u = d * pow(e, l * b * xn); */
 
     u = d * exp(l * b * xn);
