@@ -1,6 +1,6 @@
 #include "LockhartCell.hpp"
 
-float LockhartCell::lambert_w(float x) {
+double LockhartCell::lambert_w(double x) {
 
   // Error threshold
   constexpr auto thresh = 10e-10;
@@ -29,8 +29,8 @@ float LockhartCell::lambert_w(float x) {
   return w;
 };
 
-float LockhartCell::process(float in1) {
-  float out1 = 0;
+double LockhartCell::process(double in1) {
+  double out1 = 0.0;
 
   // Constants
   constexpr auto RL = 7.5e3;
@@ -53,7 +53,7 @@ float LockhartCell::process(float in1) {
   const auto Fn = (0.5 * VT / b) * (Ln * (Ln + 2)) - 0.5 * a * in1 * in1;
 
   // Check for ill-conditioning
-  if (std::abs(in1 - xn1) < thresh) {
+  if (std::fabs(in1 - xn1) < thresh) {
 
     // Compute Averaged Wavefolder Output
     const float xn = 0.5 * (in1 + xn1);
