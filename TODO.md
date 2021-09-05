@@ -1,2 +1,3 @@
+- port this wavefolder: http://research.spa.aalto.fi/publications/papers/smc17-wavefolder/
 - audio modulateable freq on all oscs
 - check input rates
