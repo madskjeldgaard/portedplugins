@@ -1,0 +1,74 @@
+/*ATNIALIASED LOCKHART WAVEFOLDER*/
+
+// Custom Lambert-W Function
+Lambert_W(x,Ln1) {
+
+// Error threshold
+thresh = 10e-10;
+// Initial guess (use previous value)
+w = Ln1;
+
+    // Haley's method (Sec. 4.2 of the paper)
+	for(i=0; i<1000; i+=1) {
+
+        expw = pow(e,w);
+
+        p = w*expw - x;
+        r = (w+1)*expw;
+        s = (w+2)/(2*(w+1));        err = (p/(r-(p*s)));
+
+		if (abs(err)<thresh) {
+    		break;
+		}
+
+		w = w - err;
+	}
+
+	return w;
+}
+
+// Declare previous state
+History Ln1;
+History Fn1;
+History xn1;
+
+// Constants
+RL = 7.5e3;
+ R = 15e3;
+VT = 26e-3;
+Is = 10e-16;
+
+a = 2*RL/R;
+b = (R+2*RL)/(VT*R);
+d = (RL*Is)/VT;
+
+// Antialiasing error threshold
+thresh = 10e-10;
+
+// Compute Antiderivative
+l = sign(in1);
+u = d*pow(e,l*b*in1);
+Ln = Lambert_W(u,Ln1);
+Fn = (0.5*VT/b)*(Ln*(Ln + 2)) - 0.5*a*in1*in1;
+
+// Check for ill-conditioning
+if (abs(in1-xn1)<thresh) {
+
+	// Compute Averaged Wavefolder Output
+	xn = 0.5*(in1+xn1);
+	u = d*pow(e,l*b*xn);
+	Ln = Lambert_W(u,Ln1);
+	out1 = l*VT*Ln - a*xn;
+
+}
+else {
+
+	// Apply AA Form
+	out1 = (Fn-Fn1)/(in1-xn1);
+
+}
+
+// Update States
+Ln1 = Ln;
+Fn1 = Fn;
+xn1 = in1;

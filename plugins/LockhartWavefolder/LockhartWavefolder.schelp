@@ -1,0 +1,75 @@
+CLASS::LockhartWavefolder
+SUMMARY:: West coast synthesis style wavefolder
+RELATED::Classes/LPG
+CATEGORIES::UGens>VirtualAnalog
+
+DESCRIPTION::
+
+This plugin is a virtual analog representation of a west coast synthesis style wavefolder (specifically Ken Stone's circuitry for the CGS52 wavefolder module).
+
+It incorporates anti aliasing (without oversampling but instead by using "first-order antiderivative antialiasing") enabling a clean and anolog sounding distortion as a result.
+
+It was analyzed and modelled by Fabián Esqueda, Henri Pöntynen, Julian D. Parker and Stefan Bilbao. See the original paper for more information about their research: LINK::http://research.spa.aalto.fi/publications/papers/smc17-wavefolder/##Virtual Analog Model of the Lockhart Wavefolder, paper in the 14th Sound and Music Computing Conference (SMC-17)::.
+
+The main controls for manipulating the sound of this UGen are mostly outside of it. Adding a bias (of 0.0 to 1.0 approximately) and/or a pregain (of 1.0 to 20.0 approximately) to the input signal will change the folding. Going higher than these values in either the gain or bias may result in NaN or inf because of the use of exponential functions in this algorithm. The input signal is for this reason clipped internally before entering the cells to avoid the exponential functions in the cells to become inf. This aught to be fixed somehow in future revisions to avoid clipping.
+
+CLASSMETHODS::
+
+METHOD::ar
+
+ARGUMENT::input
+Sound input
+
+EXAMPLES::
+
+code::
+
+(
+Ndef(\buchlaesque, {|freq=180, gain=10.0, amp=0.25, bias=0.99, biasfreq=0.29|
+	var biasOsc = SinOsc.ar(biasfreq, mul: bias);
+	var sig = SinOsc.ar(freq) + biasOsc;
+
+	// Fold the signal
+	sig = sig * gain + biasOsc;
+	sig = LockhartWavefolder.ar(input: sig, numCells: 4);
+
+	// Filter out dc signals which might occur at low frequencies
+	LeakDC.ar(sig)!2 * amp
+}).play;
+)
+
+// New params
+Ndef(\buchlaesque).set(\biasfreq, 0.5, \freq, 82.01, \gain, 20, \bias, 0.29)
+
+(
+// Add modulation to gain
+Ndef(\gainModulator, {|freq=0.1| SinOsc.kr(freq).range(1.0,20.0) });
+Ndef(\buchlaesque).map(\gain, Ndef(\gainModulator));
+)
+
+(
+// Add modulation to bias
+Ndef(\biasModulator, {|freq=0.01| SinOsc.kr(freq).range(0.0,1.0) });
+Ndef(\buchlaesque).map(\bias, Ndef(\biasModulator));
+)
+
+// Folder as modulator
+(
+Ndef(\foldermodder, {|modfreq=1|
+	var gain = SinOsc.kr(0.01);
+	var lfo = LockhartWavefolder.kr(SinOsc.kr(modfreq, mul: gain.range(1.0,20.0), add: 1));
+	var freq = lfo.range(80.0,500.0);
+	var sig = SinOsc.ar(freq) ;
+	Pan2.ar(sig, pos: lfo)
+}).play;
+)// Folder as modulator
+(
+Ndef(\foldermodder, {|modfreq=1|
+	var gain = SinOsc.kr(0.01);
+	var lfo = LockhartWavefolder.kr(SinOsc.kr(modfreq, mul: gain.range(1.0,20.0), add: 1));
+	var freq = lfo.range(80.0,500.0);
+	var sig = SinOsc.ar(freq) ;
+	Pan2.ar(sig, pos: lfo)
+}).play;
+)
+::

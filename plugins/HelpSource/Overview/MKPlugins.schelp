@@ -20,6 +20,7 @@ LIST::
 ## LINK::Classes/DCompressor::
 ## LINK::Classes/HarmonicOsc::
 ## LINK::Classes/LPG::
+## LINK::Classes/LockhartWavefolder::
 ## LINK::Classes/NeoFormant::
 ## LINK::Classes/NeoVarSawOsc::
 ## LINK::Classes/OscBank::
