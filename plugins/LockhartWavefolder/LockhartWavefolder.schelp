@@ -5,7 +5,11 @@ CATEGORIES::TODO
 
 DESCRIPTION::
 
-This is a short description
+This plugin is a virtual analog representation of a west coast synthesis style wavefolder (specifically Ken Stone's circuitry for the CGS52 wavefolder module).
+
+It incorporates anti aliasing (without oversampling but instead by using "first-order antiderivative antialiasing") enabling a clean and anolog sounding distortion as a result.
+
+It was analyzed and modelled by Fabián Esqueda, Henri Pöntynen, Julian D. Parker and Stefan Bilbao. See the original paper for more information about their research: LINK::http://research.spa.aalto.fi/publications/papers/smc17-wavefolder/##Virtual Analog Model of the Lockhart Wavefolder, paper in the 14th Sound and Music Computing Conference (SMC-17)::.
 
 CLASSMETHODS::
 
