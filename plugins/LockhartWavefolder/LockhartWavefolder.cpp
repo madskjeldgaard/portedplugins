@@ -27,17 +27,18 @@ void LockhartWavefolder::next(int nSamples) {
 
   for (int i = 0; i < nSamples; ++i) {
     const float gain = slopedGain.consume();
-    auto in = input[i] * gain;
+    auto in = static_cast<double>(input[i] * gain);
 
-    in *= 0.33; // @TODO is this needed?
+    in *= 0.25;
+	// @TODO make number of stages variable
     in = cell1.process(in);
     in = cell2.process(in);
     in = cell3.process(in);
     in = cell4.process(in);
-    in *= 3.0; // @TODO is this needed?
+    in *= 4.0;
     in *= 0.2; // @TODO is this needed?
     in = std::tanh(in);
-    outbuf[i] = in;
+    outbuf[i] = static_cast<float>(in);
   }
 
   m_gain_past = slopedGain.value;
