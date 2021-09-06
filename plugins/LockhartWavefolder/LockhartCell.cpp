@@ -30,11 +30,32 @@ double LockhartCell::lambert_w(double x) {
   return w;
 };
 
+/*
+
+From the paper:
+In order to build a well-behaved cascade of wavefolders,
+we need to make sure the individual folders satisfy two cri-
+teria. Firstly, the individual folders must provide approxi-
+mately unity gain when Vin ≈ 0, and approximately nega-
+tive unit gain beyond the folding point, when |Vin| >> 0.
+Secondly, each stage should start folding at the same point
+with respect to its individual input. We can achieve this
+with the model described above by appropriate setting of
+RL and the addition of static pre- and post-gain stages.
+An appropriate RL can be determined empirically. The
+pre- and post- gain can be determined by measuring the
+value of Vout at exactly the folding point. The pre-gain is
+taken to be approximately this value, and the post-gain is
+taken to be its inverse. In this case, RL = 7.5 kΩ was
+chosen, which leads to pre- and post-gains of approx. 1/4
+and 4, respectively.
+
+*/
 double LockhartCell::process(double in1) {
   double out1 = 0.0;
 
   // Constants
-
+  constexpr double RL = 7.5e3;
   /* An appropriate RL can be determined empirically. The */
   /* pre- and post- gain can be determined by measuring the */
   /* value of Vout at exactly the folding point. The pre-gain is */
@@ -42,7 +63,6 @@ double LockhartCell::process(double in1) {
   /* taken to be its inverse. In this case, RL = 7.5 kΩ was */
   /* chosen, which leads to pre- and post-gains of approx. 1/4 */
   /* and 4, respectively. */
-  constexpr double RL = 7.5e3;
 
   constexpr double R = 15e3;
   constexpr double VT = 26e-3;
