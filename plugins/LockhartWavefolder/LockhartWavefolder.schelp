@@ -23,9 +23,10 @@ EXAMPLES::
 
 code::
 (
-Ndef(\buchlaesque, {|gain=5, amp=0.5, bias=0.9, biasfreq=0.1|
+Ndef(\buchlaesque, {|freq=80, gain=5, amp=0.5, bias=0.9, biasfreq=0.1|
 	var biasOsc = SinOsc.ar(biasfreq, mul: bias);
-	LockhartWavefolder.ar(input: SinOsc.ar(140) + biasOsc, gain: gain) * amp
+	var sig = SinOsc.ar(freq) + biasOsc;
+	LockhartWavefolder.ar(input: sig, gain: gain) * amp
 }).play;
 )
 ::
