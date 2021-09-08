@@ -25,6 +25,8 @@ For example, let's say you added oversampling to *Rongs*, a commit message might
 
 Documentation changes (either in the Readme or the schelp files) should look like this: `doc(Rongs): Changed example`.
 
+If something is a breaking change, it may be suffixed with an exclamation mark: `feat(Rongs)!: Use imperial measurements for frequency parameter`. 
+
 ## Adding a plugin
 
 First, make sure you are on a new branch:
