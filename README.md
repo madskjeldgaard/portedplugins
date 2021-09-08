@@ -4,6 +4,22 @@
 
 A collection of plugins for the [SuperCollider sound environment](https://supercollider.github.io/).
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+  - [Included plugins](#included-plugins)
+  - [Installation](#installation)
+    - [Building](#building)
+    - [Requirements](#requirements)
+      - [Preparations for a build](#preparations-for-a-build)
+      - [Actually Building](#actually-building)
+      - [Building for Raspberry Pi](#building-for-raspberry-pi)
+- [Contributing](#contributing)
+- [Credits](#credits)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Included plugins
 
 See the `MKPlugins.schelp` help file for an overview inside of SuperCollider and the respective help files for each plugin for more information about the particularities of each plugin.
