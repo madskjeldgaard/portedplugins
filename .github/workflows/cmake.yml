@@ -66,13 +66,34 @@ jobs:
       working-directory: ${{github.workspace}}/build
       run: zip -r "MKPlugins-${{runner.os}}" "install/MKPlugins"
 
-      # Gather all files in a zip
+    # Gather all files in a zip
     - name: Zip up build (Windows)
       if: matrix.os == 'windows-latest'
       shell: pwsh
       working-directory: ${{github.workspace}}\build
       run: Compress-7Zip "install\MKPlugins" -ArchiveFileName "MKPlugins-${{runner.os}}.zip" -Format Zip
 
+    # Changelog
+    - name: Generate a changelog
+      uses: orhun/git-cliff-action@v1
+      id: git-cliff
+      with:
+        config: cliff.toml
+        args: -vv --latest --strip header
+      env:
+        OUTPUT: CHANGELOG.md
+
+    - name: Set the release body
+      id: release
+      shell: bash
+      run: |
+        r=$(cat ${{ steps.git-cliff.outputs.changelog }})
+        r="${r//'%'/'%25'}"     # Multiline escape sequences for %
+        r="${r//$'\n'/'%0A'}"   # Multiline escape sequences for '\n'
+        r="${r//$'\r'/'%0D'}"   # Multiline escape sequences for '\r'
+        echo "::set-output name=RELEASE_BODY::$r"
+
+    # Upload
     - name: Upload binaries to release
       uses: svenstaro/upload-release-action@v2
       with:
@@ -80,5 +101,5 @@ jobs:
         file: ${{github.workspace}}/build/MKPlugins-${{runner.os}}.zip
         asset_name: MKPlugins-${{runner.os}}.zip
         prerelease: true
-        body: ""
+        body: ${{ steps.release.outputs.RELEASE_BODY }}
         tag: ${{ github.ref }}
