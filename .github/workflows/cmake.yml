@@ -14,16 +14,17 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Checkout submodules
-      run: git submodule update --init --recursive
-
     - name: Install 7Zip (Windows)
-      if: matrix.os == 'windows-latest'
+      if: runner.os == 'Windows'
       shell: powershell
       run: Install-Module 7Zip4PowerShell -Force -Verbose
 
-    - name: Get SC source code
-      run: git clone https://github.com/supercollider/supercollider.git ${{github.workspace}}/supercollider
+    - name: Checkout supercollider
+      uses: actions/checkout@v2
+      with:
+        repository: supercollider/supercollider
+        path: ${{github.workspace}}/supercollider
+        ref: main
 
     - name: Create Build Environment
       # Some projects don't allow in-source building, so create a separate build directory
@@ -46,12 +47,16 @@ jobs:
       if: matrix.os != 'windows-latest'
       working-directory: ${{github.workspace}}/build
       shell: bash
+      env:
+        CMAKE_BUILD_PARALLEL_LEVEL: 4
       run: cmake --build . --config "Release" --target install
 
     - name: Build (Windows)
       working-directory: ${{github.workspace}}\build
       if: matrix.os == 'windows-latest'
       shell: pwsh
+      env:
+        CMAKE_BUILD_PARALLEL_LEVEL: 4
       run: cmake --build . --config "Release" --target install
 
       # Gather all files in a zip
@@ -59,8 +64,8 @@ jobs:
       if: matrix.os != 'windows-latest'
       shell: bash
       working-directory: ${{github.workspace}}/build
-      run: zip -r MKPlugins-${{runner.os}} install/MKPlugins
-      
+      run: zip -r "MKPlugins-${{runner.os}}" "install/MKPlugins"
+
       # Gather all files in a zip
     - name: Zip up build (Windows)
       if: matrix.os == 'windows-latest'
@@ -68,38 +73,12 @@ jobs:
       working-directory: ${{github.workspace}}\build
       run: Compress-7Zip "install\MKPlugins" -ArchiveFileName "MKPlugins-${{runner.os}}.zip" -Format Zip
 
-    - name: Check if release has been created
-      uses: mukunku/tag-exists-action@v1.0.0
-      id: checkTag
-      with: 
-        tag: 'v1'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
-    # Publish build
-    - name: Build Changelog
-      id: github_release
-      uses: mikepenz/release-changelog-builder-action@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Create Release
-      if: steps.checkTag.outputs.exists == false
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: MKPlugins-${{ github.ref }}
-        draft: true
-        prerelease: false
-        body: ${{steps.github_release.outputs.changelog}}
-          
     - name: Upload binaries to release
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: ${{github.workspace}}/build/MKPlugins-${{runner.os}}.zip
         asset_name: MKPlugins-${{runner.os}}.zip
+        prerelease: true
+        body: ""
         tag: ${{ github.ref }}
