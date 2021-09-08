@@ -1,8 +1,21 @@
 # Contributing
 
+
 All contributions to this project are very welcome. 
 
 A contribution can be many things: Opening an issue or a feature request (or a port request - have you seen some cool open source dsp algorithm that we should port? Let us know! ) or committing code or documentation. If you have a cool example that you would like to spread to the world, feel free to open up a pull request and add it to the relevant help file. The more examples the better!
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Commit message style](#commit-message-style)
+- [Adding a plugin](#adding-a-plugin)
+  - [Including extra header/implementation files](#including-extra-headerimplementation-files)
+- [Renaming a plugin](#renaming-a-plugin)
+- [Creating a release](#creating-a-release)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Commit message style
 
@@ -44,6 +57,14 @@ set(LockhartWavefolder_cpp_files
 	)
 ```
 For more information on how to write plugins, see [this tutorial on the SCSynth forum](https://scsynth.org/t/tutorial-supercollider-server-plugins-in-c/3449).
+
+### Realtime safe memory
+
+From the [SuperCollider documentation](http://doc.sccode.org/Guides/WritingUGens.html):
+
+> Do not allocate memory from the OS via malloc / free or new/ delete. Instead you should use the real-time memory allocator via RTAlloc / RTFree.
+
+This is super important when porting code from other environments that involve memory allocation/deallocation. For example reverbs, delay based stuff etc. It is definately a challenge to make the memory realtime safe but it is definately worth it because it makes the plugins really robust (and allows the user to instantiate the plugins while livecoding without experiencing dropouts, glitches or xruns caused by memory allocation).
 
 ## Renaming a plugin
 
