@@ -108,6 +108,8 @@ If you experience any problems, post it as an issue or if you have the skills to
 
 If you see any problems in the documentation, feel free to do the same here (please submit a PR if you can - otherwise feel free to post an issue). 
 
+See [CONTRIBUTING.md](CONTRIBUTING.md) for more information on how to contribute.
+
 # Credits
 Thank you to [Notam](https://notam.no) for the support. 
 
