@@ -53,3 +53,15 @@ If you regret the name of your plugin, the repo also includes a script for renam
 ./scripts/rename_plugin SuperPlugin SuperCoolPlugin 
 ```
 
+## Creating a release
+
+We use [semantic versioning](https://semver.org/) for the version numbers. Once all commits are ready to go on the `main` branch, a release may be created automatically by creating a new tag for that version.
+
+Example:
+
+```bash
+git tag v0.2.8
+git push --tags
+```
+
+When pushing a new version tag, a [github action will run](https://madskjeldgaard.dk/posts/how-to-gh-action/) and compile plugins for all platforms, zip them up and create a release.
