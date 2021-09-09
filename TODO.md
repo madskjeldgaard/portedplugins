@@ -1,2 +1,4 @@
+- port this wavefolder: http://research.spa.aalto.fi/publications/papers/smc17-wavefolder/
+- Enable multiple stages of wavefolder as argument + brightness adjustment
 - audio modulateable freq on all oscs
 - check input rates

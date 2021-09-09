@@ -120,8 +120,6 @@ function(sc_link_with_eigen plugin_name)
 	endif()
 endfunction()
 
-
-
 ####################################################################################################
 # Plugins
 ####################################################################################################
@@ -431,7 +429,6 @@ sc_add_server_plugin(
 )
 sc_link_with_daisy("StringVoice")
 
-
 # NeoFormant
 set(NeoFormant_cpp_files
     plugins/NeoFormant/NeoFormant.hpp
@@ -643,7 +640,7 @@ if(INCWERNER)
 		"${Werner_sc_files}"
 		"${Werner_schelp_files}"
 		)
-	sc_link_with_eigen("Werner") 
+	sc_link_with_eigen("Werner")
 endif()
 
 # AnalogVintageDistortion
@@ -710,4 +707,25 @@ sc_add_server_plugin(
 	"${VadimFilter_sc_files}"
 	"${VadimFilter_schelp_files}"
 )
+# LockhartWavefolder
+set(LockhartWavefolder_cpp_files
+	plugins/LockhartWavefolder/LockhartCell.cpp
+	plugins/LockhartWavefolder/LockhartCell.hpp
+	plugins/LockhartWavefolder/LockhartWavefolder.cpp
+	plugins/LockhartWavefolder/LockhartWavefolder.hpp
+	)
 
+set(LockhartWavefolder_sc_files
+    plugins/LockhartWavefolder/LockhartWavefolder.sc
+)
+set(LockhartWavefolder_schelp_files
+    plugins/LockhartWavefolder/LockhartWavefolder.schelp
+)
+
+sc_add_server_plugin(
+	"${project_name}" # destination directory
+	"LockhartWavefolder" # target name
+	"${LockhartWavefolder_cpp_files}"
+	"${LockhartWavefolder_sc_files}"
+	"${LockhartWavefolder_schelp_files}"
+)
