@@ -2,7 +2,7 @@
 
 # MKPlugins
 
-A collection of plugins for the [SuperCollider sound environment](https://supercollider.github.io/).
+A collection of plugins for the [SuperCollider sound environment](https://supercollider.github.io/), all of which are ported / remixed from elsewhere - including hardware synthesizers, research papers / demos, VST plugins, VCV rack and other programming environments.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
