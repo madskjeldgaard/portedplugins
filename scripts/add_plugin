@@ -250,9 +250,11 @@ function regen_help_globals(){
 }
 
 function append_to_overview(){
+	echo "Appending to overview help file"
 	OVERVIEWFILE=plugins/HelpSource/Overview/MKPlugins.schelp
 	PASTE_AFTER_LINE=11
-	sed -i "${PASTE_AFTER_LINE} i yo" $OVERVIEWFILE
+
+	sed -i "${PASTE_AFTER_LINE} i ## LINK::Classes/${PLUGIN_NAME}::" $OVERVIEWFILE
 }
 
 function generate_files(){
@@ -261,6 +263,7 @@ function generate_files(){
 		generate_hpp && \
 		generate_cpp && \
 		add_to_cmakelists && \
+		append_to_overview && \
 		echo "Done generating files..." && \
 		exit 0
 }
