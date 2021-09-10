@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 #########################
 # add_plugin
 # Generate plugin template including help file, hpp/cpp pair and the necessary supercollider class
@@ -20,7 +20,7 @@ function generate_help(){
 # Help file
 echo "Generating help file for $PLUGIN_NAME ..."
 echo "CLASS:: $PLUGIN_NAME
-SUMMARY:: A plugin... 
+SUMMARY:: A plugin...
 RELATED::TODO
 CATEGORIES::TODO
 
@@ -163,7 +163,7 @@ function add_to_cmakelists(){
 
 if [[ -f "CMakeLists.txt" ]]; then
 echo "Modifying CMakeLists.txt to add $PLUGIN_NAME as a target"
-	
+
 echo "# $PLUGIN_NAME
 set(${PLUGIN_NAME}_cpp_files
     $TARGET_FOLDER/$PLUGIN_NAME.hpp
@@ -195,17 +195,17 @@ fi
 
 function welcome(){
 echo "
-@@@  @@@   @@@@@@   @@@@@@@   @@@@@@   @@@@@@@@@@   
-@@@@ @@@  @@@@@@@@  @@@@@@@  @@@@@@@@  @@@@@@@@@@@  
-@@!@!@@@  @@!  @@@    @@!    @@!  @@@  @@! @@! @@!  
-!@!!@!@!  !@!  @!@    !@!    !@!  @!@  !@! !@! !@!  
-@!@ !!@!  @!@  !@!    @!!    @!@!@!@!  @!! !!@ @!@  
-!@!  !!!  !@!  !!!    !!!    !!!@!!!!  !@!   ! !@!  
-!!:  !!!  !!:  !!!    !!:    !!:  !!!  !!:     !!:  
-:!:  !:!  :!:  !:!    :!:    :!:  !:!  :!:     :!:  
- ::   ::  ::::: ::     ::    ::   :::  :::     ::   
-::    :    : :  :      :      :   : :   :      :    
-                                                    
+@@@  @@@   @@@@@@   @@@@@@@   @@@@@@   @@@@@@@@@@
+@@@@ @@@  @@@@@@@@  @@@@@@@  @@@@@@@@  @@@@@@@@@@@
+@@!@!@@@  @@!  @@@    @@!    @@!  @@@  @@! @@! @@!
+!@!!@!@!  !@!  @!@    !@!    !@!  @!@  !@! !@! !@!
+@!@ !!@!  @!@  !@!    @!!    @!@!@!@!  @!! !!@ @!@
+!@!  !!!  !@!  !!!    !!!    !!!@!!!!  !@!   ! !@!
+!!:  !!!  !!:  !!!    !!:    !!:  !!!  !!:     !!:
+:!:  !:!  :!:  !:!    :!:    :!:  !:!  :!:     :!:
+ ::   ::  ::::: ::     ::    ::   :::  :::     ::
+::    :    : :  :      :      :   : :   :      :
+
 This script adds a plugin to the Notam SuperCollider plugin suite with a basic template for all necessary files and modifications to Cmake's configuration for this project.
 
 USAGE:
@@ -247,6 +247,12 @@ function init(){
 function regen_help_globals(){
 	THISDIR=$(dirname $0)
 	bash $THISDIR/regenerate_help_files
+}
+
+function append_to_overview(){
+	OVERVIEWFILE=plugins/HelpSource/Overview/MKPlugins.schelp
+	PASTE_AFTER_LINE=11
+	sed -i "${PASTE_AFTER_LINE} i yo" $OVERVIEWFILE
 }
 
 function generate_files(){
