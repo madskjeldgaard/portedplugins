@@ -21,6 +21,7 @@ LIST::
 ## LINK::Classes/HarmonicOsc::
 ## LINK::Classes/LPG::
 ## LINK::Classes/LockhartWavefolder::
+## LINK::Classes/NonlinearFilter::
 ## LINK::Classes/NeoFormant::
 ## LINK::Classes/NeoVarSawOsc::
 ## LINK::Classes/OscBank::
