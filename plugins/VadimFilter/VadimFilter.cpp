@@ -49,7 +49,7 @@ void VadimFilter::next(int nSamples) {
   for (int n = 0; n < nSamples; ++n) {
     const float xn = input[n];
 
-    const float K = slopedResonance.consume();
+    const float K = slopedResonance.consume() * 4.0;
     const float freq = slopedFreq.consume();
 
     const float wd = twopi * freq;

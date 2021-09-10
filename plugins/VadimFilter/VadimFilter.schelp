@@ -20,7 +20,7 @@ ARGUMENT::freq
 Cutoff / center frequency (depending on type) in herz. May be modulated at control rate.
 
 ARGUMENT::resonance
-Resonance. Range: 0.0 to 4.0.
+Resonance. Range: 0.0 to 1.0.
 
 ARGUMENT::type
 An integer that sets the filter up as one of the following types:
@@ -43,7 +43,7 @@ Ndef(\va, { |freq=150|
 		input: in,
 		type: 1,
 		freq: LFNoise2.kr(10).exprange(20.0,20000.0),
-		resonance: LFNoise2.kr(1).range(0.0,4.0)
+		resonance: LFNoise2.kr(1).range(0.0,1.0)
 	)!2
 }).play;
 )
