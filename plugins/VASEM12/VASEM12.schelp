@@ -1,0 +1,26 @@
+CLASS:: VASEM12
+SUMMARY:: A plugin...
+RELATED::TODO
+CATEGORIES::TODO
+
+DESCRIPTION::
+
+This is a short description
+
+CLASSMETHODS::
+
+METHOD::ar
+
+ARGUMENT::TODO
+
+ARGUMENT::TODO
+
+EXAMPLES::
+
+code::
+Ndef(\notam, {|freq=110, width=0.5|
+	var sig = VarSaw.ar(freq, width: width);
+	VASEM12.ar(sig);
+}).play;
+::
+

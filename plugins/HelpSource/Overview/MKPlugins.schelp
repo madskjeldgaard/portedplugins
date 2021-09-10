@@ -8,6 +8,11 @@ LINK::https://github.com/madskjeldgaard/mkplugins/##MKPlugins:: is a collection 
 The collection contains the following UGens:
 
 LIST::
+## LINK::Classes/VADiodeFilter::
+## LINK::Classes/VAKorg35::
+## LINK::Classes/VALadder::
+## LINK::Classes/VASEM12::
+## LINK::Classes/VA1Pole::
 ## LINK::Classes/AnalogBassDrum::
 ## LINK::Classes/AnalogFoldOsc::
 ## LINK::Classes/AnalogPhaser::

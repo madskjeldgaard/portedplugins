@@ -50,6 +50,11 @@ See the overview helpfile [MKPlugins](/plugins/HelpSource/Overview/MKPlugins.sch
 - **VarShapeOsc** - Variable Waveshape Oscillator. Original code by [Èmilie Gillet / Mutable Instruments](https://github.com/pichenettes/eurorack). Revisited by Ben Sergentanis for the [DaisySP DSP library](https://github.com/electro-smith/DaisySP). 
 - **VosimOsc** - Vosim oscillator (Two sinewaves multiplied by and sync'ed to a carrier). Original code by [Èmilie Gillet / Mutable Instruments](https://github.com/pichenettes/eurorack). Revisited by Ben Sergentanis for the [DaisySP DSP library](https://github.com/electro-smith/DaisySP). 
 - **ZOsc** - Sinewave multiplied by and sync'ed to a carrier. Original code by [Èmilie Gillet / Mutable Instruments](https://github.com/pichenettes/eurorack). Revisited by Ben Sergentanis for the [DaisySP DSP library](https://github.com/electro-smith/DaisySP). 
+- **VAOnePoleFilter** - Virtual analog onepole filter. Based on the work of Vadim Zavalishin and William Pirkle. Ported from [the Odin2 project](https://github.com/TheWaveWarden/odin2) 
+- **VADiodeFilter** - Virtual analog diode filter. Based on the work of Vadim Zavalishin and William Pirkle. Ported from [the Odin2 project](https://github.com/TheWaveWarden/odin2) 
+- **VAKorg35** - Virtual analog Korg35 filter. Based on the work of Vadim Zavalishin and William Pirkle. Ported from [the Odin2 project](https://github.com/TheWaveWarden/odin2) 
+- **VALadder** - Virtual analog ladder filter. Based on the work of Vadim Zavalishin and William Pirkle. Ported from [the Odin2 project](https://github.com/TheWaveWarden/odin2) 
+- **VASEM12** - Virtual analog SEM12 filter. Based on the work of Vadim Zavalishin and William Pirkle. Ported from [the Odin2 project](https://github.com/TheWaveWarden/odin2) 
 
 ## Installation
 

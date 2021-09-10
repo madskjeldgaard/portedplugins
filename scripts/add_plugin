@@ -252,7 +252,7 @@ function regen_help_globals(){
 function append_to_overview(){
 	echo "Appending to overview help file"
 	OVERVIEWFILE=plugins/HelpSource/Overview/MKPlugins.schelp
-	PASTE_AFTER_LINE=11
+	PASTE_AFTER_LINE=$(awk '/LIST::/ {print FNR}' $OVERVIEWFILE)+1
 
 	sed -i "${PASTE_AFTER_LINE} i ## LINK::Classes/${PLUGIN_NAME}::" $OVERVIEWFILE
 }
