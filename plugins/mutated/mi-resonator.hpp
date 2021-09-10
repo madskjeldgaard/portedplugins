@@ -93,14 +93,6 @@ enum FilterMode {
   FILTER_MODE_HIGH_PASS
 };
 
-#define M_PI_F float(M_PI)
-#define M_PI_POW_2 M_PI *M_PI
-#define M_PI_POW_3 M_PI_POW_2 *M_PI
-#define M_PI_POW_5 M_PI_POW_3 *M_PI_POW_2
-#define M_PI_POW_7 M_PI_POW_5 *M_PI_POW_2
-#define M_PI_POW_9 M_PI_POW_7 *M_PI_POW_2
-#define M_PI_POW_11 M_PI_POW_9 *M_PI_POW_2
-
 enum CosineOscillatorMode {
   COSINE_OSCILLATOR_APPROXIMATE,
   COSINE_OSCILLATOR_EXACT
