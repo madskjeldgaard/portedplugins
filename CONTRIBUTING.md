@@ -9,9 +9,11 @@ A contribution can be many things: Opening an issue or a feature request (or a p
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
+- [Submit an idea for a plugin](#submit-an-idea-for-a-plugin)
 - [Commit message style](#commit-message-style)
 - [Adding a plugin](#adding-a-plugin)
   - [Including extra header/implementation files](#including-extra-headerimplementation-files)
+  - [Realtime safe memory](#realtime-safe-memory)
 - [Renaming a plugin](#renaming-a-plugin)
 - [Creating a release](#creating-a-release)
 
