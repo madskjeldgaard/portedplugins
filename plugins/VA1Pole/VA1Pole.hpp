@@ -4,7 +4,7 @@
 #pragma once
 
 #include "SC_PlugIn.hpp"
-#include "../surgefilters/VAOnePoleFilter.h"
+#include "../odinfilters/VAOnePoleFilter.h"
 
 namespace VA1Pole {
 

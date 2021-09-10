@@ -4,7 +4,7 @@
 #pragma once
 
 #include "SC_PlugIn.hpp"
-#include "../surgefilters/DiodeFilter.h"
+#include "../odinfilters/DiodeFilter.h"
 
 namespace VADiodeFilter {
 

@@ -18,9 +18,8 @@
 // on https://willpirkle.com
 
 #pragma once
-
-#include "Filter.h"
-
+#include <math.h>
+#include "../constants.h"
 class VAOnePoleFilter {
 public:
   VAOnePoleFilter();

@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "../surgefilters/SEMFilter12.h"
+#include "../odinfilters/SEMFilter12.h"
 #include "SC_PlugIn.hpp"
 
 namespace VASEM12 {

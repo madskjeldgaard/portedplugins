@@ -4,7 +4,7 @@
 #pragma once
 
 #include "SC_PlugIn.hpp"
-#include "../surgefilters/Korg35Filter.h"
+#include "../odinfilters/Korg35Filter.h"
 
 namespace VAKorg35 {
 

@@ -4,7 +4,7 @@
 #pragma once
 
 #include "SC_PlugIn.hpp"
-#include "../surgefilters/LadderFilter.h"
+#include "../odinfilters/LadderFilter.h"
 
 namespace VALadder {
 

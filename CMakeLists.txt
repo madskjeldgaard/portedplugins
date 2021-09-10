@@ -832,10 +832,10 @@ sc_add_server_plugin(
 # VADiodeFilter
 set(
   VADiodeFilter_cpp_files
-  plugins/surgefilters/DiodeFilter.h
-  plugins/surgefilters/DiodeFilter.cpp
-  plugins/surgefilters/VAOnePoleFilter.h
-  plugins/surgefilters/VAOnePoleFilter.cpp
+  plugins/odinfilters/DiodeFilter.h
+  plugins/odinfilters/DiodeFilter.cpp
+  plugins/odinfilters/VAOnePoleFilter.h
+  plugins/odinfilters/VAOnePoleFilter.cpp
   plugins/VADiodeFilter/VADiodeFilter.hpp
   plugins/VADiodeFilter/VADiodeFilter.cpp
 )
@@ -861,10 +861,10 @@ set(
   VAKorg35_cpp_files
   plugins/VAKorg35/VAKorg35.hpp
   plugins/VAKorg35/VAKorg35.cpp
-  plugins/surgefilters/Korg35Filter.h
-  plugins/surgefilters/Korg35Filter.cpp
-  plugins/surgefilters/VAOnePoleFilter.h
-  plugins/surgefilters/VAOnePoleFilter.cpp
+  plugins/odinfilters/Korg35Filter.h
+  plugins/odinfilters/Korg35Filter.cpp
+  plugins/odinfilters/VAOnePoleFilter.h
+  plugins/odinfilters/VAOnePoleFilter.cpp
 )
 set(
   VAKorg35_sc_files
@@ -888,10 +888,10 @@ set(
   VALadder_cpp_files
   plugins/VALadder/VALadder.hpp
   plugins/VALadder/VALadder.cpp
-  plugins/surgefilters/LadderFilter.h
-  plugins/surgefilters/LadderFilter.cpp
-  plugins/surgefilters/VAOnePoleFilter.h
-  plugins/surgefilters/VAOnePoleFilter.cpp
+  plugins/odinfilters/LadderFilter.h
+  plugins/odinfilters/LadderFilter.cpp
+  plugins/odinfilters/VAOnePoleFilter.h
+  plugins/odinfilters/VAOnePoleFilter.cpp
 )
 set(
   VALadder_sc_files
@@ -915,10 +915,10 @@ set(
   VASEM12_cpp_files
   plugins/VASEM12/VASEM12.hpp
   plugins/VASEM12/VASEM12.cpp
-  plugins/surgefilters/SEMFilter12.h
-  plugins/surgefilters/SEMFilter12.cpp
-  plugins/surgefilters/VAOnePoleFilter.h
-  plugins/surgefilters/VAOnePoleFilter.cpp
+  plugins/odinfilters/SEMFilter12.h
+  plugins/odinfilters/SEMFilter12.cpp
+  plugins/odinfilters/VAOnePoleFilter.h
+  plugins/odinfilters/VAOnePoleFilter.cpp
 )
 set(
   VASEM12_sc_files
@@ -942,8 +942,8 @@ set(
   VA1Pole_cpp_files
   plugins/VA1Pole/VA1Pole.hpp
   plugins/VA1Pole/VA1Pole.cpp
-  plugins/surgefilters/VAOnePoleFilter.h
-  plugins/surgefilters/VAOnePoleFilter.cpp
+  plugins/odinfilters/VAOnePoleFilter.h
+  plugins/odinfilters/VAOnePoleFilter.cpp
 )
 
 set(

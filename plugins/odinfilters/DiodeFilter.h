@@ -19,48 +19,27 @@
 
 #pragma once
 #include "VAOnePoleFilter.h"
-
-class Korg35Filter {
+class DiodeFilter {
 public:
-  Korg35Filter();
-  ~Korg35Filter();
-
-  void setup() {
-
-    m_is_lowpass = true;
-
-    m_res_mod = 0;
-    m_freq_modded = 500;
-
-    // init
-    m_k = 0.01;
-    m_alpha = 0.0;
-
-    m_LPF1.setLP();
-    m_LPF2.setLP();
-    m_HPF1.setHP();
-    m_HPF2.setHP();
-
-    setSampleRate(44100.0);
-    setFreq(500.0);
-    setResControl(0.5);
-    setOverdrive(0);
-    reset();
-  }
-
+  /* DiodeFilter(); */
+  /* ~DiodeFilter(); */
   void reset();
   void update();
+  void setup();
   double doFilter(double xn);
-  void setResControl(double res);
   void setFreq(double freq) {
     m_freq_modded = freq;
     update();
   };
+  void setResControl(double res);
+  void setSampleRate(double d) ;
+
   void setOverdrive(double od) {
     m_overdrive = od;
     // @FIXME
     m_saturation_mod = 1;
-  }
+  };
+
   inline float fasttanh(float p_input, float p_tanh_factor) {
     return tanh(p_tanh_factor * p_input);
   }
@@ -75,28 +54,21 @@ public:
       pio_input = fasttanh(overdrive_modded * pio_input, p_tanh_factor);
     }
   }
-  inline void setFilterType(bool p_is_lowpass) {
-    m_is_lowpass = p_is_lowpass; // else HP
-    m_last_freq_modded =
-        -1; // to signal recalculation of filter coeffs in update()
-  }
-
-  void setSampleRate(double p_sr);
 
 protected:
   double m_last_freq_modded = -1;
-
   double m_freq_modded, m_res_mod;
-  double m_samplerate, m_one_over_samplerate, m_overdrive, m_saturation_mod;
-
   double m_k;
-  double m_k_modded;
-  double m_alpha;
+  double m_gamma;
+  double m_sg1;
+  double m_sg2;
+  double m_sg3;
+  double m_sg4;
+
+  double m_samplerate, m_one_over_samplerate, m_overdrive, m_saturation_mod;
 
   VAOnePoleFilter m_LPF1;
   VAOnePoleFilter m_LPF2;
-  VAOnePoleFilter m_HPF1;
-  VAOnePoleFilter m_HPF2;
-
-  bool m_is_lowpass = true; // else HP
+  VAOnePoleFilter m_LPF3;
+  VAOnePoleFilter m_LPF4;
 };
