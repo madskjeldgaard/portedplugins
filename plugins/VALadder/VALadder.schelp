@@ -1,26 +1,68 @@
 CLASS:: VALadder
-SUMMARY:: A plugin...
-RELATED::TODO
-CATEGORIES::TODO
+SUMMARY:: A virtual analog filter
+RELATED::Classes/DFM1
+CATEGORIES::UGens>Filters
 
 DESCRIPTION::
 
-This is a short description
+These filters are virtual analog emulations of a certain, famous ladder filter which has had a big impact in the history of synthesizers.  Each of these filters is available in a 12dB/Oct and a 24dB/Oct variant. These values determine the slope of the filter roll-off. The 24dB/Oct variants filter more frequencies than the 12dB/Oct counterparts
+
+Ported from LINK::https://www.thewavewarden.com/odin2##The Odin2 synth:: and based on the research of William Pirkle and Vadim Zavalishin.
 
 CLASSMETHODS::
 
-METHOD::ar
+METHOD::ar,kr
 
-ARGUMENT::TODO
+ARGUMENT::freq
+Cutoff frequency
 
-ARGUMENT::TODO
+ARGUMENT::res
+Resonance
+
+ARGUMENT::overdrive
+Amount of overdrive
+
+ARGUMENT::type
+0 = LP4, 1 = LP2, 2 = BP4, 3 = BP2, 4 = HP4, 5 = HP2
 
 EXAMPLES::
 
 code::
-Ndef(\notam, {|freq=110, width=0.5|
-	var sig = VarSaw.ar(freq, width: width);
-	VALadder.ar(sig);
-}).play;
-::
+(
+Ndef(\onepole, {
+	var sig = WhiteNoise.ar();
+	VA1Pole.ar(sig, freq: 12500, feedback: -0.1, type:1).poll
+}).play
+)
 
+(
+Ndef(\diode, {
+	var sig = WhiteNoise.ar(0.525);
+	// var sig = SinOsc.ar(100);
+	VADiodeFilter.ar(sig, freq: SinOsc.kr(1).exprange(80.0,5000.0), res:0.9, overdrive:0.9)
+}).play
+)
+
+(
+Ndef(\korg, {
+	var sig = WhiteNoise.ar(0.525);
+	// var sig = SinOsc.ar(100);
+	VAKorg35.ar(sig, freq: SinOsc.kr(0.1).exprange(80.0,5000.0), res:0.1, overdrive:0.0)
+}).play
+)
+
+(
+Ndef(\vasem, {
+	var sig = WhiteNoise.ar(0.525);
+	// var sig = SinOsc.ar(100);
+	VASEM12.ar(sig, freq: SinOsc.kr(0.1).exprange(80.0,15000.0), res:0.9, transition: LFSaw.kr(0.01).unipolar)
+}).play
+)
+
+(
+Ndef(\ladderj, {
+	var sig = WhiteNoise.ar(0.525);
+	// var sig = SinOsc.ar(100);
+	VALadder.ar(sig, freq: SinOsc.kr(0.1).exprange(80.0,5000.0), res:0.5, overdrive:0.5, type:0)
+}).play
+::

@@ -20,7 +20,7 @@ private:
     void next(int nSamples);
     void clear(int nSamples);
 
-    enum InputParams { Input, Freq, Res, Overdrive, NumInputParams };
+    enum InputParams { Input, Freq, Res, Overdrive, Type, NumInputParams };
     enum Outputs { Out1, NumOutputParams };
 
 	float m_freq_past, m_res_past, m_overdrive_past ;

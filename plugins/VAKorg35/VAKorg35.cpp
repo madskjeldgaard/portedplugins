@@ -19,6 +19,8 @@ VAKorg35::VAKorg35() {
   filter.setFreq(initFreq);
   auto initOd = in0(Overdrive);
   filter.setOverdrive(initOd);
+  filter.setFilterType(static_cast<bool>(1 - in0(Type)));
+
   m_overdrive_past = initOd;
   m_freq_past = initFreq;
   m_res_past = initRes;
