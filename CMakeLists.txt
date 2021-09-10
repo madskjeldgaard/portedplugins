@@ -729,3 +729,28 @@ sc_add_server_plugin(
 	"${LockhartWavefolder_sc_files}"
 	"${LockhartWavefolder_schelp_files}"
 )
+# NonlinearFilter
+set(NonlinearFilter_cpp_files
+	plugins/NonlinearFilter/Biquad.h
+	plugins/NonlinearFilter/EQFilter.cpp
+	plugins/NonlinearFilter/EQFilter.h
+	plugins/NonlinearFilter/FBFilter.h
+	plugins/NonlinearFilter/NonlinearFilter.cpp
+	plugins/NonlinearFilter/NonlinearFilter.hpp
+	plugins/NonlinearFilter/Saturators.h
+	)
+
+set(NonlinearFilter_sc_files
+    plugins/NonlinearFilter/NonlinearFilter.sc
+)
+set(NonlinearFilter_schelp_files
+    plugins/NonlinearFilter/NonlinearFilter.schelp
+)
+
+sc_add_server_plugin(
+	"${project_name}" # destination directory
+	"NonlinearFilter" # target name
+	"${NonlinearFilter_cpp_files}"
+	"${NonlinearFilter_sc_files}"
+	"${NonlinearFilter_schelp_files}"
+)

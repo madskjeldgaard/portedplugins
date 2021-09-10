@@ -1,0 +1,79 @@
+CLASS:: NonlinearFilter
+SUMMARY::Flexible filter with saturation in the feedback loop
+RELATED::HelpSource/Overview/MKPlugins
+CATEGORIES::UGens>Filters
+
+DESCRIPTION::
+
+This is a flexible, non linear filter with saturation in the feedback loop of the filter. It can be setup as low or highpass, notch, bellshape, low or highshelf and has 4 different saturation algorithms.
+
+See LINK::https://jatinchowdhury18.medium.com/complex-nonlinearities-episode-5-nonlinear-feedback-filters-115e65fc0402##Jatin Chowdhury's article/code from the Complex Nonlinearities project for more information::. Jatin Chowdhury did the research and original code that this is based on.
+
+CLASSMETHODS::
+
+METHOD::ar
+
+ARGUMENT::input
+Audio input
+
+ARGUMENT::freq
+Cutoff or center frequency parameter, depending on type.
+
+ARGUMENT::q
+Resonance. 0.0 to 1.0.
+
+ARGUMENT::gain
+Gain (used mostly with bell shape)
+
+ARGUMENT::shape
+Internal filter shape to be used, an integer.
+
+0 = bell, 1 = notch, 2 = highShelf, 3 = lowShelf, 4 = highPass, 5 = lowPass
+
+ARGUMENT::saturation
+Saturation type to use. An integer.
+
+0 = none, 1 = hard, 2 = soft, 3 = hyptan, 4 = ahypsin
+
+EXAMPLES::
+
+code::
+// Lowpass with ahypsin saturation
+(
+{
+	var freq=550, q=0.5, gain=1, shape=5, saturation=4;
+	var sig = PinkNoise.ar();
+	NonlinearFilter.ar(sig, freq.poll, q, gain, shape, saturation)!2 * 0.5;
+}.play
+)
+
+// Highpass with hard saturation
+(
+{
+	var freq=1000, q=0.5, gain=1, shape=4, saturation=1;
+	var sig = PinkNoise.ar();
+	NonlinearFilter.ar(sig, freq.poll, q, gain, shape, saturation)!2 * 0.5;
+}.play
+)
+
+// Fucked up EQ:
+// Bell shape filter with hyptan saturation
+(
+{
+	var q=0.95, gain=7, shape=0, saturation=3;
+	var sig = PinkNoise.ar();
+	var freq = SinOsc.kr(0.1).exprange(100.0,5500.0).poll;
+	NonlinearFilter.ar(sig, freq.poll, q, gain, shape, saturation)!2 * 0.5;
+}.play
+)
+
+// Notch shape filter with ahypsin saturation
+(
+{
+	var q=0.95, gain=7, shape=1, saturation=4;
+	var sig = PinkNoise.ar();
+	var freq = SinOsc.kr(0.1).exprange(100.0,5500.0).poll;
+	NonlinearFilter.ar(sig, freq.poll, q, gain, shape, saturation)!2 * 0.5;
+}.play
+)
+::
