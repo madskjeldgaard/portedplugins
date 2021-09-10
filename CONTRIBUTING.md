@@ -17,6 +17,10 @@ A contribution can be many things: Opening an issue or a feature request (or a p
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+## Submit an idea for a plugin
+
+Feel free to post ideas for things to port over [on the discussions forum.](https://github.com/madskjeldgaard/mkplugins/discussions/23)
+
 ## Commit message style
 
 We use [conventional commit style messages](https://www.conventionalcommits.org/en/v1.0.0/) for the commit messages. The reason for this is that it makes it easy for tools to automatically generate changelogs and other nice things. 
