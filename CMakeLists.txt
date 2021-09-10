@@ -101,24 +101,24 @@ endfunction()
 # EIGEN LIBRARY
 ####################################################################################################
 
-if(INCWERNER)
-  # Eigen library
-  add_subdirectory(eigen)
-endif()
+# if(INCWERNER)
+#   # Eigen library
+#   add_subdirectory(eigen)
+# endif()
 
-# Link plugin with eigen library
-function(sc_link_with_eigen plugin_name)
-  message(STATUS "Linking ${plugin_name} with eigen library")
-  if(SCSYNTH)
-    target_include_directories("${plugin_name}_scsynth" eigen/Eigen)
-    target_link_libraries("${plugin_name}_scsynth" eigen)
-  endif()
+# # Link plugin with eigen library
+# function(sc_link_with_eigen plugin_name)
+#   message(STATUS "Linking ${plugin_name} with eigen library")
+#   if(SCSYNTH)
+#     target_include_directories("${plugin_name}_scsynth" eigen/Eigen)
+#     target_link_libraries("${plugin_name}_scsynth" eigen)
+#   endif()
 
-  if(SUPERNOVA)
-    target_include_directories("${plugin_name}_supernova" eigen/Eigen)
-    target_link_libraries("${plugin_name}_supernova" eigen)
-  endif()
-endfunction()
+#   if(SUPERNOVA)
+#     target_include_directories("${plugin_name}_supernova" eigen/Eigen)
+#     target_link_libraries("${plugin_name}_supernova" eigen)
+#   endif()
+# endfunction()
 
 ####################################################################################################
 # Plugins
@@ -677,31 +677,31 @@ sc_add_server_plugin(
 # target_link_libraries("AnalogTape_scsynth" plugins/ChowDSP/HysteresisProcessing.hpp plugins/ChowDSP/HysteresisProcessing.cpp)
 # target_link_libraries("AnalogTape_supernova" plugins/ChowDSP/HysteresisProcessing.hpp plugins/ChowDSP/HysteresisProcessing.cpp)
 
-if(INCWERNER)
-  # Werner
-  set(
-    Werner_cpp_files
-    plugins/ChowDSP/Werner.hpp
-    plugins/ChowDSP/Werner.cpp
-  )
-  set(
-    Werner_sc_files
-    plugins/ChowDSP/Werner.sc
-  )
-  set(
-    Werner_schelp_files
-    plugins/ChowDSP/Werner.schelp
-  )
+# if(INCWERNER)
+#   # Werner
+#   set(
+#     Werner_cpp_files
+#     plugins/ChowDSP/Werner.hpp
+#     plugins/ChowDSP/Werner.cpp
+#   )
+#   set(
+#     Werner_sc_files
+#     plugins/ChowDSP/Werner.sc
+#   )
+#   set(
+#     Werner_schelp_files
+#     plugins/ChowDSP/Werner.schelp
+#   )
 
-  sc_add_server_plugin(
-    "${project_name}" # destination directory
-    "Werner" # target name
-    "${Werner_cpp_files}"
-    "${Werner_sc_files}"
-    "${Werner_schelp_files}"
-  )
-  sc_link_with_eigen("Werner")
-endif()
+#   sc_add_server_plugin(
+#     "${project_name}" # destination directory
+#     "Werner" # target name
+#     "${Werner_cpp_files}"
+#     "${Werner_sc_files}"
+#     "${Werner_schelp_files}"
+#   )
+#   sc_link_with_eigen("Werner")
+# endif()
 
 # AnalogVintageDistortion
 set(
