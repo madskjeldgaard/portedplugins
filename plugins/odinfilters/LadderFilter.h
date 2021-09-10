@@ -20,6 +20,8 @@
 #pragma once
 
 #include "VAOnePoleFilter.h"
+#include "../constants.h"
+#include "../fastmath.h"
 
 class LadderFilter {
 public:
@@ -135,7 +137,7 @@ public:
     // note: measured input to tan function, it seemed limited to
     // (0.005699, 1.282283). input for fasttan shall be limited to (-pi/2, pi/2)
     // according to documentation
-    double wa = (2 * m_samplerate) * tan(wd * m_one_over_samplerate * 0.5);
+    double wa = (2 * m_samplerate) * mkfastmath::fasttan<mkfastmath::FREQUENCY_FAST>(wd * m_one_over_samplerate * 0.5);
     double g = wa * m_one_over_samplerate * 0.5;
 
     // G - the feedforward coeff in the VA One Pole

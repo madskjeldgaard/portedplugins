@@ -19,6 +19,8 @@
 
 #pragma once
 #include "VAOnePoleFilter.h"
+#include "../fastmath.h"
+
 class DiodeFilter {
 public:
   /* DiodeFilter(); */

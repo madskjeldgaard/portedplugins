@@ -67,7 +67,7 @@ void DiodeFilter::update() {
   // calc alphas
   double wd = 2 * 3.141592653 * m_freq_modded;
   // double t = 1.0 / m_samplerate;
-  double wa = (2.0 * m_samplerate) * tan(wd * m_one_over_samplerate * 0.5);
+  double wa = (2.0 * m_samplerate) * mkfastmath::fasttan<mkfastmath::FREQUENCY_FAST>(wd * m_one_over_samplerate * 0.5);
   double g = wa * m_one_over_samplerate / 2.0;
 
   double G4 = 0.5 * g / (1.0 + g);

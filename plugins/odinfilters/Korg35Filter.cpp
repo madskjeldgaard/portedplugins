@@ -48,7 +48,7 @@ void Korg35Filter::update() {
 
   // BZT
   double wd = 2 * 3.141592653 * m_freq_modded;
-  double wa = (2.0 * m_samplerate) * tan(wd * m_one_over_samplerate * 0.5);
+  double wa = (2.0 * m_samplerate) * mkfastmath::fasttan<mkfastmath::FREQUENCY_FAST>(wd * m_one_over_samplerate * 0.5);
   double g = wa * m_one_over_samplerate * 0.5;
   double G = g / (1.0 + g);
 

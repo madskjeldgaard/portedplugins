@@ -14,6 +14,8 @@
 */
 
 #pragma once
+#include "../fastmath.h"
+
 class SEMFilter12 {
 public:
   SEMFilter12();

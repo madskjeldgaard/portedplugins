@@ -19,6 +19,7 @@
 
 #pragma once
 #include "VAOnePoleFilter.h"
+#include "../fastmath.h"
 #include <math.h>
 
 class Korg35Filter {
