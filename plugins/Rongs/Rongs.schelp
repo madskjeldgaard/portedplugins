@@ -17,7 +17,7 @@ CLASSMETHODS::
 
 METHOD::ar
 
-ARGUMENT::trigger 
+ARGUMENT::trigger
 Trigger the resonator
 
 ARGUMENT::sustain
@@ -87,13 +87,13 @@ Ndef(\c, {|pan=0.0, trigfreq=4|
 	var trig = Dust2.kr(trigfreq);
 
 	var sig = Rongs.ar(
-		trig, 
-		sustain: trig, 
-		f0: [1.0,1.01] * TRand.kr(0.01,0.2, trig), 
+		trig,
+		sustain: trig,
+		f0: TExpRand.kr(50.0,500.0, trig),
 		structure: TRand.kr(0.0,0.99,trig),
-		brightness: TRand.kr(0.6,0.99,trig), 
-		stretch: TRand.kr(0.1,0.99,trig), 
-		damping: 0.7,
+		brightness: TRand.kr(0.6,0.99,trig),
+		stretch: TRand.kr(0.1,0.99,trig),
+		damping: 0.5,
 		//damping: TRand.kr(0.5,0.85, trig),
 		accent: 0.99,
 		loss: 0.1
@@ -112,22 +112,22 @@ Ndef(\c).copy(\c3).set(\pan, (-0.2855285)).play;
 
 // A synth def
 (
-SynthDef.new(\rongsinator, {|out, amp=0.25, pan=0, sustainTime=0.01, f0=0.05, structure=0.5, brightness=0.5, damping=0.75, accent=0.9, harmonicstretch=0.5, position=0.15, loss=0.15|
+SynthDef.new(\rongsinator, {|out, amp=0.25, pan=0, sustainTime=0.01, f0=100.05, structure=0.5, brightness=0.5, damping=0.75, accent=0.9, harmonicstretch=0.5, position=0.15, loss=0.15|
 	var trig = Trig.kr(1, dur: sustainTime);
 
 	var modeNum=2, cosFreq=0.025;
 	var sig = Rongs.ar(
-		trigger:trig, 
-		sustain:trig, 
-		f0:f0, 
-		structure:structure, 
-		brightness:brightness, 
-		damping:damping, 
-		accent:accent, 
-		stretch:harmonicstretch, 
-		position:position, 
-		loss:loss, 
-		modeNum:modeNum, 
+		trigger:trig,
+		sustain:trig,
+		f0:f0,
+		structure:structure,
+		brightness:brightness,
+		damping:damping,
+		accent:accent,
+		stretch:harmonicstretch,
+		position:position,
+		loss:loss,
+		modeNum:modeNum,
 		cosFreq:cosFreq
 	);
 
@@ -142,12 +142,12 @@ Synth(\rongsinator, [\damping, 0.5])
 
 // Play pattern
 (
-Pdef('🌻', 
+Pdef('🌻',
 	Pbind(
 		\instrument, \rongsinator,
 		\amp, 0.20,
 		\pan, Pwhite(-1.0,1.0),
-		\f0, Pseq([0.025,0.01,0.018], inf) + Pseg(Pseq([0.008,0.0016], inf), 14, \exp, inf),
+		\f0, Pwhite(100,500),
 		\dur, 0.125,
 		\structure, Pseg([0.1,1.0], 5, \lin, inf),
 		\brightness, 0.5,
@@ -162,4 +162,3 @@ Pdef('🌻',
 ).play
 )
 ::
-
