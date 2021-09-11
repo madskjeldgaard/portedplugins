@@ -67,14 +67,14 @@ jobs:
       if: matrix.os != 'windows-latest'
       shell: bash
       working-directory: ${{github.workspace}}/build
-      run: zip -r "MKPlugins-${{runner.os}}" "install/MKPlugins"
+      run: zip -r "PortedPlugins-${{runner.os}}" "install/PortedPlugins"
 
     # Gather all files in a zip
     - name: Zip up build (Windows)
       if: matrix.os == 'windows-latest'
       shell: pwsh
       working-directory: ${{github.workspace}}\build
-      run: Compress-7Zip "install\MKPlugins" -ArchiveFileName "MKPlugins-${{runner.os}}.zip" -Format Zip
+      run: Compress-7Zip "install\PortedPlugins" -ArchiveFileName "PortedPlugins-${{runner.os}}.zip" -Format Zip
 
     # Changelog
     - name: Generate a changelog
@@ -101,8 +101,8 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ${{github.workspace}}/build/MKPlugins-${{runner.os}}.zip
-        asset_name: MKPlugins-${{runner.os}}.zip
+        file: ${{github.workspace}}/build/PortedPlugins-${{runner.os}}.zip
+        asset_name: PortedPlugins-${{runner.os}}.zip
         prerelease: true
         body: ${{ steps.release.outputs.RELEASE_BODY }}
         tag: ${{ github.ref }}
