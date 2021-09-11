@@ -16,6 +16,9 @@ CLASSMETHODS::
 
 METHOD::ar,kr
 
+ARGUMENT::input
+Audio input
+
 ARGUMENT::freq
 Cutoff frequency
 

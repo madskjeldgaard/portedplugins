@@ -13,6 +13,9 @@ CLASSMETHODS::
 
 METHOD::ar,kr
 
+ARGUMENT::input
+Audio input
+
 ARGUMENT::freq
 Cutoff frequency
 
@@ -63,4 +66,6 @@ Ndef(\ladderj, {
 	// var sig = SinOsc.ar(100);
 	VALadder.ar(sig, freq: SinOsc.kr(0.1).exprange(80.0,5000.0), res:0.5, overdrive:0.5, type:0)
 }).play
-)::
+)
+
+::
