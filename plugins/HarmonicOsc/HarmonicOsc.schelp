@@ -1,6 +1,6 @@
 CLASS:: HarmonicOsc
 SUMMARY:: 16 voice harmonic oscillator
-RELATED::HelpSource/Overview/MKPlugins
+RELATED::HelpSource/Overview/PortedPlugins
 CATEGORIES::UGens>Oscillator
 
 DESCRIPTION::

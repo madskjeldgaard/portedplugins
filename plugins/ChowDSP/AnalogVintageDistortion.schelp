@@ -1,6 +1,6 @@
 CLASS:: AnalogVintageDistortion
 SUMMARY::A virtual analog vintage EQ and distortion
-RELATED::HelpSource/Overview/MKPlugins
+RELATED::HelpSource/Overview/PortedPlugins
 CATEGORIES::UGens>VirtualAnalog
 
 DESCRIPTION::

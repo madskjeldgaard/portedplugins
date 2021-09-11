@@ -1,6 +1,6 @@
 CLASS:: NeoFormant
 SUMMARY::Formant oscillator with aliasing-free phase reset
-RELATED::HelpSource/Overview/MKPlugins
+RELATED::HelpSource/Overview/PortedPlugins
 CATEGORIES::UGens>Oscillator
 
 DESCRIPTION::

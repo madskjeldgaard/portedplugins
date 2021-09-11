@@ -1,6 +1,6 @@
 CLASS:: VosimOsc
 SUMMARY:: Vosim oscillator
-RELATED::HelpSource/Overview/MKPlugins
+RELATED::HelpSource/Overview/PortedPlugins
 CATEGORIES::UGens>Oscillator
 
 DESCRIPTION::

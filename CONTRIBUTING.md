@@ -21,7 +21,7 @@ A contribution can be many things: Opening an issue or a feature request (or a p
 
 ## Submit an idea for a plugin
 
-Feel free to post ideas for things to port over [on the discussions forum.](https://github.com/madskjeldgaard/mkplugins/discussions/23)
+Feel free to post ideas for things to port over [on the discussions forum.](https://github.com/madskjeldgaard/portedplugins/discussions/23)
 
 ## Commit message style
 
@@ -50,7 +50,7 @@ It's really simple to use. From the root of the repo folder, run:
 
 This will create a folder in `plugins` called `SuperPlugin` containing C++ files, an SC file and a help file. The script will also add the plugin to [CMakeLists.txt](CMakeLists.txt) so the compiler will pick it up properly. 
 
-The only thing you need to manually do is to open the overview help file [plugins/HelpSource/Overview/MKPlugins.schelp](plugins/HelpSource/Overview/MKPlugins.schelp) and add it to the list (TODO: this should be automated).
+The only thing you need to manually do is to open the overview help file [plugins/HelpSource/Overview/PortedPlugins.schelp](plugins/HelpSource/Overview/PortedPlugins.schelp) and add it to the list (TODO: this should be automated).
 
 ### Including extra header/implementation files
 Note: If your plugin uses extra header files/C++ files, you need to add these to the CMakelists entry for your plugin. As an example, here is the LockhartWavefolder plugin's cpp files entry. `LockhartCell.cpp` and `LockhartCell.hpp` are used in the main plugin files `LockhartWavefolder.cpp` and `LockhartWavefolder.hpp`: 

@@ -1,6 +1,6 @@
-[![.github/workflows/cmake.yml](https://github.com/madskjeldgaard/mkplugins/actions/workflows/cmake.yml/badge.svg)](https://github.com/madskjeldgaard/mkplugins/actions/workflows/cmake.yml)
+[![.github/workflows/cmake.yml](https://github.com/madskjeldgaard/portedplugins/actions/workflows/cmake.yml/badge.svg)](https://github.com/madskjeldgaard/portedplugins/actions/workflows/cmake.yml)
 
-# MKPlugins
+# PortedPlugins
 
 A collection of plugins for the [SuperCollider sound environment](https://supercollider.github.io/), all of which are ported / remixed from elsewhere - including hardware synthesizers, research papers / demos, VST plugins, VCV rack and other programming environments.
 
@@ -22,7 +22,7 @@ A collection of plugins for the [SuperCollider sound environment](https://superc
 
 ## Included plugins
 
-See the `MKPlugins.schelp` help file for an overview inside of SuperCollider and the respective help files for each plugin for more information about the particularities of each plugin.
+See the `PortedPlugins.schelp` help file for an overview inside of SuperCollider and the respective help files for each plugin for more information about the particularities of each plugin.
 
 - **AnalogBassDrum** - Virtual analog 808 bass drum model. Original code by [Èmilie Gillet / Mutable Instruments](https://github.com/pichenettes/eurorack). Revisited by Ben Sergentanis for the [DaisySP DSP library](https://github.com/electro-smith/DaisySP). 
 - **AnalogPhaserMod** - The modulation section of a phaser based on/inspired by classic krautrock phasers. Ported from [Jatin Chowdhury's ChowDSP-VCV-rack project](https://github.com/jatinchowdhury18/ChowDSP-VCV).
@@ -44,7 +44,7 @@ See the `MKPlugins.schelp` help file for an overview inside of SuperCollider and
 - **PhasorModal** - Ported from [Jatin Chowdhury's ChowDSP-VCV-rack project](https://github.com/jatinchowdhury18/ChowDSP-VCV).
 - **Resonator** - A resonant body simulation (originally found in the Mutable Instruments Rings synthesizer module). Original code by [Èmilie Gillet / Mutable Instruments](https://github.com/pichenettes/eurorack). Revisited by Ben Sergentanis for the [DaisySP DSP library](https://github.com/electro-smith/DaisySP). 
 - **Rongs** - A modal synthesis voice. This is a remix of the Mutable Instruments Rings algorithm allowing unrealistic sounds of sloppy gongs and 100km long strings. Original code by [Èmilie Gillet / Mutable Instruments](https://github.com/pichenettes/eurorack).
-See the overview helpfile [MKPlugins](/plugins/HelpSource/Overview/MKPlugins.schelp) for more information which plugins are included.
+See the overview helpfile [PortedPlugins](/plugins/HelpSource/Overview/PortedPlugins.schelp) for more information which plugins are included.
 - **StringVoice** - Extended Karplus-Strong. Original code by [Èmilie Gillet / Mutable Instruments](https://github.com/pichenettes/eurorack). Revisited by Ben Sergentanis for the [DaisySP DSP library](https://github.com/electro-smith/DaisySP). 
 - **VadimFilter** - Virtual analog low pass, high pass and band pass filters based on the [ground breaking work of Vadim Zavalishin](https://www.native-instruments.com/fileadmin/ni_media/downloads/pdf/VAFilterDesign_1.1.1.pdf). Ported from  [folderkit](https://codeberg.org/nonmateria/folderkit) 
 - **VarShapeOsc** - Variable Waveshape Oscillator. Original code by [Èmilie Gillet / Mutable Instruments](https://github.com/pichenettes/eurorack). Revisited by Ben Sergentanis for the [DaisySP DSP library](https://github.com/electro-smith/DaisySP). 
@@ -59,13 +59,13 @@ See the overview helpfile [MKPlugins](/plugins/HelpSource/Overview/MKPlugins.sch
 ## Installation
 
 **Instructions for most systems**:
-1. Download one of [the prebuilt releases](https://github.com/madskjeldgaard/mkplugins/releases). Choose the one that fits your operating system.
+1. Download one of [the prebuilt releases](https://github.com/madskjeldgaard/portedplugins/releases). Choose the one that fits your operating system.
 2. Unzip the contents in your extensions directory (If you don't know where this is, open up SuperCollider and evaluate `Platform.userExtensionDir` - the path will be posted in the post window).
 3. Recompile class library.
 
 **Arch Linux**:
 
-`yay -S supercollider-mkplugins`
+`yay -S supercollider-portedplugins`
 
 **RaspberryPi OS**:
 
@@ -82,11 +82,11 @@ See the accompanying script for downloading, building and installing the plugins
 #### Preparations for a build
 Clone the project:
 
-	git clone https://github.com/madskjeldgaard/mkplugins
-	cd mkplugins
+	git clone https://github.com/madskjeldgaard/portedplugins
+	cd portedplugins
 	git submodule update --init --recursive
 
-This will get you the mkplugins.
+This will get you the portedplugins.
 
 Before continuing, you need two things: 
 

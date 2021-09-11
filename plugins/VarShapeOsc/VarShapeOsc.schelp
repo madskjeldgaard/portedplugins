@@ -1,6 +1,6 @@
 CLASS:: VarShapeOsc
 SUMMARY:: Variable Waveshape Oscillator
-RELATED::HelpSource/Overview/MKPlugins
+RELATED::HelpSource/Overview/PortedPlugins
 CATEGORIES::UGens>Oscillator
 
 DESCRIPTION::

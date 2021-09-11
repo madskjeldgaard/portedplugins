@@ -1,18 +1,13 @@
-title:: MKPlugins
-summary:: An overview of the MKPlugins UGens
+title:: PortedPlugins
+summary:: An overview of the PortedPlugins UGens
 categories:: Synthesis
 related:: Classes/LPG
 
-LINK::https://github.com/madskjeldgaard/mkplugins/##MKPlugins:: is a collection of UGens written by Mads Kjeldgaard.
+LINK::https://github.com/madskjeldgaard/portedplugins/##PortedPlugins:: is a collection of UGens, all of which are ported / remixed from elsewhere - including hardware synthesizers, research papers / demos, VST plugins, VCV rack and other programming environments.
 
 The collection contains the following UGens:
 
 LIST::
-## LINK::Classes/VADiodeFilter::
-## LINK::Classes/VAKorg35::
-## LINK::Classes/VALadder::
-## LINK::Classes/VASEM12::
-## LINK::Classes/VA1Pole::
 ## LINK::Classes/AnalogBassDrum::
 ## LINK::Classes/AnalogFoldOsc::
 ## LINK::Classes/AnalogPhaser::
@@ -26,16 +21,21 @@ LIST::
 ## LINK::Classes/HarmonicOsc::
 ## LINK::Classes/LPG::
 ## LINK::Classes/LockhartWavefolder::
-## LINK::Classes/NonlinearFilter::
 ## LINK::Classes/NeoFormant::
 ## LINK::Classes/NeoVarSawOsc::
+## LINK::Classes/NonlinearFilter::
 ## LINK::Classes/OscBank::
 ## LINK::Classes/PhasorModal::
 ## LINK::Classes/Resonator::
 ## LINK::Classes/Rongs::
 ## LINK::Classes/StringVoice::
-## LINK::Classes/VarShapeOsc::
+## LINK::Classes/VA1Pole::
+## LINK::Classes/VADiodeFilter::
+## LINK::Classes/VAKorg35::
+## LINK::Classes/VALadder::
+## LINK::Classes/VASEM12::
 ## LINK::Classes/VadimFilter::
+## LINK::Classes/VarShapeOsc::
 ## LINK::Classes/VosimOsc::
 ## LINK::Classes/ZOsc::
 ::

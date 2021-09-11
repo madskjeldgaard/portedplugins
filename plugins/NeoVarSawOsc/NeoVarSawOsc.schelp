@@ -1,6 +1,6 @@
 CLASS:: NeoVarSawOsc
 SUMMARY:: Variable saw oscillator
-RELATED::HelpSource/Overview/MKPlugins
+RELATED::HelpSource/Overview/PortedPlugins
 CATEGORIES::UGens>Oscillator
 
 DESCRIPTION::

@@ -1,6 +1,6 @@
 CLASS:: AnalogPhaserMod
 SUMMARY:: Virtual Analog allpass phaser modulation section
-RELATED::HelpSource/Overview/MKPlugins, Classes/AnalogPhaser
+RELATED::HelpSource/Overview/PortedPlugins, Classes/AnalogPhaser
 CATEGORIES::UGens>VirtualAnalog
 
 DESCRIPTION::

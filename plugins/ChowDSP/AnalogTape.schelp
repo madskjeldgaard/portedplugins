@@ -1,6 +1,6 @@
 CLASS:: AnalogTape
 SUMMARY:: Analog tape emulation
-RELATED::HelpSource/Overview/MKPlugins
+RELATED::HelpSource/Overview/PortedPlugins
 CATEGORIES::UGens>VirtualAnalog
 
 DESCRIPTION::

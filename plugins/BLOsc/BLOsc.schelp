@@ -1,6 +1,6 @@
 CLASS:: BLOsc
 SUMMARY:: Band limited oscillator
-RELATED::HelpSource/Overview/MKPlugins
+RELATED::HelpSource/Overview/PortedPlugins
 CATEGORIES::UGens>Oscillator
 
 DESCRIPTION::

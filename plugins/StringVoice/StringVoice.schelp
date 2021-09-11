@@ -1,6 +1,6 @@
 CLASS:: StringVoice
 SUMMARY:: Extended Karplus-Strong
-RELATED::HelpSource/Overview/MKPlugins
+RELATED::HelpSource/Overview/PortedPlugins
 CATEGORIES::UGens>PhysicalModelling
 
 DESCRIPTION::

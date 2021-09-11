@@ -1,6 +1,6 @@
 CLASS:: ZOsc
 SUMMARY:: Sinewave multiplied by and sync'ed to a carrier
-RELATED::HelpSource/Overview/MKPlugins
+RELATED::HelpSource/Overview/PortedPlugins
 CATEGORIES::UGens>Oscillator
 
 DESCRIPTION::

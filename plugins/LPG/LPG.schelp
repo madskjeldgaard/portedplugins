@@ -1,6 +1,6 @@
 CLASS::LPG
 SUMMARY::A digital model of the Buchla Lowpass-Gate
-RELATED::HelpSource/Overview/MKPlugins
+RELATED::HelpSource/Overview/PortedPlugins
 CATEGORIES::UGens>Filters
 
 DESCRIPTION::

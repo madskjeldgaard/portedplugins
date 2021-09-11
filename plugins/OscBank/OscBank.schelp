@@ -1,6 +1,6 @@
 CLASS:: OscBank
 SUMMARY:: An oscillator bank in the style of divide-down organs
-RELATED::HelpSource/Overview/MKPlugins
+RELATED::HelpSource/Overview/PortedPlugins
 CATEGORIES::UGens>Oscillator
 
 DESCRIPTION::

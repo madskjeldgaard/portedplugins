@@ -1,10 +1,10 @@
 # Maintainer: Mads Kjeldgaard <mail@madskjeldgaard.dk>
-pkgname=supercollider-mkplugins
+pkgname=supercollider-portedplugins
 pkgver=r26.fe11076
 pkgrel=1
 pkgdesc="Mads Kjeldgaard's SuperCollider plugins"
 arch=('x86_64')
-url="https://www.github.com/madskjeldgaard/mkplugins"
+url="https://www.github.com/madskjeldgaard/portedplugins"
 license=('GPL')
 groups=('pro-audio')
 depends=('supercollider')

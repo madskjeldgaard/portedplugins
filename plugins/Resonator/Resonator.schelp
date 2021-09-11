@@ -1,6 +1,6 @@
 CLASS:: Resonator
 SUMMARY:: A resonant body simulation.
-RELATED::HelpSource/Overview/MKPlugins
+RELATED::HelpSource/Overview/PortedPlugins
 CATEGORIES::UGens>PhysicalModelling
 
 DESCRIPTION::

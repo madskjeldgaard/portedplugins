@@ -1,6 +1,6 @@
 CLASS:: AnalogBassDrum
 SUMMARY:: Virtual analog 808 bass drum model 
-RELATED::HelpSource/Overview/MKPlugins
+RELATED::HelpSource/Overview/PortedPlugins
 CATEGORIES::UGens>VirtualAnalog, UGens>Drums
 
 DESCRIPTION::

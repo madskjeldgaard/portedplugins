@@ -7,7 +7,7 @@
 ####################################################################################################
 # basic project config
 cmake_minimum_required(VERSION 3.8)
-set(project_name "MKPlugins")
+set(project_name "PortedPlugins")
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_modules ${CMAKE_MODULE_PATH})
 
 # Eigen seems to prefer 17

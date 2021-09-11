@@ -1,6 +1,6 @@
 CLASS:: NonlinearFilter
 SUMMARY::Flexible filter with saturation in the feedback loop
-RELATED::HelpSource/Overview/MKPlugins
+RELATED::HelpSource/Overview/PortedPlugins
 CATEGORIES::UGens>Filters
 
 DESCRIPTION::

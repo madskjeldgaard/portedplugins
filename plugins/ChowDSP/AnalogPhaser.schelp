@@ -1,6 +1,6 @@
 CLASS:: AnalogPhaser
 SUMMARY:: A virtual-analog feedback phaser
-RELATED::HelpSource/Overview/MKPlugins
+RELATED::HelpSource/Overview/PortedPlugins
 CATEGORIES::UGens>VirtualAnalog
 
 DESCRIPTION::
