@@ -15,6 +15,7 @@ A collection of plugins for the [SuperCollider sound environment](https://superc
       - [Preparations for a build](#preparations-for-a-build)
       - [Actually Building](#actually-building)
       - [Building for Raspberry Pi](#building-for-raspberry-pi)
+      - [Building for Rosetta on the Mac M1](#building-for-rosetta-on-the-mac-m1)
 - [Contributing](#contributing)
 - [Credits](#credits)
 
@@ -123,6 +124,27 @@ cmake --build . --config Release --target install
 
 This repository includes a script for the Raspberry Pi users (Raspberry Pi OS based) that installs the prerequisites for building (cmake), downloads all of the source code needed and compiles and installs it. 
 
+
+#### Building for Rosetta on the Mac M1
+
+If you are compiling these plugins on a Mac M1, it will detect your architecture as arm and install an arm version of the plugins. Chances are you've installed the x86 version of SuperCollider and if so you will get architecture mismatches between the two.
+
+To explicitly build for a Mac M1 running SuperCollider under the Rosetta compatibility layer, run these commands:
+
+```bash
+# Location of SuperCollider source code
+SC_LOCATION="/path/to/sc/source"
+
+# Force this architecture:
+OSX_ARCH="x86_64"
+
+# Install here:
+INSTALL_LOCATION="$HOME/Library/Application Support/SuperCollider/Extensions"
+
+cmake .. -DCMAKE_BUILD_TYPE=Release -DSC_PATH="$SC_LOCATION" -DCMAKE_INSTALL_PREFIX="$INSTALL_LOCATION" -DCMAKE_OSX_ARCHITECTURES="$OSX_ARCH"
+cmake --build . --config Release
+cmake --build . --config Release --target install 
+```
 
 # Contributing
 Contributions are welcome! 
