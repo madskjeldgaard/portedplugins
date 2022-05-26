@@ -35,6 +35,7 @@
 #include "math.h"
 #include "mi-lookuptables.h"
 #include <algorithm>
+#include <cstdint>
 
 #pragma once
 
