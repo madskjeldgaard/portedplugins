@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "NeoVarSawOsc.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -40,7 +41,7 @@ void NeoVarSawOsc::next(int nSamples) {
 
 void NeoVarSawOsc::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace NeoVarSawOsc
+}  // namespace NeoVarSawOsc
 
 PluginLoad(NeoVarSawOscUGens) {
   // Plugin magic

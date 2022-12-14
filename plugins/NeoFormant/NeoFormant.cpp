@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "NeoFormant.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -31,7 +32,6 @@ void NeoFormant::next(int nSamples) {
       makeSlope(in0(PhaseShift), m_phaseshift_past);
 
   for (int i = 0; i < nSamples; ++i) {
-
     const float carrierfreq = slopedCarrierFreq.consume();
     const float formantfreq = slopedFormantFreq.consume();
     const float phaseshift = slopedPhaseShift.consume();
@@ -48,7 +48,7 @@ void NeoFormant::next(int nSamples) {
 
 void NeoFormant::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace NeoFormant
+}  // namespace NeoFormant
 
 PluginLoad(NeoFormantUGens) {
   // Plugin magic

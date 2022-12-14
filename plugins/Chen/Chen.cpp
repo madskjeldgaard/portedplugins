@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "Chen.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -58,7 +59,7 @@ void Chen::next(int nSamples) {
   m_c_past = slopedC.value;
 }
 
-} // namespace Chen
+}  // namespace Chen
 
 PluginLoad(ChenUGens) {
   // Plugin magic

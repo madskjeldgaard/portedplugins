@@ -14,9 +14,9 @@ enum EqShape {
 
 /* Filter for a single EQ band */
 class EQFilter : public Biquad {
-public:
-  EQFilter(World *worldIn, float sampleRate );
-  virtual ~EQFilter() { }
+ public:
+  EQFilter(World *worldIn, float sampleRate);
+  virtual ~EQFilter() {}
 
   void setFrequency(float newFreq);
   void setQ(float newQ);
@@ -40,8 +40,8 @@ public:
 
   typedef std::function<void(float, float, float)> CalcCoefsLambda;
   CalcCoefsLambda calcCoefs =
-      {}; // lambda function to calculate coefficients for any shape
-private:
+      {};  // lambda function to calculate coefficients for any shape
+ private:
   float freq, Q, gain;
   float filterOrd = 1;
 
@@ -53,4 +53,4 @@ private:
   float fs = 48000.0f;
 };
 
-#endif // EQFILTER_H_INCLUDED
+#endif  // EQFILTER_H_INCLUDED

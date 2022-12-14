@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "LockhartWavefolder.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -9,7 +10,6 @@ static InterfaceTable *ft;
 namespace LockhartWavefolder {
 
 LockhartWavefolder::LockhartWavefolder() {
-
   // Initialize cells
   m_numCells = in0(NumCells);
   cells = (LockhartCell *)RTAlloc(mWorld, m_numCells * sizeof(LockhartCell));
@@ -64,7 +64,7 @@ void LockhartWavefolder::clear(int nSamples) {
   ClearUnitOutputs(this, nSamples);
 }
 
-} // namespace LockhartWavefolder
+}  // namespace LockhartWavefolder
 
 PluginLoad(LockhartWavefolderUGens) {
   // Plugin magic

@@ -19,12 +19,12 @@
 
 #pragma once
 
-#include "VAOnePoleFilter.h"
 #include "../constants.h"
 #include "../fastmath.h"
+#include "VAOnePoleFilter.h"
 
 class LadderFilter {
-public:
+ public:
   enum class FILTERTYPE {
     LP4 = 0,
     LP2 = 1,
@@ -38,7 +38,6 @@ public:
   ~LadderFilter();
 
   void setup() {
-
     m_res_mod = 0;
 
     m_res_mod = 0;
@@ -103,14 +102,13 @@ public:
     m_LPF2.setSampleRate(p_sr);
     m_LPF3.setSampleRate(p_sr);
     m_LPF4.setSampleRate(p_sr);
-    m_last_freq_modded = -1; // to signal recalculation of coeffs in update()
+    m_last_freq_modded = -1;  // to signal recalculation of coeffs in update()
 
     m_samplerate = p_sr;
     m_one_over_samplerate = 1.f / p_sr;
   }
 
   inline void update() {
-
     // do any modulation first
     /* Filter::update(); */
 
@@ -137,7 +135,9 @@ public:
     // note: measured input to tan function, it seemed limited to
     // (0.005699, 1.282283). input for fasttan shall be limited to (-pi/2, pi/2)
     // according to documentation
-    double wa = (2 * m_samplerate) * mkfastmath::fasttan<mkfastmath::FREQUENCY_FAST>(wd * m_one_over_samplerate * 0.5);
+    double wa =
+        (2 * m_samplerate) * mkfastmath::fasttan<mkfastmath::FREQUENCY_FAST>(
+                                 wd * m_one_over_samplerate * 0.5);
     double g = wa * m_one_over_samplerate * 0.5;
 
     // G - the feedforward coeff in the VA One Pole
@@ -156,72 +156,71 @@ public:
     m_LPF3.m_beta = G / (1.0 + g);
     m_LPF4.m_beta = 1.0 / (1.0 + g);
 
-    m_gamma = G * G * G * G; // G^4
+    m_gamma = G * G * G * G;  // G^4
 
     m_alpha_0 = 1.0 / (1.0 + m_k_modded * m_gamma);
 
     // Oberheim variation
     switch (m_filter_type) {
-    case FILTERTYPE::LP4:
-      m_a = 0.0;
-      m_b = 0.0;
-      m_c = 0.0;
-      m_d = 0.0;
-      m_e = 1.0;
-      break;
+      case FILTERTYPE::LP4:
+        m_a = 0.0;
+        m_b = 0.0;
+        m_c = 0.0;
+        m_d = 0.0;
+        m_e = 1.0;
+        break;
 
-    case FILTERTYPE::LP2:
-      m_a = 0.0;
-      m_b = 0.0;
-      m_c = 1.0;
-      m_d = 0.0;
-      m_e = 0.0;
-      break;
+      case FILTERTYPE::LP2:
+        m_a = 0.0;
+        m_b = 0.0;
+        m_c = 1.0;
+        m_d = 0.0;
+        m_e = 0.0;
+        break;
 
-    case FILTERTYPE::BP4:
-      m_a = 0.0;
-      m_b = 0.0;
-      m_c = 4.0;
-      m_d = -8.0;
-      m_e = 4.0;
-      break;
+      case FILTERTYPE::BP4:
+        m_a = 0.0;
+        m_b = 0.0;
+        m_c = 4.0;
+        m_d = -8.0;
+        m_e = 4.0;
+        break;
 
-    case FILTERTYPE::BP2:
-      m_a = 0.0;
-      m_b = 2.0;
-      m_c = -2.0;
-      m_d = 0.0;
-      m_e = 0.0;
-      break;
+      case FILTERTYPE::BP2:
+        m_a = 0.0;
+        m_b = 2.0;
+        m_c = -2.0;
+        m_d = 0.0;
+        m_e = 0.0;
+        break;
 
-    case FILTERTYPE::HP4:
-      m_a = 1.0;
-      m_b = -4.0;
-      m_c = 6.0;
-      m_d = -4.0;
-      m_e = 1.0;
-      break;
+      case FILTERTYPE::HP4:
+        m_a = 1.0;
+        m_b = -4.0;
+        m_c = 6.0;
+        m_d = -4.0;
+        m_e = 1.0;
+        break;
 
-    case FILTERTYPE::HP2:
-      m_a = 1.0;
-      m_b = -2.0;
-      m_c = 1.0;
-      m_d = 0.0;
-      m_e = 0.0;
-      break;
+      case FILTERTYPE::HP2:
+        m_a = 1.0;
+        m_b = -2.0;
+        m_c = 1.0;
+        m_d = 0.0;
+        m_e = 0.0;
+        break;
 
-    default: // LP4
-      m_a = 0.0;
-      m_b = 0.0;
-      m_c = 0.0;
-      m_d = 0.0;
-      m_e = 1.0;
-      break;
+      default:  // LP4
+        m_a = 0.0;
+        m_b = 0.0;
+        m_c = 0.0;
+        m_d = 0.0;
+        m_e = 1.0;
+        break;
     }
   }
 
   inline double doFilter(double xn) {
-
     double dSigma = m_LPF1.getFeedbackOutput() + m_LPF2.getFeedbackOutput() +
                     m_LPF3.getFeedbackOutput() + m_LPF4.getFeedbackOutput();
 
@@ -245,7 +244,7 @@ public:
 
   inline void setFilterType(int p_filtertype) {
     m_filter_type = (FILTERTYPE)p_filtertype;
-    m_last_freq_modded = -1; // to signal recalculation of coeffs in update()
+    m_last_freq_modded = -1;  // to signal recalculation of coeffs in update()
   }
 
   VAOnePoleFilter m_LPF1;
@@ -258,10 +257,10 @@ public:
   double m_last_freq_modded = -1;
 
   // variables
-  double m_k; // K, set with Q
+  double m_k;  // K, set with Q
   double m_k_modded;
-  double m_gamma;   // see block diagram
-  double m_alpha_0; // see block diagram
+  double m_gamma;    // see block diagram
+  double m_alpha_0;  // see block diagram
 
   // Oberheim Xpander variations
   double m_a;

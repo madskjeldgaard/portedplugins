@@ -30,6 +30,4 @@ using namespace std;
 extern const float lut_pitch_ratio_high[];
 extern const float lut_pitch_ratio_low[];
 
-
-
-} // namespace mi
+}  // namespace mi

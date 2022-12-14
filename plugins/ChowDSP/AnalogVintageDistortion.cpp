@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "AnalogVintageDistortion.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -20,24 +21,24 @@ AnalogVintageDistortion::AnalogVintageDistortion() {
   int overSampleIndex = 0;
 
   switch (overSampleInput) {
-  case OverSamplingAmounts::None:
-    overSampleIndex = 0;
-    break;
-  case OverSamplingAmounts::Double:
-    overSampleIndex = 1;
-    break;
-  case OverSamplingAmounts::Four:
-    overSampleIndex = 2;
-    break;
-  case OverSamplingAmounts::Eight:
-    overSampleIndex = 3;
-    break;
-  case OverSamplingAmounts::Sixteen:
-    overSampleIndex = 4;
-    break;
-  default:
-    overSampleIndex = 0;
-    break;
+    case OverSamplingAmounts::None:
+      overSampleIndex = 0;
+      break;
+    case OverSamplingAmounts::Double:
+      overSampleIndex = 1;
+      break;
+    case OverSamplingAmounts::Four:
+      overSampleIndex = 2;
+      break;
+    case OverSamplingAmounts::Eight:
+      overSampleIndex = 3;
+      break;
+    case OverSamplingAmounts::Sixteen:
+      overSampleIndex = 4;
+      break;
+    default:
+      overSampleIndex = 0;
+      break;
   };
 
   oversample.setOversamplingIndex(overSampleIndex);
@@ -106,7 +107,7 @@ void AnalogVintageDistortion::clear(int nSamples) {
   ClearUnitOutputs(this, nSamples);
 }
 
-} // namespace AnalogVintageDistortion
+}  // namespace AnalogVintageDistortion
 
 PluginLoad(AnalogVintageDistortionUGens) {
   // Plugin magic

@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "ZOsc.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -44,7 +45,7 @@ void ZOsc::next(int nSamples) {
 
 void ZOsc::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace ZOsc
+}  // namespace ZOsc
 
 PluginLoad(ZOscUGens) {
   // Plugin magic

@@ -45,7 +45,6 @@ float Buchla259FoldingCell::process() {
   }
 
   if (A >= L) {
-
     // Compute clipping points
     double clp1 = std::asin(L / A) / twopi;
     double clp2 = 0.5 - clp1;
@@ -58,11 +57,9 @@ float Buchla259FoldingCell::process() {
 
     auto fl4 = flags[3];
     if ((ph < delta) && (fl4 == 1)) {
-
       resetFlags();
 
     } else if ((ph < delta) && (fl4 == 0)) {
-
       clp4 = cl_pts[3];
 
       double d = 1 - ((1 - clp4 + ph) / delta);
@@ -73,12 +70,10 @@ float Buchla259FoldingCell::process() {
 
     // CHECK FOR CLIPPING POINTS
     for (int m = 0; m < 4; m++) {
-
       auto clp = cl_pts[m];
       auto flg = flags[m];
 
       if ((ph > clp) && (ph > (ph - delta)) && (flg == 0)) {
-
         // @FIXME: d occasionally exceeds it's limits of 0.0-1.0. This is hard
         // clipped at the moment but that only removes the symptom and not the
         // cause.
@@ -102,4 +97,4 @@ float Buchla259FoldingCell::process() {
   return out1 * m_output_scalar;
 }
 
-} // namespace buchla259
+}  // namespace buchla259

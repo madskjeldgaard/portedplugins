@@ -17,7 +17,7 @@
 #include "../fastmath.h"
 
 class SEMFilter12 {
-public:
+ public:
   SEMFilter12();
   ~SEMFilter12();
 
@@ -64,7 +64,7 @@ public:
   /* } */
   void setSampleRate(double p_sr);
 
-protected:
+ protected:
   double m_last_freq_modded = -1;
 
   float m_transition_mod;

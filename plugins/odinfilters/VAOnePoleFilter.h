@@ -19,9 +19,10 @@
 
 #pragma once
 #include <math.h>
+
 #include "../constants.h"
 class VAOnePoleFilter {
-public:
+ public:
   VAOnePoleFilter();
   virtual ~VAOnePoleFilter();
 
@@ -48,17 +49,17 @@ public:
   inline void setHP() { m_is_lowpass = false; }
 
   // these are public for easy access
-  double m_alpha; // Feed Forward coeff
+  double m_alpha;  // Feed Forward coeff
   double m_beta;
-  double m_gamma;    // Pre-Gain
-  double m_delta;    // FB_IN Coeff
-  double m_epsilon;  // FB_OUT scalar
-  double m_a_0;      // input gain
-  double m_feedback; // our own feedback coeff from S
+  double m_gamma;     // Pre-Gain
+  double m_delta;     // FB_IN Coeff
+  double m_epsilon;   // FB_OUT scalar
+  double m_a_0;       // input gain
+  double m_feedback;  // our own feedback coeff from S
   double m_freq_modded;
   double m_samplerate;
 
-protected:
-  bool m_is_lowpass = true; // else highpass
-  double m_z_1;             // our z-1 storage location
+ protected:
+  bool m_is_lowpass = true;  // else highpass
+  double m_z_1;              // our z-1 storage location
 };

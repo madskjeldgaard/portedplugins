@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "VADiodeFilter.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -53,7 +54,7 @@ void VADiodeFilter::next(int nSamples) {
 
 void VADiodeFilter::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace VADiodeFilter
+}  // namespace VADiodeFilter
 
 PluginLoad(VADiodeFilterUGens) {
   // Plugin magic

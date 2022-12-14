@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "OscBank.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -56,7 +57,7 @@ void OscBank::next(int nSamples) {
 
 void OscBank::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace OscBank
+}  // namespace OscBank
 
 PluginLoad(OscBankUGens) {
   // Plugin magic

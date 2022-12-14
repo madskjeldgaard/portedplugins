@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "AnalogTape.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -24,24 +25,24 @@ AnalogTape::AnalogTape() {
   int overSampleIndex = 0;
 
   switch (overSampleInput) {
-  case OverSamplingAmounts::None:
-    overSampleIndex = 0;
-    break;
-  case OverSamplingAmounts::Double:
-    overSampleIndex = 1;
-    break;
-  case OverSamplingAmounts::Four:
-    overSampleIndex = 2;
-    break;
-  case OverSamplingAmounts::Eight:
-    overSampleIndex = 3;
-    break;
-  case OverSamplingAmounts::Sixteen:
-    overSampleIndex = 4;
-    break;
-  default:
-    overSampleIndex = 0;
-    break;
+    case OverSamplingAmounts::None:
+      overSampleIndex = 0;
+      break;
+    case OverSamplingAmounts::Double:
+      overSampleIndex = 1;
+      break;
+    case OverSamplingAmounts::Four:
+      overSampleIndex = 2;
+      break;
+    case OverSamplingAmounts::Eight:
+      overSampleIndex = 3;
+      break;
+    case OverSamplingAmounts::Sixteen:
+      overSampleIndex = 4;
+      break;
+    default:
+      overSampleIndex = 0;
+      break;
   };
 
   oversample.setOversamplingIndex(overSampleIndex);
@@ -54,7 +55,6 @@ AnalogTape::AnalogTape() {
 AnalogTape::~AnalogTape() {}
 
 void AnalogTape::next(int nSamples) {
-
   SlopeSignal<float> slopedDrive = makeSlope(in0(Drive), m_drive_past);
   SlopeSignal<float> slopedSaturation =
       makeSlope(in0(Saturation), m_saturation_past);
@@ -64,7 +64,6 @@ void AnalogTape::next(int nSamples) {
 
   // set hysteresis params
   for (int i = 0; i < nSamples; ++i) {
-
     const float width = 1.0f - slopedBias.consume();
     const float drive = slopedDrive.consume();
     const float saturation = slopedSaturation.consume();
@@ -92,7 +91,7 @@ void AnalogTape::next(int nSamples) {
 
 void AnalogTape::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace AnalogTape
+}  // namespace AnalogTape
 
 PluginLoad(AnalogTapeUGens) {
   // Plugin magic

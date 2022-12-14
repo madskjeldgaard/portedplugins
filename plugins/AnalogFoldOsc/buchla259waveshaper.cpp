@@ -40,4 +40,4 @@ float Buchla259WaveShaper::process() {
   return output;
 }
 
-} // namespace buchla259waveshaper
+}  // namespace buchla259waveshaper

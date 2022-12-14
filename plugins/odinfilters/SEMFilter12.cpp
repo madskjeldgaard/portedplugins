@@ -14,6 +14,7 @@
 */
 
 #include "SEMFilter12.h"
+
 #include <math.h>
 
 SEMFilter12::SEMFilter12(){};
@@ -38,7 +39,9 @@ void SEMFilter12::update() {
 
   double wd = 2 * M_PI * m_freq_modded;
   // double T = 1.0 / m_samplerate;
-  double wa = (2 * m_samplerate) * mkfastmath::fasttan<mkfastmath::FREQUENCY_FAST>(wd * m_one_over_samplerate * 0.5);
+  double wa =
+      (2 * m_samplerate) * mkfastmath::fasttan<mkfastmath::FREQUENCY_FAST>(
+                               wd * m_one_over_samplerate * 0.5);
   double g = wa * m_one_over_samplerate * 0.5;
 
   m_resonance_modded = m_resonance + (m_res_mod)*24.5;
@@ -53,7 +56,6 @@ void SEMFilter12::update() {
 }
 
 double SEMFilter12::doFilter(double xn) {
-
   double hpf = m_alpha_0 * (xn - m_rho * m_z_1 - m_z_2);
   double bpf = m_alpha * hpf + m_z_1;
 
@@ -80,12 +82,12 @@ double SEMFilter12::doFilter(double xn) {
 void SEMFilter12::setResControl(double p_res) {
   m_resonance = 24.5 * p_res * p_res * p_res * p_res + 0.5;
   m_last_freq_modded =
-      -1; // to signal recalculation of filter coeffs in update()
+      -1;  // to signal recalculation of filter coeffs in update()
 }
 
 void SEMFilter12::setSampleRate(double p_sr) {
   m_last_freq_modded =
-      -1; // to signal recalculation of filter coeffs in update()
+      -1;  // to signal recalculation of filter coeffs in update()
 
   m_samplerate = p_sr;
   m_one_over_samplerate = 1.f / p_sr;

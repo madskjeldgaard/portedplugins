@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "VA1Pole.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -14,8 +15,7 @@ VA1Pole::VA1Pole() {
   filter.reset();
   filter.setSampleRate(sampleRate());
   filter.setLP();
-  if (static_cast<int>(in0(Type)) == 1)
-    filter.setHP();
+  if (static_cast<int>(in0(Type)) == 1) filter.setHP();
 
   auto initFreq = in0(Freq);
   filter.setFreq(initFreq);
@@ -49,7 +49,7 @@ void VA1Pole::next(int nSamples) {
 
 void VA1Pole::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace VA1Pole
+}  // namespace VA1Pole
 
 PluginLoad(VA1PoleUGens) {
   // Plugin magic

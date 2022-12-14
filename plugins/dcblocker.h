@@ -4,7 +4,7 @@
 // https://ccrma.stanford.edu/~jos/filters/DC_Blocker_Software_Implementations.html
 namespace dcblocker {
 class Dcblocker {
-public:
+ public:
   void init() {
     xm1 = 0.0;
     ym1 = 0.0;
@@ -21,7 +21,7 @@ public:
 
   void setR(float newR) { r = newR; }
 
-private:
+ private:
   float xm1, ym1, r;
 };
-} // namespace dcblocker
+}  // namespace dcblocker

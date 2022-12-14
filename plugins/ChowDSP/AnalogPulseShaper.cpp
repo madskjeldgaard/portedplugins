@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "AnalogPulseShaper.hpp"
+
 #include "PulseShaper.hpp"
 #include "SC_PlugIn.hpp"
 
@@ -42,7 +43,6 @@ void AnalogPulseShaper::next(int nSamples) {
   constexpr float decayMult = 10.0f;
 
   for (int i = 0; i < nSamples; ++i) {
-
     const float decayParam = slopedDecay.consume();
     const float width = slopedWidth.consume();
     const float doubleParam = slopedDouble.consume();
@@ -69,7 +69,7 @@ void AnalogPulseShaper::clear(int nSamples) {
   ClearUnitOutputs(this, nSamples);
 }
 
-} // namespace AnalogPulseShaper
+}  // namespace AnalogPulseShaper
 
 PluginLoad(AnalogPulseShaperUGens) {
   // Plugin magic

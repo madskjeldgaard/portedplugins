@@ -18,6 +18,7 @@
 // on https://willpirkle.com
 
 #include "VAOnePoleFilter.h"
+
 #include "../constants.h"
 #include "../fastmath.h"
 
@@ -47,7 +48,8 @@ VAOnePoleFilter::~VAOnePoleFilter() {}
 void VAOnePoleFilter::update() {
   double wd = 2 * M_PI * m_freq_modded;
   double T = 1 / m_samplerate;
-  double wa = (2 / T) * mkfastmath::fasttan<mkfastmath::FREQUENCY_FAST>(wd * T / 2);
+  double wa =
+      (2 / T) * mkfastmath::fasttan<mkfastmath::FREQUENCY_FAST>(wd * T / 2);
   double g = wa * T / 2;
 
   m_alpha = g / (1.0 + g);
@@ -55,7 +57,6 @@ void VAOnePoleFilter::update() {
 
 // do the filter
 double VAOnePoleFilter::doFilter(double xn) {
-
   // for diode filter support
   xn = xn * m_gamma + m_feedback + m_epsilon * getFeedbackOutput();
   // calculate v(n)

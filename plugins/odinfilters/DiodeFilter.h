@@ -18,11 +18,11 @@
 // on https://willpirkle.com
 
 #pragma once
-#include "VAOnePoleFilter.h"
 #include "../fastmath.h"
+#include "VAOnePoleFilter.h"
 
 class DiodeFilter {
-public:
+ public:
   /* DiodeFilter(); */
   /* ~DiodeFilter(); */
   void reset();
@@ -34,7 +34,7 @@ public:
     update();
   };
   void setResControl(double res);
-  void setSampleRate(double d) ;
+  void setSampleRate(double d);
 
   void setOverdrive(double od) {
     m_overdrive = od;
@@ -57,7 +57,7 @@ public:
     }
   }
 
-protected:
+ protected:
   double m_last_freq_modded = -1;
   double m_freq_modded, m_res_mod;
   double m_k;

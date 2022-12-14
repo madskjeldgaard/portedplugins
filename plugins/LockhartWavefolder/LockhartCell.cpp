@@ -6,7 +6,6 @@ double LockhartCell::lambert_w(double x) {
 
   // Haley's method (Sec. 4.2 of the paper)
   for (int i = 0; i < 1000; i++) {
-
     const auto expw = exp(w);
     const auto p = w * expw - x;
     const auto r = (w + 1.0) * expw;
@@ -50,14 +49,13 @@ double LockhartCell::process(double in1) {
   // Compute Antiderivative
   const auto l = mkutils::sign(in1);
   auto u = m_d * exp(l * m_b *
-                     in1); // @FIXME exp becomes infinity when in1 is too high
+                     in1);  // @FIXME exp becomes infinity when in1 is too high
   auto Ln = lambert_w(u);
   const auto Fn =
       (0.5 * m_VT / m_b) * (Ln * (Ln + 2.0)) - 0.5 * m_a * in1 * in1;
 
   // Check for ill-conditioning
   if (std::abs(in1 - xn1) < m_thresh) {
-
     // Compute Averaged Wavefolder Output
     const auto xn = 0.5 * (in1 + xn1);
 

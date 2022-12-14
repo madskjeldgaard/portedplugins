@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "LPG.hpp"
+
 #include "SC_PlugIn.hpp"
 
 InterfaceTable *ft;
@@ -125,7 +126,7 @@ void LPG::next_a(int nSamples) {
 
 void LPG::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace LPG
+}  // namespace LPG
 
 PluginLoad(LPGUGens) {
   // Plugin magic

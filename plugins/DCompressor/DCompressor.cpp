@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "DCompressor.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -68,7 +69,7 @@ void DCompressor::next(int nSamples) {
 
 void DCompressor::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace DCompressor
+}  // namespace DCompressor
 
 PluginLoad(DCompressorUGens) {
   // Plugin magic

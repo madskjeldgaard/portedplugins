@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "AnalogPhaserMod.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -74,7 +75,7 @@ void AnalogPhaserMod::next_a(int nSamples) {
 
 void AnalogPhaserMod::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace AnalogPhaserMod
+}  // namespace AnalogPhaserMod
 
 PluginLoad(AnalogPhaserModUGens) {
   // Plugin magic

@@ -6,7 +6,6 @@ namespace chaos {
 void ChenGen::setup(float initspeed, float initX, float initY, float initZ,
                     float initA = 0.5f, float initB = 0.5f,
                     float initC = 1.0f) {
-
   setSpeed(initspeed);
   setParameter(A, initA);
   setParameter(B, initB);
@@ -51,7 +50,6 @@ float ChenGen::getOutput(OutputName outname) {
 };
 
 float ChenGen::process() {
-
   /*
    *
    * The speed, a, b and c parameters of the algorithm are wrapped to values
@@ -136,7 +134,6 @@ float ChuaGen::getY() { return m_y_state; }
 float ChuaGen::getZ() { return m_z_state; }
 
 float ChuaGen::process() {
-
   float x = m_x_state;
   float y = m_y_state;
   float z = m_z_state;
@@ -155,4 +152,4 @@ float ChuaGen::process() {
   return m_x_state;
 };
 
-} // namespace chaos
+}  // namespace chaos

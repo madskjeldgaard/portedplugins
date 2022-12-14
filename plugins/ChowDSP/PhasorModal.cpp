@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "PhasorModal.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -29,7 +30,6 @@ void PhasorModal::next(int nSamples) {
   SlopeSignal<float> slopedPhase = makeSlope(in0(Phase), m_phase_past);
 
   for (int i = 0; i < nSamples; ++i) {
-
     const float damp = slopedDamp.consume();
     /* const float decay = mkutils::constrain(slopedDecay.consume(),
      * 0.0f, 1.5f); */
@@ -58,7 +58,7 @@ void PhasorModal::next(int nSamples) {
 
 void PhasorModal::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace PhasorModal
+}  // namespace PhasorModal
 
 PluginLoad(PhasorModalUGens) {
   // Plugin magic

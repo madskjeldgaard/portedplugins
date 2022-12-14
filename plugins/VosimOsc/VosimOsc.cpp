@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "VosimOsc.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -41,7 +42,7 @@ void VosimOsc::next(int nSamples) {
 
 void VosimOsc::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace VosimOsc
+}  // namespace VosimOsc
 
 PluginLoad(VosimOscUGens) {
   // Plugin magic

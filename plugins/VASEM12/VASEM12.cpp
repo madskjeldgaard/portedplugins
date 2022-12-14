@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "VASEM12.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -54,7 +55,7 @@ void VASEM12::next(int nSamples) {
 
 void VASEM12::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace VASEM12
+}  // namespace VASEM12
 
 PluginLoad(VASEM12UGens) {
   // Plugin magic

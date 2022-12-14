@@ -18,17 +18,17 @@
 // on https://willpirkle.com
 
 #pragma once
-#include "VAOnePoleFilter.h"
-#include "../fastmath.h"
 #include <math.h>
 
+#include "../fastmath.h"
+#include "VAOnePoleFilter.h"
+
 class Korg35Filter {
-public:
+ public:
   Korg35Filter();
   ~Korg35Filter();
 
   void setup() {
-
     m_is_lowpass = true;
 
     m_res_mod = 0;
@@ -78,14 +78,14 @@ public:
     }
   }
   inline void setFilterType(bool p_is_lowpass) {
-    m_is_lowpass = p_is_lowpass; // else HP
+    m_is_lowpass = p_is_lowpass;  // else HP
     m_last_freq_modded =
-        -1; // to signal recalculation of filter coeffs in update()
+        -1;  // to signal recalculation of filter coeffs in update()
   }
 
   void setSampleRate(double p_sr);
 
-protected:
+ protected:
   double m_last_freq_modded = -1;
 
   double m_freq_modded, m_res_mod;
@@ -100,5 +100,5 @@ protected:
   VAOnePoleFilter m_HPF1;
   VAOnePoleFilter m_HPF2;
 
-  bool m_is_lowpass = true; // else HP
+  bool m_is_lowpass = true;  // else HP
 };

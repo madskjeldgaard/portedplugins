@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "VarShapeOsc.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -47,7 +48,7 @@ void VarShapeOsc::next(int nSamples) {
 
 void VarShapeOsc::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace VarShapeOsc
+}  // namespace VarShapeOsc
 
 PluginLoad(VarShapeOscUGens) {
   // Plugin magic

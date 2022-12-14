@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "AnalogSnareDrum.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -19,7 +20,6 @@ AnalogSnareDrum::AnalogSnareDrum() {
 AnalogSnareDrum::~AnalogSnareDrum() {}
 
 void AnalogSnareDrum::next(int nSamples) {
-
   SlopeSignal<float> slopedAccent = makeSlope(in0(Accent), m_accent_past);
   SlopeSignal<float> slopedFreq = makeSlope(in0(Freq), m_freq_past);
   SlopeSignal<float> slopedTone = makeSlope(in0(Tone), m_tone_past);
@@ -51,7 +51,7 @@ void AnalogSnareDrum::next(int nSamples) {
 
 void AnalogSnareDrum::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace AnalogSnareDrum
+}  // namespace AnalogSnareDrum
 
 PluginLoad(AnalogSnareDrumUGens) {
   // Plugin magic

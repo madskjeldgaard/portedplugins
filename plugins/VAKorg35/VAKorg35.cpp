@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "VAKorg35.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -56,7 +57,7 @@ void VAKorg35::next(int nSamples) {
 
 void VAKorg35::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace VAKorg35
+}  // namespace VAKorg35
 
 PluginLoad(VAKorg35UGens) {
   // Plugin magic

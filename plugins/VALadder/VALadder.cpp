@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "VALadder.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -56,7 +57,7 @@ void VALadder::next(int nSamples) {
 
 void VALadder::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace VALadder
+}  // namespace VALadder
 
 PluginLoad(VALadderUGens) {
   // Plugin magic

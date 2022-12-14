@@ -217,4 +217,4 @@ const float lut_pitch_ratio_low[] = {
 // lookup_tables.append(('pitch_ratio_high', ratio))
 // lookup_tables.append(('pitch_ratio_low', semitone))
 
-} // namespace mi
+}  // namespace mi

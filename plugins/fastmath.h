@@ -40,4 +40,4 @@ static inline float fasttan(float f) {
   }
 }
 
-} // namespace mkfastmath
+}  // namespace mkfastmath

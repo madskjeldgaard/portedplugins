@@ -7,9 +7,11 @@
  *
  */
 #include "lpg.hpp"
+
+#include <iostream>
+
 #include "math.h"
 #include "mkutils.hpp"
-#include <iostream>
 
 namespace lpg {
 const double pi_double = 3.14159265358979323846;
@@ -81,7 +83,6 @@ float LowPassGate::process(float sample, float vactrol_in) {
 void LpgFilter::setup(float samplerate, float initVactrolResistance,
                       float initVCAAmount, float initResonance,
                       Linearity initProcessingMode) {
-
   m_samplerate = samplerate;
   setVactrolResistance(initVactrolResistance);
   setVCAAmount(initVCAAmount);
@@ -96,7 +97,7 @@ inline void LpgFilter::setVactrolResistance(float rf) {
 inline void LpgFilter::setVCAAmount(double amount) {
   // Not sure why this is necessary to be honest:
   // amount = (1.0 - amount) * 5e6 + 10e3;
-  amount = (1.0 - amount) * 1e6 + 5e4; // taken from reaktor implementation
+  amount = (1.0 - amount) * 1e6 + 5e4;  // taken from reaktor implementation
   m_vcaness = amount;
 }
 
@@ -159,7 +160,6 @@ float LpgFilter::process(float sample) {
   double yx, yo, yd;
 
   if (m_processing_mode == NonLinear) {
-
     double Dmas =
         1.0 /
         (1.0 - Dx * (freq * freq * b3 * Do * a1 +
@@ -234,13 +234,12 @@ void LpgVactrol::setup(float samplerate) { m_samplerate = samplerate; }
 
 // Vactrol emulation, process an input voltage
 float LpgVactrol::process(float sample) {
-
   // Vactrol time-domain behaviour filter
   float a_base = 1000.0f * pi_float / (m_samplerate);
-  float t_down = 3e3f; // Fall time
+  float t_down = 3e3f;  // Fall time
   t_down = 10.0f + t_down * (1.0f - 0.9f * m_state_1);
   float a_down = a_base / t_down;
-  float t_up = 20.0f; // Rise time
+  float t_up = 20.0f;  // Rise time
   t_up = 1.0f + t_up * (1.0f - 0.999f * m_state_1);
   float a_up = a_base / t_up;
 
@@ -349,4 +348,4 @@ float LpgControlCircuit::process(float sample) {
   return static_cast<float>(out);
 }
 
-} // namespace lpg
+}  // namespace lpg

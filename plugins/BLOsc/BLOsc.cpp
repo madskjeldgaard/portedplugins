@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "BLOsc.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -39,7 +40,7 @@ void BLOsc::next(int nSamples) {
 
 void BLOsc::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace BLOsc
+}  // namespace BLOsc
 
 PluginLoad(BLOscUGens) {
   // Plugin magic

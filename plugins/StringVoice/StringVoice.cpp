@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "StringVoice.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -56,7 +57,7 @@ void StringVoice::next(int nSamples) {
 
 void StringVoice::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace StringVoice
+}  // namespace StringVoice
 
 PluginLoad(StringVoiceUGens) {
   // Plugin magic

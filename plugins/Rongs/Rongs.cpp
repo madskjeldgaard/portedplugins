@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "Rongs.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -16,26 +17,26 @@ Rongs::Rongs() {
 
   mi::ResonatorProcessingMode mode;
   switch (modeNum) {
-  case 0:
-    mode = mi::ResonatorProcessingMode::CHAEP;
-    break;
-  case 1:
-    mode = mi::ResonatorProcessingMode::BUDGET;
-    break;
-  case 2:
-    mode = mi::ResonatorProcessingMode::PRETTYGOOD;
-    break;
-  case 3:
-    mode = mi::ResonatorProcessingMode::EXPENSIVE;
-    break;
-  case 4:
-    mode = mi::ResonatorProcessingMode::LUXURY;
-    break;
-  case 5:
-    mode = mi::ResonatorProcessingMode::EXTREME;
-    break;
-  default:
-    mode = mi::ResonatorProcessingMode::BUDGET;
+    case 0:
+      mode = mi::ResonatorProcessingMode::CHAEP;
+      break;
+    case 1:
+      mode = mi::ResonatorProcessingMode::BUDGET;
+      break;
+    case 2:
+      mode = mi::ResonatorProcessingMode::PRETTYGOOD;
+      break;
+    case 3:
+      mode = mi::ResonatorProcessingMode::EXPENSIVE;
+      break;
+    case 4:
+      mode = mi::ResonatorProcessingMode::LUXURY;
+      break;
+    case 5:
+      mode = mi::ResonatorProcessingMode::EXTREME;
+      break;
+    default:
+      mode = mi::ResonatorProcessingMode::BUDGET;
   }
 
   const auto sr = sampleRate();
@@ -86,7 +87,7 @@ void Rongs::next(int nSamples) {
 
 void Rongs::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace Rongs
+}  // namespace Rongs
 
 PluginLoad(RongsUGens) {
   // Plugin magic

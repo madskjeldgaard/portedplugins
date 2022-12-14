@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "NonlinearFilter.hpp"
+
 #include "SC_PlugIn.hpp"
 
 InterfaceTable *ft;
@@ -40,7 +41,6 @@ void NonlinearFilter::next(int nSamples) {
   float *outbuf = out(Out1);
 
   for (int i = 0; i < nSamples; ++i) {
-
     const float gain = slopedGain.consume();
     const float freq = slopedFreq.consume();
 
@@ -61,7 +61,7 @@ void NonlinearFilter::next(int nSamples) {
 
 void NonlinearFilter::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace NonlinearFilter
+}  // namespace NonlinearFilter
 
 PluginLoad(NonlinearFilterUGens) {
   // Plugin magic

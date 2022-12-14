@@ -19,8 +19,7 @@
 
 #include "Korg35Filter.h"
 
-Korg35Filter::Korg35Filter() {
-}
+Korg35Filter::Korg35Filter() {}
 
 Korg35Filter::~Korg35Filter() {}
 
@@ -48,7 +47,9 @@ void Korg35Filter::update() {
 
   // BZT
   double wd = 2 * 3.141592653 * m_freq_modded;
-  double wa = (2.0 * m_samplerate) * mkfastmath::fasttan<mkfastmath::FREQUENCY_FAST>(wd * m_one_over_samplerate * 0.5);
+  double wa =
+      (2.0 * m_samplerate) * mkfastmath::fasttan<mkfastmath::FREQUENCY_FAST>(
+                                 wd * m_one_over_samplerate * 0.5);
   double g = wa * m_one_over_samplerate * 0.5;
   double G = g / (1.0 + g);
 
@@ -73,7 +74,6 @@ void Korg35Filter::update() {
 }
 
 double Korg35Filter::doFilter(double xn) {
-
   double y;
   if (m_is_lowpass) {
     double y1 = m_LPF1.doFilter(xn);
@@ -103,7 +103,7 @@ void Korg35Filter::setResControl(double res) {
   // note2 original was 1.99 but dont want self oscillation
   m_k = res * 1.95 + 0.01;
   m_last_freq_modded =
-      -1; // to signal recalculation of filter coeffs in update()
+      -1;  // to signal recalculation of filter coeffs in update()
 }
 
 void Korg35Filter::setSampleRate(double p_sr) {
@@ -112,7 +112,7 @@ void Korg35Filter::setSampleRate(double p_sr) {
   m_HPF1.setSampleRate(p_sr);
   m_HPF2.setSampleRate(p_sr);
   m_last_freq_modded =
-      -1; // to signal recalculation of filter coeffs in update()
+      -1;  // to signal recalculation of filter coeffs in update()
 
   m_samplerate = p_sr;
   m_one_over_samplerate = 1.f / p_sr;

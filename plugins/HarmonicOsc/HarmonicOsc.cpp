@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "HarmonicOsc.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -41,7 +42,7 @@ void HarmonicOsc::next(int nSamples) {
 
 void HarmonicOsc::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace HarmonicOsc
+}  // namespace HarmonicOsc
 
 PluginLoad(HarmonicOscUGens) {
   // Plugin magic

@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "Resonator.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -51,7 +52,7 @@ void Resonator::next(int nSamples) {
 
 void Resonator::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace Resonator
+}  // namespace Resonator
 
 PluginLoad(ResonatorUGens) {
   // Plugin magic

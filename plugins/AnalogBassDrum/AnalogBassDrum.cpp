@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "AnalogBassDrum.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -58,7 +59,7 @@ void AnalogBassDrum::next(int nSamples) {
 
 void AnalogBassDrum::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace AnalogBassDrum
+}  // namespace AnalogBassDrum
 
 PluginLoad(AnalogBassDrumUGens) {
   // Plugin magic

@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "Werner.hpp"
+
 #include "SC_PlugIn.hpp"
 
 static InterfaceTable *ft;
@@ -19,24 +20,24 @@ Werner::Werner() {
   int overSampleIndex = 0;
 
   switch (overSampleInput) {
-  case OverSamplingAmounts::None:
-    overSampleIndex = 0;
-    break;
-  case OverSamplingAmounts::Double:
-    overSampleIndex = 1;
-    break;
-  case OverSamplingAmounts::Four:
-    overSampleIndex = 2;
-    break;
-  case OverSamplingAmounts::Eight:
-    overSampleIndex = 3;
-    break;
-  case OverSamplingAmounts::Sixteen:
-    overSampleIndex = 4;
-    break;
-  default:
-    overSampleIndex = 0;
-    break;
+    case OverSamplingAmounts::None:
+      overSampleIndex = 0;
+      break;
+    case OverSamplingAmounts::Double:
+      overSampleIndex = 1;
+      break;
+    case OverSamplingAmounts::Four:
+      overSampleIndex = 2;
+      break;
+    case OverSamplingAmounts::Eight:
+      overSampleIndex = 3;
+      break;
+    case OverSamplingAmounts::Sixteen:
+      overSampleIndex = 4;
+      break;
+    default:
+      overSampleIndex = 0;
+      break;
   };
 
   oversample.setOversamplingIndex(overSampleIndex);
@@ -107,7 +108,7 @@ void Werner::next(int nSamples) {
 
 void Werner::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace Werner
+}  // namespace Werner
 
 PluginLoad(WernerUGens) {
   // Plugin magic

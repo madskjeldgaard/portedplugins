@@ -1,10 +1,11 @@
 #include "EQFilter.h"
 
 /*
-* @TODO
-* - Replace the fast math approximations of tan, sin and cos that were here before from juce with something else
-*
-*/
+ * @TODO
+ * - Replace the fast math approximations of tan, sin and cos that were here
+ * before from juce with something else
+ *
+ */
 
 enum {
   smoothSteps = 500,
@@ -21,18 +22,15 @@ EQFilter::EQFilter(World *worldIn, float sampleRate) : Biquad(worldIn) {
 };
 
 void EQFilter::setFrequency(float newFreq) {
-  if (newFreq != freq)
-    freq = std::min(newFreq, fs / 2.0f - 100.0f);
+  if (newFreq != freq) freq = std::min(newFreq, fs / 2.0f - 100.0f);
 }
 
 void EQFilter::setQ(float newQ) {
-  if (newQ != Q)
-    Q = newQ;
+  if (newQ != Q) Q = newQ;
 }
 
 void EQFilter::setGain(float newGain) {
-  if (newGain != gain)
-    gain = newGain;
+  if (newGain != gain) gain = newGain;
 }
 
 void EQFilter::toggleOnOff(bool shouldBeOn) {
@@ -49,51 +47,50 @@ void EQFilter::setSaturator(SatType type) {
 }
 
 void EQFilter::setEqShape(EqShape newShape) {
-  if (eqShape == newShape)
-    return;
+  if (eqShape == newShape) return;
 
   eqShape = newShape;
 
-  switch (eqShape) // Set calcCoefs lambda to correct function for this shape
+  switch (eqShape)  // Set calcCoefs lambda to correct function for this shape
   {
-  case bell:
-    calcCoefs = [this](float fc, float Q, float gain) {
-      calcCoefsBell(fc, Q, gain);
-    };
-    break;
+    case bell:
+      calcCoefs = [this](float fc, float Q, float gain) {
+        calcCoefsBell(fc, Q, gain);
+      };
+      break;
 
-  case notch:
-    calcCoefs = [this](float fc, float Q, float gain) {
-      calcCoefsNotch(fc, Q, gain);
-    };
-    break;
+    case notch:
+      calcCoefs = [this](float fc, float Q, float gain) {
+        calcCoefsNotch(fc, Q, gain);
+      };
+      break;
 
-  case lowShelf:
-    calcCoefs = [this](float fc, float Q, float gain) {
-      calcCoefsLowShelf(fc, Q, gain);
-    };
-    break;
+    case lowShelf:
+      calcCoefs = [this](float fc, float Q, float gain) {
+        calcCoefsLowShelf(fc, Q, gain);
+      };
+      break;
 
-  case highShelf:
-    calcCoefs = [this](float fc, float Q, float gain) {
-      calcCoefsHighShelf(fc, Q, gain);
-    };
-    break;
+    case highShelf:
+      calcCoefs = [this](float fc, float Q, float gain) {
+        calcCoefsHighShelf(fc, Q, gain);
+      };
+      break;
 
-  case lowPass:
-    calcCoefs = [this](float fc, float Q, float gain) {
-      calcCoefsLowPass(fc, Q, gain);
-    };
-    break;
+    case lowPass:
+      calcCoefs = [this](float fc, float Q, float gain) {
+        calcCoefsLowPass(fc, Q, gain);
+      };
+      break;
 
-  case highPass:
-    calcCoefs = [this](float fc, float Q, float gain) {
-      calcCoefsHighPass(fc, Q, gain);
-    };
-    break;
+    case highPass:
+      calcCoefs = [this](float fc, float Q, float gain) {
+        calcCoefsHighPass(fc, Q, gain);
+      };
+      break;
 
-  default:
-    return;
+    default:
+      return;
   }
 
   calcCoefs(freq, Q, gain);
@@ -264,6 +261,5 @@ void EQFilter::calcCoefsHighPass(float newFreq, float newQ, float /*newGain*/) {
 /* } */
 
 void EQFilter::applyFilterGain(float *buffer, int numSamples) {
-  for (int n = 0; n < numSamples; ++n)
-    buffer[n] *= gain;
+  for (int n = 0; n < numSamples; ++n) buffer[n] *= gain;
 }

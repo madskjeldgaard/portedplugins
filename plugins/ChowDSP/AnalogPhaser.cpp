@@ -2,6 +2,7 @@
 // Mads Kjeldgaard (mail@madskjeldgaard.dk)
 
 #include "AnalogPhaser.hpp"
+
 #include "SC_PlugIn.hpp"
 #include "chowphaserfb.hpp"
 
@@ -91,7 +92,7 @@ void AnalogPhaser::next_k(int nSamples) {
 
 void AnalogPhaser::clear(int nSamples) { ClearUnitOutputs(this, nSamples); }
 
-} // namespace AnalogPhaser
+}  // namespace AnalogPhaser
 
 PluginLoad(AnalogPhaserUGens) {
   // Plugin magic

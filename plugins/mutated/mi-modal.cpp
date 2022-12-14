@@ -1,4 +1,5 @@
 #include "mi-modal.hpp"
+
 #include <cstdint>
 #include <iostream>
 
@@ -43,9 +44,9 @@ inline float ModalVoice::Dust(float frequency) {
 void ModalVoice::Init(ResonatorProcessingMode mode, float initCosFreq,
                       float samplerate) {
   std::random_device
-      rd; // Will be used to obtain a seed for the random number engine
+      rd;  // Will be used to obtain a seed for the random number engine
   std::mt19937 mersenne_engine_(
-      rd()); // Standard mersenne_twister_engine seeded with rd()
+      rd());  // Standard mersenne_twister_engine seeded with rd()
   std::uniform_real_distribution<float> random_dist_(0.0f, 1.0f);
 
   excitation_filter_.Init();
@@ -101,4 +102,4 @@ void ModalVoice::Render(bool sustain, bool trigger, float accent, float f0,
 
 extern const float lut_stiffness[];
 
-} // namespace mi
+}  // namespace mi
