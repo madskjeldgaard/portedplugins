@@ -726,6 +726,80 @@ sc_add_server_plugin(
   "${AnalogVintageDistortion_schelp_files}"
 )
 
+
+
+# AnalogLoss
+set(
+  AnalogLoss_cpp_files
+  plugins/ChowDSP/AnalogLoss.hpp
+  plugins/ChowDSP/AnalogLoss.cpp
+)
+set(
+  AnalogLoss_sc_files
+  plugins/ChowDSP/AnalogLoss.sc
+)
+set(
+  AnalogLoss_schelp_files
+  plugins/ChowDSP/AnalogLoss.schelp
+)
+
+sc_add_server_plugin(
+  "${project_name}" # destination directory
+  "AnalogLoss" # target name
+  "${AnalogLoss_cpp_files}"
+  "${AnalogLoss_sc_files}"
+  "${AnalogLoss_schelp_files}"
+)
+
+
+
+# AnalogDegrade
+set(
+  AnalogDegrade_cpp_files
+  plugins/ChowDSP/AnalogDegrade.hpp
+  plugins/ChowDSP/AnalogDegrade.cpp
+)
+set(
+  AnalogDegrade_sc_files
+  plugins/ChowDSP/AnalogDegrade.sc
+)
+set(
+  AnalogDegrade_schelp_files
+  plugins/ChowDSP/AnalogDegrade.schelp
+)
+
+sc_add_server_plugin(
+  "${project_name}" # destination directory
+  "AnalogDegrade" # target name
+  "${AnalogDegrade_cpp_files}"
+  "${AnalogDegrade_sc_files}"
+  "${AnalogDegrade_schelp_files}"
+)
+
+
+# AnalogChew
+set(
+  AnalogChew_cpp_files
+  plugins/ChowDSP/AnalogChew.hpp
+  plugins/ChowDSP/AnalogChew.cpp
+)
+set(
+  AnalogChew_sc_files
+  plugins/ChowDSP/AnalogChew.sc
+)
+set(
+  AnalogChew_schelp_files
+  plugins/ChowDSP/AnalogChew.schelp
+)
+
+sc_add_server_plugin(
+  "${project_name}" # destination directory
+  "AnalogChew" # target name
+  "${AnalogChew_cpp_files}"
+  "${AnalogChew_sc_files}"
+  "${AnalogChew_schelp_files}"
+)
+
 # AnalogFoldOsc
 set(
   AnalogFoldOsc_cpp_files
@@ -962,3 +1036,4 @@ sc_add_server_plugin(
   "${VA1Pole_sc_files}"
   "${VA1Pole_schelp_files}"
 )
+
