@@ -5,9 +5,8 @@ CATEGORIES::UGens>VirtualAnalog
 
 DESCRIPTION::
 
-This plugin is an analog tape emulation algorithm by Jatin Chowdhury, a mini version of the mindblowing link::https://github.com/jatinchowdhury18/AnalogLossModel##AnalogLossModel vst plugin by the same::. For a deep dive, link::https://ccrma.stanford.edu/~jatin/420/tape/TapeModel_DAFx.pdf##see Chowdhury's paper on analog tape modelling::. This smaller version is mostly useful as a tape saturation/distortion.
-
-The plugin's guts feature variable oversampling and anti aliasing filters to achieve high quality distortion.
+This plugin is an analog tape loss emulation algorithm by Jatin Chowdhury, a mini version of the mindblowing link::https://github.com/jatinchowdhury18/AnalogTapeModel vst plugin::. For a deep dive, link::https://ccrma.stanford.edu/~jatin/420/tape/TapeModel_DAFx.pdf##see Chowdhury's paper on analog tape modelling::. 
+This smaller version is mostly useful as a tape loss.
 
 CLASSMETHODS::
 
@@ -17,34 +16,18 @@ ARGUMENT::input
 Audio input
 
 ARGUMENT::gap
-Tape bias. 0.0 to 1.0.
+Gap controls the width of the playhead gap, measured in millimeters. 0.0 to 1.0.
 
 ARGUMENT::thick
-Tape saturation. 0.0 to 1.0 but may be pushed harder.
+Thick controls the thickness of the tape, measured in centimeters. 0.0 to 1.0.
 
 ARGUMENT::space
-Tape drive. 0.0 to 1.0 but may be pushed harder.
+Space controls the amount of space between the playhead
+and the tape, measured in centimeters.  0.0 to 1.0.
 
 ARGUMENT::speed
-Set amount of oversampling
-
-0 = No oversampling,
-1 = x2,
-2 = x4,
-3 = x8,
-4 = x16
-
-ARGUMENT::mode
-Change the mode (solver type) of the tape algorithm:
-0 = RK2 (2nd order Runge Kutta)
-1 = RK4 (4th order Runge Kutta)
-2 = NR4 (4-iteration Newton Raphson)
-3 = NR8 (8-iteration Newton Raphson)
-
-The Runge-Kutta solvers are computationally cheaper, but
-somewhat less accurate than the Newton-Raphson solvers.
-Similarly, the higher-order solvers will be more accurate,
-but will also consume more compute resources.
+Speed controls the tape speed as it effects the above loss ef-
+fects, measured in inches per second (ips).  0.0 to 1.0.
 
 
 EXAMPLES::
