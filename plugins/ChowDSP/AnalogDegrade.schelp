@@ -1,0 +1,40 @@
+CLASS:: AnalogDegrade
+SUMMARY:: Analog tape emulation
+RELATED::HelpSource/Overview/PortedPlugins
+CATEGORIES::UGens>VirtualAnalog
+
+DESCRIPTION::
+
+This plugin is an analog tape emulation algorithm by Jatin Chowdhury, a mini version of the mindblowing link::https://github.com/jatinchowdhury18/AnalogDegradeModel##AnalogDegradeModel vst plugin by the same::. For a deep dive, link::https://ccrma.stanford.edu/~jatin/420/tape/TapeModel_DAFx.pdf##see Chowdhury's paper on analog tape modelling::. This smaller version is mostly useful as a tape saturation/distortion.
+
+The plugin's guts feature variable oversampling and anti aliasing filters to achieve high quality distortion.
+
+CLASSMETHODS::
+
+METHOD::ar
+
+ARGUMENT::input
+Audio input
+
+ARGUMENT::depth
+Tape bias. 0.0 to 1.0.
+
+ARGUMENT::amount
+Tape saturation. 0.0 to 1.0 but may be pushed harder.
+
+ARGUMENT::variance
+Tape drive. 0.0 to 1.0 but may be pushed harder.
+
+ARGUMENT::envelope
+0 to 1.0
+
+
+EXAMPLES::
+
+code::
+Ndef(\notam, {|freq=110, width=0.5|
+	var sig = VarSaw.ar(freq, width: width);
+	AnalogDegrade.ar(sig);
+}).play;
+::
+
