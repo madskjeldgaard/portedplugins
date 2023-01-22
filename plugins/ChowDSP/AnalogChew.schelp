@@ -19,7 +19,7 @@ ARGUMENT::depth
 Depth controls how deep the tape is chewed. 0.0 to 1.0.
 
 ARGUMENT::frequency
-Frequency controls how much space there is between bits of tape that have been chewed up. 0.0 to 1.0.
+Frequency controls how much space there is between bits of tape that have been chewed up. Useful to toggle randomly between 0 and 1.
 
 ARGUMENT::variance
 Variance determines how much randomness there is in determining the amount of space between chewed up sections.  0.0 to 1.0.
