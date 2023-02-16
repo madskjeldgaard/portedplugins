@@ -1,8 +1,8 @@
 #ifndef DEGRADEFILTER_H_INCLUDED
 #define DEGRADEFILTER_H_INCLUDED
 
-#include "SmoothedValue.h"
 #include "../constants.h"
+#include "SmoothedValue.h"
 
 /** Lowpass filter for tape degrade effect */
 class DegradeFilter {
