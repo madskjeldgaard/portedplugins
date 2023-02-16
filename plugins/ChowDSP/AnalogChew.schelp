@@ -28,9 +28,23 @@ Variance determines how much randomness there is in determining the amount of sp
 EXAMPLES::
 
 code::
-Ndef(\notam, {|freq=110, width=0.5|
-	var sig = VarSaw.ar(freq, width: width);
-	AnalogChew.ar(sig);
-}).play;
+s.boot // Boot the server
+
+b = Buffer.read(s, Platform.resourceDir +/+ "sounds/a11wlk01.wav");
+
+// move the mouse between the left and right to hear the differences
+// between no effect (left) and effected (right)
+(
+SynthDef(\chew, {| out = 0, bufnum = 0 |
+	var snd=PlayBuf.ar(1, bufnum, BufRateScale.kr(bufnum),loop:1);
+	var freq=LFTri.kr(1/3,Rand(0,2),0.5,0.5);
+	var depth=LFTri.kr(1/4,Rand(0,2),0.5,0.5);
+	var variance=LFTri.kr(1/5,Rand(0,2),0.5,0.5);
+	snd=SelectX.ar(MouseX.kr(),[
+		snd,
+		AnalogChew.ar(snd,depth,freq,variance);
+	]);
+	Out.ar(out,snd!2);
+}).play(s, [\out, 0, \bufnum, b]);
 ::
 
