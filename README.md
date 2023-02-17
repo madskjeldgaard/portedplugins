@@ -67,6 +67,14 @@ See the overview helpfile [PortedPlugins](/plugins/HelpSource/Overview/PortedPlu
 2. Unzip the contents in your extensions directory (If you don't know where this is, open up SuperCollider and evaluate `Platform.userExtensionDir` - the path will be posted in the post window).
 3. Recompile class library.
 
+**Building and installing from within SuperCollider**
+
+If you have [Plugins.quark](https://github.com/madskjeldgaard/plugins.quark) installed in your SuperCollider system, you can run the following line of code from SuperCollider. This will get the dependencies, build and install the plugins.
+
+```supercollider
+Plugins.installPlugin("portedplugins")
+```
+
 **Arch Linux**:
 
 `yay -S supercollider-portedplugins`
