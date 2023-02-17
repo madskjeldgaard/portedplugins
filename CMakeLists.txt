@@ -10,8 +10,7 @@ cmake_minimum_required(VERSION 3.8)
 set(project_name "PortedPlugins")
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_modules ${CMAKE_MODULE_PATH})
 
-# Eigen seems to prefer 17
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 ####################################################################################################
 # load modules
