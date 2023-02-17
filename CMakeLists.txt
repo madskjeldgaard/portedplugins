@@ -23,14 +23,8 @@ endif()
 
 include(${CPM_DOWNLOAD_LOCATION})
 
-# Add DaisySP library
-CPMAddPackage(
-	NAME daisysp
-	GITHUB_REPOSITORY "electro-smith/DaisySP"
-	GIT_TAG master
-)
 
-include_directories("include/daisydelays")
+
 ####################################################################################################
 # load modules
 include(SuperColliderServerPlugin RESULT_VARIABLE server_plugin_found)
@@ -78,6 +72,7 @@ option(STRICT "Use strict warning flags" OFF)
 option(NOVA_SIMD "Build plugins with nova-simd support." ON)
 
 # Exclude / include certain experimental / work in progress plugins
+option(USE_DAISYSP_LIB "Build plugins that depend on the DaisySP library" ON)
 option(INCPULSE "Include AnalogPulseShaper plugin" OFF)
 option(INCWERNER "Include Werner plugin" OFF)
 option(INCPHASORMODAL "Include PhasorModal plugin" ON)
@@ -188,319 +183,6 @@ sc_add_server_plugin(
   "${Rongs_schelp_files}"
 )
 
-# DCompressor
-set(
-  DCompressor_cpp_files
-  plugins/DCompressor/DCompressor.hpp
-  plugins/DCompressor/DCompressor.cpp
-)
-set(
-  DCompressor_sc_files
-  plugins/DCompressor/DCompressor.sc
-)
-set(
-  DCompressor_schelp_files
-  plugins/DCompressor/DCompressor.schelp
-)
-
-sc_add_server_plugin(
-  "${project_name}" # destination directory
-  "DCompressor" # target name
-  "${DCompressor_cpp_files}"
-  "${DCompressor_sc_files}"
-  "${DCompressor_schelp_files}"
-)
-
-sc_link_with_daisy("DCompressor")
-
-# BLOsc
-set(
-  BLOsc_cpp_files
-  plugins/BLOsc/BLOsc.hpp
-  plugins/BLOsc/BLOsc.cpp
-)
-set(
-  BLOsc_sc_files
-  plugins/BLOsc/BLOsc.sc
-)
-set(
-  BLOsc_schelp_files
-  plugins/BLOsc/BLOsc.schelp
-)
-
-sc_add_server_plugin(
-  "${project_name}" # destination directory
-  "BLOsc" # target name
-  "${BLOsc_cpp_files}"
-  "${BLOsc_sc_files}"
-  "${BLOsc_schelp_files}"
-)
-sc_link_with_daisy("BLOsc")
-
-# HarmonicOsc
-set(
-  HarmonicOsc_cpp_files
-  plugins/HarmonicOsc/HarmonicOsc.hpp
-  plugins/HarmonicOsc/HarmonicOsc.cpp
-)
-set(
-  HarmonicOsc_sc_files
-  plugins/HarmonicOsc/HarmonicOsc.sc
-)
-set(
-  HarmonicOsc_schelp_files
-  plugins/HarmonicOsc/HarmonicOsc.schelp
-)
-
-sc_add_server_plugin(
-  "${project_name}" # destination directory
-  "HarmonicOsc" # target name
-  "${HarmonicOsc_cpp_files}"
-  "${HarmonicOsc_sc_files}"
-  "${HarmonicOsc_schelp_files}"
-)
-sc_link_with_daisy("HarmonicOsc")
-
-# OscBank
-set(
-  OscBank_cpp_files
-  plugins/OscBank/OscBank.hpp
-  plugins/OscBank/OscBank.cpp
-)
-set(
-  OscBank_sc_files
-  plugins/OscBank/OscBank.sc
-)
-set(
-  OscBank_schelp_files
-  plugins/OscBank/OscBank.schelp
-)
-
-sc_add_server_plugin(
-  "${project_name}" # destination directory
-  "OscBank" # target name
-  "${OscBank_cpp_files}"
-  "${OscBank_sc_files}"
-  "${OscBank_schelp_files}"
-)
-sc_link_with_daisy("OscBank")
-
-# NeoVarSawOsc
-set(
-  NeoVarSawOsc_cpp_files
-  plugins/NeoVarSawOsc/NeoVarSawOsc.hpp
-  plugins/NeoVarSawOsc/NeoVarSawOsc.cpp
-)
-set(
-  NeoVarSawOsc_sc_files
-  plugins/NeoVarSawOsc/NeoVarSawOsc.sc
-)
-set(
-  NeoVarSawOsc_schelp_files
-  plugins/NeoVarSawOsc/NeoVarSawOsc.schelp
-)
-
-sc_add_server_plugin(
-  "${project_name}" # destination directory
-  "NeoVarSawOsc" # target name
-  "${NeoVarSawOsc_cpp_files}"
-  "${NeoVarSawOsc_sc_files}"
-  "${NeoVarSawOsc_schelp_files}"
-)
-sc_link_with_daisy("NeoVarSawOsc")
-
-# VarShapeOsc
-set(
-  VarShapeOsc_cpp_files
-  plugins/VarShapeOsc/VarShapeOsc.hpp
-  plugins/VarShapeOsc/VarShapeOsc.cpp
-)
-set(
-  VarShapeOsc_sc_files
-  plugins/VarShapeOsc/VarShapeOsc.sc
-)
-set(
-  VarShapeOsc_schelp_files
-  plugins/VarShapeOsc/VarShapeOsc.schelp
-)
-
-sc_add_server_plugin(
-  "${project_name}" # destination directory
-  "VarShapeOsc" # target name
-  "${VarShapeOsc_cpp_files}"
-  "${VarShapeOsc_sc_files}"
-  "${VarShapeOsc_schelp_files}"
-)
-sc_link_with_daisy("VarShapeOsc")
-
-# VosimOsc
-set(
-  VosimOsc_cpp_files
-  plugins/VosimOsc/VosimOsc.hpp
-  plugins/VosimOsc/VosimOsc.cpp
-)
-set(
-  VosimOsc_sc_files
-  plugins/VosimOsc/VosimOsc.sc
-)
-set(
-  VosimOsc_schelp_files
-  plugins/VosimOsc/VosimOsc.schelp
-)
-
-sc_add_server_plugin(
-  "${project_name}" # destination directory
-  "VosimOsc" # target name
-  "${VosimOsc_cpp_files}"
-  "${VosimOsc_sc_files}"
-  "${VosimOsc_schelp_files}"
-)
-
-sc_link_with_daisy("VosimOsc")
-
-# ZOsc
-set(
-  ZOsc_cpp_files
-  plugins/ZOsc/ZOsc.hpp
-  plugins/ZOsc/ZOsc.cpp
-)
-set(
-  ZOsc_sc_files
-  plugins/ZOsc/ZOsc.sc
-)
-set(
-  ZOsc_schelp_files
-  plugins/ZOsc/ZOsc.schelp
-)
-
-sc_add_server_plugin(
-  "${project_name}" # destination directory
-  "ZOsc" # target name
-  "${ZOsc_cpp_files}"
-  "${ZOsc_sc_files}"
-  "${ZOsc_schelp_files}"
-)
-sc_link_with_daisy("ZOsc")
-
-# AnalogBassDrum
-set(
-  AnalogBassDrum_cpp_files
-  plugins/AnalogBassDrum/AnalogBassDrum.hpp
-  plugins/AnalogBassDrum/AnalogBassDrum.cpp
-)
-set(
-  AnalogBassDrum_sc_files
-  plugins/AnalogBassDrum/AnalogBassDrum.sc
-)
-set(
-  AnalogBassDrum_schelp_files
-  plugins/AnalogBassDrum/AnalogBassDrum.schelp
-)
-
-sc_add_server_plugin(
-  "${project_name}" # destination directory
-  "AnalogBassDrum" # target name
-  "${AnalogBassDrum_cpp_files}"
-  "${AnalogBassDrum_sc_files}"
-  "${AnalogBassDrum_schelp_files}"
-)
-sc_link_with_daisy("AnalogBassDrum")
-
-# AnalogSnareDrum
-set(
-  AnalogSnareDrum_cpp_files
-  plugins/AnalogSnareDrum/AnalogSnareDrum.hpp
-  plugins/AnalogSnareDrum/AnalogSnareDrum.cpp
-)
-set(
-  AnalogSnareDrum_sc_files
-  plugins/AnalogSnareDrum/AnalogSnareDrum.sc
-)
-set(
-  AnalogSnareDrum_schelp_files
-  plugins/AnalogSnareDrum/AnalogSnareDrum.schelp
-)
-
-sc_add_server_plugin(
-  "${project_name}" # destination directory
-  "AnalogSnareDrum" # target name
-  "${AnalogSnareDrum_cpp_files}"
-  "${AnalogSnareDrum_sc_files}"
-  "${AnalogSnareDrum_schelp_files}"
-)
-sc_link_with_daisy("AnalogSnareDrum")
-# StringVoice
-set(
-  StringVoice_cpp_files
-  plugins/StringVoice/StringVoice.hpp
-  plugins/StringVoice/StringVoice.cpp
-)
-set(
-  StringVoice_sc_files
-  plugins/StringVoice/StringVoice.sc
-)
-set(
-  StringVoice_schelp_files
-  plugins/StringVoice/StringVoice.schelp
-)
-
-sc_add_server_plugin(
-  "${project_name}" # destination directory
-  "StringVoice" # target name
-  "${StringVoice_cpp_files}"
-  "${StringVoice_sc_files}"
-  "${StringVoice_schelp_files}"
-)
-sc_link_with_daisy("StringVoice")
-
-# NeoFormant
-set(
-  NeoFormant_cpp_files
-  plugins/NeoFormant/NeoFormant.hpp
-  plugins/NeoFormant/NeoFormant.cpp
-)
-set(
-  NeoFormant_sc_files
-  plugins/NeoFormant/NeoFormant.sc
-)
-set(
-  NeoFormant_schelp_files
-  plugins/NeoFormant/NeoFormant.schelp
-)
-
-sc_add_server_plugin(
-  "${project_name}" # destination directory
-  "NeoFormant" # target name
-  "${NeoFormant_cpp_files}"
-  "${NeoFormant_sc_files}"
-  "${NeoFormant_schelp_files}"
-)
-sc_link_with_daisy("NeoFormant")
-
-# Resonator
-set(
-  Resonator_cpp_files
-  plugins/Resonator/Resonator.hpp
-  plugins/Resonator/Resonator.cpp
-)
-set(
-  Resonator_sc_files
-  plugins/Resonator/Resonator.sc
-)
-set(
-  Resonator_schelp_files
-  plugins/Resonator/Resonator.schelp
-)
-
-sc_add_server_plugin(
-  "${project_name}" # destination directory
-  "Resonator" # target name
-  "${Resonator_cpp_files}"
-  "${Resonator_sc_files}"
-  "${Resonator_schelp_files}"
-)
-sc_link_with_daisy("Resonator")
-
 # AnalogPhaser
 set(
   AnalogPhaser_cpp_files
@@ -523,46 +205,6 @@ sc_add_server_plugin(
   "${AnalogPhaser_sc_files}"
   "${AnalogPhaser_schelp_files}"
 )
-
-# AnalogDistortion
-# set(AnalogDistortion_cpp_files
-#       plugins/ChowDSP/AnalogDistortion.hpp
-#       plugins/ChowDSP/AnalogDistortion.cpp
-#       )
-# set(AnalogDistortion_sc_files
-#       plugins/ChowDSP/AnalogDistortion.sc
-#       )
-# set(AnalogDistortion_schelp_files
-#       plugins/ChowDSP/AnalogDistortion.schelp
-#       )
-
-# sc_add_server_plugin(
-#       "${project_name}" # destination directory
-#       "AnalogDistortion" # target name
-#       "${AnalogDistortion_cpp_files}"
-#       "${AnalogDistortion_sc_files}"
-#       "${AnalogDistortion_schelp_files}"
-#       )
-
-# MaxModal
-# set(MaxModal_cpp_files
-#       plugins/ChowDSP/MaxModal.hpp
-#       plugins/ChowDSP/MaxModal.cpp
-# )
-# set(MaxModal_sc_files
-#       plugins/ChowDSP/MaxModal.sc
-# )
-# set(MaxModal_schelp_files
-#       plugins/ChowDSP/MaxModal.schelp
-# )
-
-# sc_add_server_plugin(
-#       "${project_name}" # destination directory
-#       "MaxModal" # target name
-#       "${MaxModal_cpp_files}"
-#       "${MaxModal_sc_files}"
-#       "${MaxModal_schelp_files}"
-# )
 
 # AnalogPhaserMod
 set(
@@ -661,35 +303,6 @@ sc_add_server_plugin(
   "${AnalogTape_sc_files}"
   "${AnalogTape_schelp_files}"
 )
-
-# target_link_libraries("AnalogTape_scsynth" plugins/ChowDSP/HysteresisProcessing.hpp plugins/ChowDSP/HysteresisProcessing.cpp)
-# target_link_libraries("AnalogTape_supernova" plugins/ChowDSP/HysteresisProcessing.hpp plugins/ChowDSP/HysteresisProcessing.cpp)
-
-# if(INCWERNER)
-#   # Werner
-#   set(
-#     Werner_cpp_files
-#     plugins/ChowDSP/Werner.hpp
-#     plugins/ChowDSP/Werner.cpp
-#   )
-#   set(
-#     Werner_sc_files
-#     plugins/ChowDSP/Werner.sc
-#   )
-#   set(
-#     Werner_schelp_files
-#     plugins/ChowDSP/Werner.schelp
-#   )
-
-#   sc_add_server_plugin(
-#     "${project_name}" # destination directory
-#     "Werner" # target name
-#     "${Werner_cpp_files}"
-#     "${Werner_sc_files}"
-#     "${Werner_schelp_files}"
-#   )
-#   sc_link_with_eigen("Werner")
-# endif()
 
 # AnalogVintageDistortion
 set(
@@ -1024,3 +637,334 @@ sc_add_server_plugin(
   "${VA1Pole_sc_files}"
   "${VA1Pole_schelp_files}"
 )
+
+#--------------------------------------------------------------------#
+#                      DAISY-DEPENDENT-PLUGINS                       #
+#--------------------------------------------------------------------#
+
+# Only run if USE_DAISYSP_LIB is set to ON
+if(USE_DAISYSP_LIB)
+
+	# Print message to let user know these are being built
+	message(STATUS "Adding DaisySP plugins")
+
+	# Add DaisySP library
+	CPMAddPackage(
+		NAME daisysp
+		GITHUB_REPOSITORY "electro-smith/DaisySP"
+		GIT_TAG master
+		)
+
+	include_directories("include/daisysp")
+
+	# VarShapeOsc
+	set(
+		VarShapeOsc_cpp_files
+		plugins/VarShapeOsc/VarShapeOsc.hpp
+		plugins/VarShapeOsc/VarShapeOsc.cpp
+		)
+	set(
+		VarShapeOsc_sc_files
+		plugins/VarShapeOsc/VarShapeOsc.sc
+		)
+	set(
+		VarShapeOsc_schelp_files
+		plugins/VarShapeOsc/VarShapeOsc.schelp
+		)
+
+	sc_add_server_plugin(
+		"${project_name}" # destination directory
+		"VarShapeOsc" # target name
+		"${VarShapeOsc_cpp_files}"
+		"${VarShapeOsc_sc_files}"
+		"${VarShapeOsc_schelp_files}"
+		)
+	sc_link_with_daisy("VarShapeOsc")
+
+	# VosimOsc
+	set(
+		VosimOsc_cpp_files
+		plugins/VosimOsc/VosimOsc.hpp
+		plugins/VosimOsc/VosimOsc.cpp
+		)
+	set(
+		VosimOsc_sc_files
+		plugins/VosimOsc/VosimOsc.sc
+		)
+	set(
+		VosimOsc_schelp_files
+		plugins/VosimOsc/VosimOsc.schelp
+		)
+
+	sc_add_server_plugin(
+		"${project_name}" # destination directory
+		"VosimOsc" # target name
+		"${VosimOsc_cpp_files}"
+		"${VosimOsc_sc_files}"
+		"${VosimOsc_schelp_files}"
+		)
+
+	sc_link_with_daisy("VosimOsc")
+
+	# ZOsc
+	set(
+		ZOsc_cpp_files
+		plugins/ZOsc/ZOsc.hpp
+		plugins/ZOsc/ZOsc.cpp
+		)
+	set(
+		ZOsc_sc_files
+		plugins/ZOsc/ZOsc.sc
+		)
+	set(
+		ZOsc_schelp_files
+		plugins/ZOsc/ZOsc.schelp
+		)
+
+	sc_add_server_plugin(
+		"${project_name}" # destination directory
+		"ZOsc" # target name
+		"${ZOsc_cpp_files}"
+		"${ZOsc_sc_files}"
+		"${ZOsc_schelp_files}"
+		)
+	sc_link_with_daisy("ZOsc")
+
+	# AnalogBassDrum
+	set(
+		AnalogBassDrum_cpp_files
+		plugins/AnalogBassDrum/AnalogBassDrum.hpp
+		plugins/AnalogBassDrum/AnalogBassDrum.cpp
+		)
+	set(
+		AnalogBassDrum_sc_files
+		plugins/AnalogBassDrum/AnalogBassDrum.sc
+		)
+	set(
+		AnalogBassDrum_schelp_files
+		plugins/AnalogBassDrum/AnalogBassDrum.schelp
+		)
+
+	sc_add_server_plugin(
+		"${project_name}" # destination directory
+		"AnalogBassDrum" # target name
+		"${AnalogBassDrum_cpp_files}"
+		"${AnalogBassDrum_sc_files}"
+		"${AnalogBassDrum_schelp_files}"
+		)
+	sc_link_with_daisy("AnalogBassDrum")
+
+	# AnalogSnareDrum
+	set(
+		AnalogSnareDrum_cpp_files
+		plugins/AnalogSnareDrum/AnalogSnareDrum.hpp
+		plugins/AnalogSnareDrum/AnalogSnareDrum.cpp
+		)
+	set(
+		AnalogSnareDrum_sc_files
+		plugins/AnalogSnareDrum/AnalogSnareDrum.sc
+		)
+	set(
+		AnalogSnareDrum_schelp_files
+		plugins/AnalogSnareDrum/AnalogSnareDrum.schelp
+		)
+
+	sc_add_server_plugin(
+		"${project_name}" # destination directory
+		"AnalogSnareDrum" # target name
+		"${AnalogSnareDrum_cpp_files}"
+		"${AnalogSnareDrum_sc_files}"
+		"${AnalogSnareDrum_schelp_files}"
+		)
+	sc_link_with_daisy("AnalogSnareDrum")
+	# StringVoice
+	set(
+		StringVoice_cpp_files
+		plugins/StringVoice/StringVoice.hpp
+		plugins/StringVoice/StringVoice.cpp
+		)
+	set(
+		StringVoice_sc_files
+		plugins/StringVoice/StringVoice.sc
+		)
+	set(
+		StringVoice_schelp_files
+		plugins/StringVoice/StringVoice.schelp
+		)
+
+	sc_add_server_plugin(
+		"${project_name}" # destination directory
+		"StringVoice" # target name
+		"${StringVoice_cpp_files}"
+		"${StringVoice_sc_files}"
+		"${StringVoice_schelp_files}"
+		)
+	sc_link_with_daisy("StringVoice")
+
+	# NeoFormant
+	set(
+		NeoFormant_cpp_files
+		plugins/NeoFormant/NeoFormant.hpp
+		plugins/NeoFormant/NeoFormant.cpp
+		)
+	set(
+		NeoFormant_sc_files
+		plugins/NeoFormant/NeoFormant.sc
+		)
+	set(
+		NeoFormant_schelp_files
+		plugins/NeoFormant/NeoFormant.schelp
+		)
+
+	sc_add_server_plugin(
+		"${project_name}" # destination directory
+		"NeoFormant" # target name
+		"${NeoFormant_cpp_files}"
+		"${NeoFormant_sc_files}"
+		"${NeoFormant_schelp_files}"
+		)
+	sc_link_with_daisy("NeoFormant")
+
+	# Resonator
+	set(
+		Resonator_cpp_files
+		plugins/Resonator/Resonator.hpp
+		plugins/Resonator/Resonator.cpp
+		)
+	set(
+		Resonator_sc_files
+		plugins/Resonator/Resonator.sc
+		)
+	set(
+		Resonator_schelp_files
+		plugins/Resonator/Resonator.schelp
+		)
+
+	sc_add_server_plugin(
+		"${project_name}" # destination directory
+		"Resonator" # target name
+		"${Resonator_cpp_files}"
+		"${Resonator_sc_files}"
+		"${Resonator_schelp_files}"
+		)
+	sc_link_with_daisy("Resonator")
+	# NeoVarSawOsc
+	set(
+		NeoVarSawOsc_cpp_files
+		plugins/NeoVarSawOsc/NeoVarSawOsc.hpp
+		plugins/NeoVarSawOsc/NeoVarSawOsc.cpp
+		)
+	set(
+		NeoVarSawOsc_sc_files
+		plugins/NeoVarSawOsc/NeoVarSawOsc.sc
+		)
+	set(
+		NeoVarSawOsc_schelp_files
+		plugins/NeoVarSawOsc/NeoVarSawOsc.schelp
+		)
+
+	sc_add_server_plugin(
+		"${project_name}" # destination directory
+		"NeoVarSawOsc" # target name
+		"${NeoVarSawOsc_cpp_files}"
+		"${NeoVarSawOsc_sc_files}"
+		"${NeoVarSawOsc_schelp_files}"
+		)
+	sc_link_with_daisy("NeoVarSawOsc")
+
+	# OscBank
+	set(
+		OscBank_cpp_files
+		plugins/OscBank/OscBank.hpp
+		plugins/OscBank/OscBank.cpp
+		)
+	set(
+		OscBank_sc_files
+		plugins/OscBank/OscBank.sc
+		)
+	set(
+		OscBank_schelp_files
+		plugins/OscBank/OscBank.schelp
+		)
+
+	sc_add_server_plugin(
+		"${project_name}" # destination directory
+		"OscBank" # target name
+		"${OscBank_cpp_files}"
+		"${OscBank_sc_files}"
+		"${OscBank_schelp_files}"
+		)
+	sc_link_with_daisy("OscBank")
+	# HarmonicOsc
+	set(
+		HarmonicOsc_cpp_files
+		plugins/HarmonicOsc/HarmonicOsc.hpp
+		plugins/HarmonicOsc/HarmonicOsc.cpp
+		)
+	set(
+		HarmonicOsc_sc_files
+		plugins/HarmonicOsc/HarmonicOsc.sc
+		)
+	set(
+		HarmonicOsc_schelp_files
+		plugins/HarmonicOsc/HarmonicOsc.schelp
+		)
+
+	sc_add_server_plugin(
+		"${project_name}" # destination directory
+		"HarmonicOsc" # target name
+		"${HarmonicOsc_cpp_files}"
+		"${HarmonicOsc_sc_files}"
+		"${HarmonicOsc_schelp_files}"
+		)
+	sc_link_with_daisy("HarmonicOsc")
+	# BLOsc
+	set(
+		BLOsc_cpp_files
+		plugins/BLOsc/BLOsc.hpp
+		plugins/BLOsc/BLOsc.cpp
+		)
+	set(
+		BLOsc_sc_files
+		plugins/BLOsc/BLOsc.sc
+		)
+	set(
+		BLOsc_schelp_files
+		plugins/BLOsc/BLOsc.schelp
+		)
+
+	sc_add_server_plugin(
+		"${project_name}" # destination directory
+		"BLOsc" # target name
+		"${BLOsc_cpp_files}"
+		"${BLOsc_sc_files}"
+		"${BLOsc_schelp_files}"
+		)
+	sc_link_with_daisy("BLOsc")
+	# DCompressor
+	set(
+		DCompressor_cpp_files
+		plugins/DCompressor/DCompressor.hpp
+		plugins/DCompressor/DCompressor.cpp
+		)
+	set(
+		DCompressor_sc_files
+		plugins/DCompressor/DCompressor.sc
+		)
+	set(
+		DCompressor_schelp_files
+		plugins/DCompressor/DCompressor.schelp
+		)
+
+	sc_add_server_plugin(
+		"${project_name}" # destination directory
+		"DCompressor" # target name
+		"${DCompressor_cpp_files}"
+		"${DCompressor_sc_files}"
+		"${DCompressor_schelp_files}"
+		)
+
+	sc_link_with_daisy("DCompressor")
+endif()
+
+#--------------------------------------------------------------------#
