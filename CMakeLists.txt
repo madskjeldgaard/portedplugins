@@ -12,6 +12,25 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_modules ${CMAKE_MODULE_PATH})
 
 set(CMAKE_CXX_STANDARD 20)
 
+# Add CPM
+set(CPM_DOWNLOAD_VERSION 0.36.0)
+set(CPM_DOWNLOAD_LOCATION "${CMAKE_BINARY_DIR}/cmake/CPM_${CPM_DOWNLOAD_VERSION}.cmake")
+
+if(NOT (EXISTS ${CPM_DOWNLOAD_LOCATION}))
+	message(STATUS "Downloading CPM.cmake")
+	file(DOWNLOAD https://github.com/TheLartians/CPM.cmake/releases/download/v${CPM_DOWNLOAD_VERSION}/CPM.cmake ${CPM_DOWNLOAD_LOCATION})
+endif()
+
+include(${CPM_DOWNLOAD_LOCATION})
+
+# Add DaisySP library
+CPMAddPackage(
+	NAME daisysp
+	GITHUB_REPOSITORY "electro-smith/DaisySP"
+	GIT_TAG master
+)
+
+include_directories("include/daisydelays")
 ####################################################################################################
 # load modules
 include(SuperColliderServerPlugin RESULT_VARIABLE server_plugin_found)
@@ -75,49 +94,19 @@ endif()
 # DAISYSP LIBRARY
 ####################################################################################################
 
-# DaisySP library
-add_subdirectory(DaisySP)
-# Hack: force DaisySP to use PIC since we cannot compile it as a shared library. This solves a
-# linker error on the GHA Ubuntu 18 image:
-#   /usr/bin/ld: DaisySP/libDaisySP.a(KarplusString.cpp.o): relocation R_X86_64_PC32 against symbol `_ZN7daisysp6String15ProcessInternalILNS0_18StringNonLinearityE1EEEff' can not be used when making a shared object; recompile with -fPIC
-target_compile_options(DaisySP PRIVATE -fpic)
-
 # Link plugin with DaisySP library
 function(sc_link_with_daisy plugin_name)
   message(STATUS "Linking ${plugin_name} with DaisySP library")
   if(SCSYNTH)
-    target_include_directories("${plugin_name}_scsynth" PUBLIC DaisySP/Source)
+    target_include_directories("${plugin_name}_scsynth" PUBLIC include/daisysp)
     target_link_libraries("${plugin_name}_scsynth" DaisySP)
   endif()
 
   if(SUPERNOVA)
-    target_include_directories("${plugin_name}_supernova" PUBLIC DaisySP/Source)
+    target_include_directories("${plugin_name}_supernova" PUBLIC include/daisysp)
     target_link_libraries("${plugin_name}_supernova" DaisySP)
   endif()
 endfunction()
-
-####################################################################################################
-# EIGEN LIBRARY
-####################################################################################################
-
-# if(INCWERNER)
-#   # Eigen library
-#   add_subdirectory(eigen)
-# endif()
-
-# # Link plugin with eigen library
-# function(sc_link_with_eigen plugin_name)
-#   message(STATUS "Linking ${plugin_name} with eigen library")
-#   if(SCSYNTH)
-#     target_include_directories("${plugin_name}_scsynth" eigen/Eigen)
-#     target_link_libraries("${plugin_name}_scsynth" eigen)
-#   endif()
-
-#   if(SUPERNOVA)
-#     target_include_directories("${plugin_name}_supernova" eigen/Eigen)
-#     target_link_libraries("${plugin_name}_supernova" eigen)
-#   endif()
-# endfunction()
 
 ####################################################################################################
 # Plugins
@@ -1035,4 +1024,3 @@ sc_add_server_plugin(
   "${VA1Pole_sc_files}"
   "${VA1Pole_schelp_files}"
 )
-
