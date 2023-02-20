@@ -1,0 +1,76 @@
+CLASS::Fverb
+SUMMARY::Stereo variant of Jon Dattorro's reverberator.
+RELATED::HelpSource/Overview/PortedPlugins
+CATEGORIES::UGens>Reverbs
+
+DESCRIPTION::
+
+A Faust plugin written by Jean Pierre Cimalando based on Jon Dattorro's stereo variant of the reverberator. More info: link::https://github.com/jpcima/fverb::. Built with Faust 2.54.9.
+
+CLASSMETHODS::
+METHOD::ar
+
+ARGUMENT::in0
+First channel of audio.
+
+ARGUMENT::in1
+Second channel of audio.
+
+ARGUMENT::predelay
+Amount of predelay in milliseconds. 0.0 to 10.0 ms.
+
+ARGUMENT::input_amount
+Amount of input. 0.0 to 100.0%.
+
+ARGUMENT::input_lowpass_cutoff
+Input lowpass filter. 1 to 20000 Hz.
+
+ARGUMENT::input_highpass_cutoff
+Input high pass filter. 1 to 1000 Hz.
+
+ARGUMENT::input_diffusion_1
+Diffusion of input 1. 0.0 to 100.0%.
+
+ARGUMENT::input_diffusion_2
+Diffusion of input 2. 0.0 to 100.0%.
+
+ARGUMENT::tail_density
+Density of tail. 0.0 to 100.0%.
+
+
+ARGUMENT::decay
+Decay of the delay. 0.0 to 100.0%.
+
+ARGUMENT::damping
+Filter of the damping. 10 to 20000 Hz.
+
+ARGUMENT::modulator_frequency
+Frequency of modulation. 0.01 to 4 Hz.
+
+ARGUMENT::modulator_depth
+Depth of modulation. 0 to 1.
+
+EXAMPLES::
+
+code::
+s.boot // Boot the server
+
+b = Buffer.read(s, Platform.resourceDir +/+ "sounds/a11wlk01.wav");
+
+// move the mouse between the left and right to hear the differences
+// between no effect (left) and effected (right)
+(
+SynthDef(\fverb, {| out = 0, bufnum = 0 |
+	var sndreverb;
+	var snd=PlayBuf.ar(1, bufnum, BufRateScale.kr(bufnum),loop:1);
+	snd = snd!2/10; // need stereo audio
+	sndreverb=Fverb.ar(snd[0],snd[1],predelay:60,decay:LFNoise2.kr(1/2).range(60,80));
+	snd=SelectX.ar(MouseX.kr(),[
+		snd,sndreverb
+	]);
+	Out.ar(out,snd);
+}).play(s, [\out, 0, \bufnum, b]);
+)
+::
+
+KEYWORD::faust,plugin
