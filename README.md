@@ -79,7 +79,7 @@ Plugins.installPlugin("portedplugins")
 
 `yay -S supercollider-portedplugins`
 
-**RaspberryPi OS**:
+**RaspberryPi OS / ALARM**:
 
 See the accompanying script for downloading, building and installing the plugins.
 
@@ -133,7 +133,7 @@ cmake --build . --config Release --target install
 ```
 #### Building for Raspberry Pi
 
-This repository includes a script for the Raspberry Pi users (Raspberry Pi OS based) that installs the prerequisites for building (cmake), downloads all of the source code needed and compiles and installs it. 
+This repository includes a script for the Raspberry Pi users (Raspberry Pi OS- / ALARM based) that installs the prerequisites for building (cmake), downloads all of the source code needed and compiles and installs it. 
 
 
 #### Building for Rosetta on the Mac M1
