@@ -672,6 +672,10 @@ if(USE_DAISYSP_LIB)
 	# Print message to let user know these are being built
 	message(STATUS "Adding DaisySP plugins")
 
+  if (MSVC)
+    add_compile_definitions(M_E 2.7182818284590452354)
+  endif()
+
 	# Add DaisySP library
 	CPMAddPackage(
 		NAME daisysp
