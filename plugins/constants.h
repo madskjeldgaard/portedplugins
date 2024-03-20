@@ -6,9 +6,13 @@
 #ifndef MK_CONSTANTS
 #define MK_CONSTANTS
 
-// This is necessary to get M_PI to work on windows
+// This is necessary to get M_PI and M_E to work on windows
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
+#endif
+
+#ifndef M_E
+#define M_E 2.7182818284590452354
 #endif
 
 #ifndef M_SQRT2
