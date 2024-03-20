@@ -680,7 +680,7 @@ if(USE_DAISYSP_LIB)
 	CPMAddPackage(
 		NAME daisysp
 		GITHUB_REPOSITORY "electro-smith/DaisySP"
-		GIT_TAG v0.0.2
+		GIT_TAG master
 		)
 
 	include_directories("include/daisysp")
